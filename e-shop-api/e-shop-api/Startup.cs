@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using e_shop_api.DataBase;
+using Microsoft.EntityFrameworkCore;
 
 namespace e_shop_api
 {
@@ -26,8 +28,18 @@ namespace e_shop_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+
+            services.AddDbContext<EShopDbContext>(builder =>
+            {
+                builder.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"],
+                    optionsBuilder =>
+                    {
+                        optionsBuilder.RemoteCertificateValidationCallback((sender, certificate, chain, errors) =>
+                            true);
+                    });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "e_shop_api", Version = "v1" });
@@ -50,10 +62,7 @@ namespace e_shop_api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
