@@ -11,7 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using e_shop_api.Applications.Product.Query;
 using e_shop_api.DataBase;
+using e_shop_api.Utility;
+using e_shop_api.Utility.Interface;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_shop_api
@@ -39,6 +43,12 @@ namespace e_shop_api
                             true);
                     });
             });
+
+            // MediatR注入
+            services.AddMediatR(typeof(QueryProductHandler).Assembly);
+
+            // 底層物件注入
+            services.AddSingleton<IPageUtility, PageUtility>();
 
             services.AddSwaggerGen(c =>
             {
