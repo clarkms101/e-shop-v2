@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using e_shop_api.ActionFilters;
 using e_shop_api.Applications.Product.Command.Create;
 using e_shop_api.Applications.Product.Command.Delete;
 using e_shop_api.Applications.Product.Command.Update;
@@ -30,6 +31,7 @@ namespace e_shop_api.Controllers
             return new JsonResult(result);
         }
 
+        [AdminAuthActionFilter]
         [HttpPost]
         public async Task<JsonResult> Post([FromBody] CreateProductRequest request)
         {
@@ -37,6 +39,7 @@ namespace e_shop_api.Controllers
             return new JsonResult(result);
         }
 
+        [AdminAuthActionFilter]
         [HttpDelete("{id:int}")]
         public async Task<JsonResult> Delete([FromRoute] int id)
         {
@@ -48,6 +51,7 @@ namespace e_shop_api.Controllers
             return new JsonResult(result);
         }
 
+        [AdminAuthActionFilter]
         [HttpPut]
         public async Task<JsonResult> Put([FromBody] UpdateProductRequest request)
         {

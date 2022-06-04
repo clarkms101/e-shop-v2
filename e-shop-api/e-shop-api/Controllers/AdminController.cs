@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using e_shop_api.ActionFilters;
 using e_shop_api.Applications.Admin.Command.Login;
 using e_shop_api.Applications.Admin.Command.LoginCheck;
 using e_shop_api.Applications.Admin.Command.Logout;
@@ -25,6 +26,7 @@ namespace e_shop_api.Controllers
             return new JsonResult(result);
         }
 
+        [AdminAuthActionFilter]
         [HttpPost]
         public async Task<JsonResult> Logout([FromBody] LogoutRequest request)
         {
