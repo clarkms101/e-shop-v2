@@ -126,6 +126,8 @@ namespace e_shop_api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+            
             app.UseRouting();
 
             app.UseAuthorization();

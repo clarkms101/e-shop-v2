@@ -10,8 +10,8 @@ namespace e_shop_api.ActionFilters
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             // 基本驗證檢查
-            if (context.HttpContext.User.Identity != null &&
-                context.HttpContext.User.Identity.IsAuthenticated == false)
+            if (context.HttpContext.User == null ||
+                !context.HttpContext.User.Identity.IsAuthenticated)
             {
                 context.Result = new UnauthorizedResult();
 
