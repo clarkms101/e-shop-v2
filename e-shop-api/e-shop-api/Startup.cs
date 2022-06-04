@@ -10,13 +10,18 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Product.Query;
+using e_shop_api.Config;
 using e_shop_api.DataBase;
 using e_shop_api.Utility;
 using e_shop_api.Utility.Interface;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace e_shop_api
 {
@@ -33,7 +38,40 @@ namespace e_shop_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            
+            // MediatR注入
+            services.AddMediatR(typeof(QueryProductHandler).Assembly);
+            
+            // 底層物件注入
+            services.AddSingleton<IPageUtility, PageUtility>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
+            // Jwt Start
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.IncludeErrorDetails = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidIssuer = Configuration["JwtSettings:Issuer"],
+                        ValidateAudience = false,
+                        ValidAudience = Configuration["JwtSettings:Audience"],
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSettings:SignKey"]))
+                    };
+                });
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtSettings"));
+            services.AddScoped<IJwtUtility, JwtUtility>();
+            // Jwt End
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "e_shop_api", Version = "v1" });
+            });
+            
             services.AddDbContext<EShopDbContext>(builder =>
             {
                 builder.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"],
@@ -42,17 +80,6 @@ namespace e_shop_api
                         optionsBuilder.RemoteCertificateValidationCallback((sender, certificate, chain, errors) =>
                             true);
                     });
-            });
-
-            // MediatR注入
-            services.AddMediatR(typeof(QueryProductHandler).Assembly);
-
-            // 底層物件注入
-            services.AddSingleton<IPageUtility, PageUtility>();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "e_shop_api", Version = "v1" });
             });
         }
 
