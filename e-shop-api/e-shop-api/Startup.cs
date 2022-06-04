@@ -38,15 +38,15 @@ namespace e_shop_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             // MediatR注入
             services.AddMediatR(typeof(QueryProductHandler).Assembly);
-            
+
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
+
             // Jwt Start
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -67,12 +67,42 @@ namespace e_shop_api
             services.Configure<JwtConfig>(Configuration.GetSection("JwtSettings"));
             services.AddScoped<IJwtUtility, JwtUtility>();
             // Jwt End
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "e_shop_api", Version = "v1" });
+
+                // swagger 支援 Jwt
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    { new OpenApiSecurityScheme() { }, new List<string>() }
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
             });
-            
+
             services.AddDbContext<EShopDbContext>(builder =>
             {
                 builder.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"],
