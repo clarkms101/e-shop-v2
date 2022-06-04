@@ -43,6 +43,7 @@ namespace e_shop_api
             services.AddMediatR(typeof(QueryProductHandler).Assembly);
             
             // 底層物件注入
+            services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
