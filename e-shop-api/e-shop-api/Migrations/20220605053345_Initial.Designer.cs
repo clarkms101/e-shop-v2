@@ -10,7 +10,7 @@ using e_shop_api.DataBase;
 namespace e_shop_api.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    [Migration("20220530150229_Initial")]
+    [Migration("20220605053345_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,16 @@ namespace e_shop_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Account = "Clark",
+                            CreationTime = new DateTime(2022, 6, 5, 13, 33, 44, 669, DateTimeKind.Local).AddTicks(1832),
+                            LastModificationTime = new DateTime(2022, 6, 5, 13, 33, 44, 670, DateTimeKind.Local).AddTicks(6259),
+                            Password = "cc03e747a6afbbcbf8be7668acfebee5"
+                        });
                 });
 
             modelBuilder.Entity("e_shop_api.DataBase.Models.Coupon", b =>
@@ -198,6 +208,12 @@ namespace e_shop_api.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("varchar(250)");
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
                         .HasColumnType("varchar(250)");
 
@@ -206,6 +222,12 @@ namespace e_shop_api.Migrations
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Num")
                         .HasColumnType("integer");

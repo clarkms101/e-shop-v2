@@ -107,12 +107,21 @@ namespace e_shop_api.Migrations
                     Description = table.Column<string>(type: "varchar(250)", nullable: true),
                     Content = table.Column<string>(type: "varchar(250)", nullable: true),
                     IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    Num = table.Column<int>(type: "integer", nullable: false)
+                    Num = table.Column<int>(type: "integer", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Admins",
+                columns: new[] { "Id", "Account", "CreationTime", "CreatorUserId", "LastModificationTime", "LastModifierUserId", "Password" },
+                values: new object[] { 1, "Clark", new DateTime(2022, 6, 5, 13, 33, 44, 669, DateTimeKind.Local).AddTicks(1832), null, new DateTime(2022, 6, 5, 13, 33, 44, 670, DateTimeKind.Local).AddTicks(6259), null, "cc03e747a6afbbcbf8be7668acfebee5" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
