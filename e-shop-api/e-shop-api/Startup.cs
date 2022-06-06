@@ -45,6 +45,7 @@ namespace e_shop_api
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
+            services.AddSingleton<IShoppingCartUtility, ShoppingCartUtility>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Jwt Start
@@ -127,7 +128,7 @@ namespace e_shop_api
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
-            
+
             app.UseRouting();
 
             app.UseAuthorization();
