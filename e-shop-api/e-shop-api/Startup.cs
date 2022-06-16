@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using e_shop_api.Applications.Cart.Command.Update;
+using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Applications.Product.Query;
 using e_shop_api.Config;
 using e_shop_api.DataBase;
@@ -41,7 +43,9 @@ namespace e_shop_api
 
             // MediatR注入
             services.AddMediatR(typeof(QueryProductHandler).Assembly);
-
+            services.AddScoped<QueryCartHandler>();
+            services.AddScoped<CleanCartHandler>();
+            
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
