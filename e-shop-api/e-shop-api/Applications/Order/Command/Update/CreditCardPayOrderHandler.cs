@@ -28,7 +28,6 @@ namespace e_shop_api.Applications.Order.Command.Update
             order.PaymentMethod = PaymentMethod.CreditCardPayment.ToString();
             order.PaidDateTime = DateTime.Now;
 
-            _eShopDbContext.Orders.Update(order);
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 
             return new CreditCardPayOrderResponse()

@@ -41,7 +41,6 @@ namespace e_shop_api.Applications.Product.Command.Update
             oldProduct.IsEnabled = request.Product.IsEnabled;
             oldProduct.Num = request.Product.Num;
 
-            _eShopDbContext.Products.Update(oldProduct);
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 
             return new UpdateProductResponse()
