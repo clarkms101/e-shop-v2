@@ -1,4 +1,4 @@
-﻿namespace e_shop_api.Applications.Order.Create
+namespace e_shop_api.Applications.Order.Command.Create
 {
     public class CreateOrderResponse : BaseResponse
     {

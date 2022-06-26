@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.Command.Update;
@@ -9,7 +9,7 @@ using e_shop_api.Utility.Const;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace e_shop_api.Applications.Order.Create
+namespace e_shop_api.Applications.Order.Command.Create
 {
     public class CreateOrderHandler : IRequestHandler<CreateOrderRequest, CreateOrderResponse>
     {

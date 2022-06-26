@@ -1,7 +1,7 @@
-﻿using e_shop_api.Applications.Order.CommonDto;
+using e_shop_api.Applications.Order.CommonDto;
 using MediatR;
 
-namespace e_shop_api.Applications.Order.Create
+namespace e_shop_api.Applications.Order.Command.Create
 {
     public class CreateOrderRequest : IRequest<CreateOrderResponse>
     {
