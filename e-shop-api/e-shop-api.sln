@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop-api", "e-shop-api\e-shop-api.csproj", "{6B6BBD4F-1E02-4B5A-B80A-153BE60EB34B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop-api-unit-test", "e-shop-api-unit-test\e-shop-api-unit-test.csproj", "{376AED16-DC2F-4296-A25D-D86074B4D5F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6B6BBD4F-1E02-4B5A-B80A-153BE60EB34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B6BBD4F-1E02-4B5A-B80A-153BE60EB34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B6BBD4F-1E02-4B5A-B80A-153BE60EB34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376AED16-DC2F-4296-A25D-D86074B4D5F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376AED16-DC2F-4296-A25D-D86074B4D5F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376AED16-DC2F-4296-A25D-D86074B4D5F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376AED16-DC2F-4296-A25D-D86074B4D5F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
