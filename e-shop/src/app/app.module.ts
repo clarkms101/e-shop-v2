@@ -1,4 +1,4 @@
-import { environment } from './../environments/environment.prod';
+import { environment } from './../environments/environment';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,8 +21,8 @@ import { IndexComponent } from './Portal/index/index.component';
   ],
   providers: [
     Client,
-    // todo 從設定檔注入api網址
-    { provide: API_BASE_URL, useValue: 'https://localhost:44331' },
+    // todo 調整根據執行環境切換設定
+    { provide: API_BASE_URL, useValue: environment.apiUrl },
   ],
   bootstrap: [AppComponent]
 })
