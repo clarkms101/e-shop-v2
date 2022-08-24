@@ -17,10 +17,10 @@ namespace e_shop_api.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Post([FromBody] QueryProductsRequest request)
+        public async Task<QueryProductsResponse> Post([FromBody] QueryProductsRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

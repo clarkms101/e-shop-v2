@@ -17,10 +17,10 @@ namespace e_shop_api.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> Get([FromQuery] QueryCouponsRequest request)
+        public async Task<QueryCouponsResponse> Get([FromQuery] QueryCouponsRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

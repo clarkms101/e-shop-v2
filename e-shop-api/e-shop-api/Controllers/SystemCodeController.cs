@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using e_shop_api.Utility;
+using e_shop_api.Utility.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_shop_api.Controllers
@@ -8,21 +11,30 @@ namespace e_shop_api.Controllers
     public class SystemCodeController : ControllerBase
     {
         [HttpGet]
-        public JsonResult PaymentMethod()
+        public async Task<SystemCodeResponse> PaymentMethod()
         {
-            return new JsonResult(Selection.GetPaymentMethod());
+            return new SystemCodeResponse()
+            {
+                Items = Selection.GetPaymentMethod()
+            };
         }
 
         [HttpGet]
-        public JsonResult Country()
+        public async Task<SystemCodeResponse> Country()
         {
-            return new JsonResult(Selection.GetCountry());
+            return new SystemCodeResponse()
+            {
+                Items = Selection.GetCountry()
+            };
         }
 
         [HttpGet("{countryId:int}")]
-        public JsonResult City([FromRoute] int countryId)
+        public async Task<SystemCodeResponse> City([FromRoute] int countryId)
         {
-            return new JsonResult(Selection.GetCity(countryId));
+            return new SystemCodeResponse()
+            {
+                Items = Selection.GetCity(countryId)
+            };
         }
     }
 }

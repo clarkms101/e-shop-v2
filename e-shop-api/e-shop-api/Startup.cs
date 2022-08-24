@@ -17,6 +17,7 @@ using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Applications.Product.Query;
 using e_shop_api.Config;
 using e_shop_api.DataBase;
+using e_shop_api.Extensions;
 using e_shop_api.Utility;
 using e_shop_api.Utility.Interface;
 using MediatR;
@@ -29,6 +30,8 @@ namespace e_shop_api
 {
     public class Startup
     {
+        private const string DefaultCorsPolicyName = "localhost";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -45,7 +48,7 @@ namespace e_shop_api
             services.AddMediatR(typeof(QueryProductHandler).Assembly);
             services.AddScoped<QueryCartHandler>();
             services.AddScoped<CleanCartHandler>();
-            
+
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
@@ -75,7 +78,7 @@ namespace e_shop_api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "e_shop_api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "e_shop_api", Version = "v1"});
 
                 // swagger 支援 Jwt
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -89,7 +92,7 @@ namespace e_shop_api
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
-                    { new OpenApiSecurityScheme() { }, new List<string>() }
+                    {new OpenApiSecurityScheme() { }, new List<string>()}
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -117,6 +120,24 @@ namespace e_shop_api
                             true);
                     });
             });
+
+            // CORS
+            services.AddCors(
+                options => options.AddPolicy(
+                    DefaultCorsPolicyName,
+                    builder => builder
+                        .WithOrigins(
+                            // App:CorsOrigins in appsettings.json can contain more than one address separated by comma.
+                            Configuration["App:CorsOrigins"]
+                                .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                                .Select(o => o.RemovePostFix("/"))
+                                .ToArray()
+                        )
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,6 +151,8 @@ namespace e_shop_api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(DefaultCorsPolicyName); // Enable CORS!
 
             app.UseAuthentication();
 

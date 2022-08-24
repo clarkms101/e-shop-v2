@@ -20,25 +20,25 @@ namespace e_shop_api.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Login([FromBody] LoginRequest request)
+        public async Task<LoginResponse> Login([FromBody] LoginRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [AdminAuthActionFilter]
         [HttpPost]
-        public async Task<JsonResult> Logout([FromBody] LogoutRequest request)
+        public async Task<LogoutResponse> Logout([FromBody] LogoutRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [HttpPost]
-        public async Task<JsonResult> LoginCheck([FromBody] LoginCheckRequest request)
+        public async Task<LoginCheckResponse> LoginCheck([FromBody] LoginCheckRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

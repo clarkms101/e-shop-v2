@@ -21,30 +21,30 @@ namespace e_shop_api.Controllers
 
         [AdminAuthActionFilter]
         [HttpPost]
-        public async Task<JsonResult> Post([FromBody] CreateCouponRequest request)
+        public async Task<CreateCouponResponse> Post([FromBody] CreateCouponRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [AdminAuthActionFilter]
         [HttpDelete("{id:int}")]
-        public async Task<JsonResult> Delete([FromRoute] int id)
+        public async Task<DeleteCouponResponse> Delete([FromRoute] int id)
         {
             var request = new DeleteCouponRequest()
             {
                 CouponId = id
             };
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [AdminAuthActionFilter]
         [HttpPut]
-        public async Task<JsonResult> Put([FromBody] UpdateCouponRequest request)
+        public async Task<UpdateCouponResponse> Put([FromBody] UpdateCouponRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

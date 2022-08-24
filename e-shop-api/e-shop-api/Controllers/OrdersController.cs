@@ -19,10 +19,10 @@ namespace e_shop_api.Controllers
 
         [AdminAuthActionFilter]
         [HttpPost]
-        public async Task<JsonResult> Post([FromBody] QueryOrdersRequest request)
+        public async Task<QueryOrdersResponse> Post([FromBody] QueryOrdersRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

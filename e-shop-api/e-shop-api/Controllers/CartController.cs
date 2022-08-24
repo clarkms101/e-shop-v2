@@ -19,28 +19,28 @@ namespace e_shop_api.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> Get([FromQuery] QueryCartRequest request)
+        public async Task<QueryCartResponse> Get([FromQuery] QueryCartRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [HttpPost]
-        public async Task<JsonResult> Post([FromBody] CreateCartDetailRequest request)
+        public async Task<CreateCartDetailResponse> Post([FromBody] CreateCartDetailRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [HttpDelete("{id}")]
-        public async Task<JsonResult> Delete([FromRoute] string id)
+        public async Task<DeleteCartDetailResponse> Delete([FromRoute] string id)
         {
             var request = new DeleteCartDetailRequest()
             {
                 CartDetailId = id
             };
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

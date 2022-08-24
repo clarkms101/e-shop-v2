@@ -21,42 +21,42 @@ namespace e_shop_api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<JsonResult> Get([FromRoute] int id)
+        public async Task<QueryProductResponse> Get([FromRoute] int id)
         {
             var request = new QueryProductRequest
             {
                 ProductId = id
             };
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [AdminAuthActionFilter]
         [HttpPost]
-        public async Task<JsonResult> Post([FromBody] CreateProductRequest request)
+        public async Task<CreateProductResponse> Post([FromBody] CreateProductRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [AdminAuthActionFilter]
         [HttpDelete("{id:int}")]
-        public async Task<JsonResult> Delete([FromRoute] int id)
+        public async Task<DeleteProductResponse> Delete([FromRoute] int id)
         {
             var request = new DeleteProductRequest()
             {
                 ProductId = id
             };
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [AdminAuthActionFilter]
         [HttpPut]
-        public async Task<JsonResult> Put([FromBody] UpdateProductRequest request)
+        public async Task<UpdateProductResponse> Put([FromBody] UpdateProductRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }

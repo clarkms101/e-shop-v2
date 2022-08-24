@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/shared/api client/service-proxies';
 
 @Component({
   selector: 'app-index',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-
-  constructor() { }
+  Jwt: string = '';
+  constructor(
+    private _apiClient: Client
+  ) { }
 
   ngOnInit(): void {
   }
-
 }

@@ -18,21 +18,21 @@ namespace e_shop_api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<JsonResult> Get([FromRoute] int id)
+        public async Task<QueryOrderResponse> Get([FromRoute] int id)
         {
             var request = new QueryOrderRequest()
             {
                 OrderId = id
             };
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
 
         [HttpPost]
-        public async Task<JsonResult> Post([FromBody] CreateOrderRequest request)
+        public async Task<CreateOrderResponse> Post([FromBody] CreateOrderRequest request)
         {
             var result = await _mediator.Send(request);
-            return new JsonResult(result);
+            return result;
         }
     }
 }
