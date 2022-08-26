@@ -7,11 +7,13 @@ import { API_BASE_URL } from 'src/shared/api client/service-proxies';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './Portal/index/index.component';
+import { LoginComponent } from './Admin/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent
+    IndexComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,6 @@ import { IndexComponent } from './Portal/index/index.component';
   ],
   providers: [
     Client,
-    // todo 調整根據執行環境切換設定
     { provide: API_BASE_URL, useValue: environment.apiUrl },
   ],
   bootstrap: [AppComponent]
