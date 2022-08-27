@@ -1,24 +1,44 @@
 <div>
   <main class="form-signin">
-    <form (click)="signin()">
+    <form>
       <h1 class="h3 mb-3 fw-normal">請先登入</h1>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Account" />
-        <label for="floatingInput">Account</label>
+        <input
+          type="text"
+          class="form-control"
+          id="admin_account"
+          placeholder="請輸入帳號"
+          [(ngModel)]="admin_account"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <label for="floatingInput">帳號</label>
       </div>
+
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-        <label for="floatingPassword">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="admin_password"
+          placeholder="請輸入密碼"
+          [(ngModel)]="admin_password"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <label for="floatingPassword">密碼</label>
       </div>
 
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me" /> Remember me
+          <!-- todo 待實作 -->
+          <input type="checkbox" value="remember-me" /> 記得我
         </label>
       </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">
-        Sign in
+
+      <button
+        class="w-100 btn btn-lg btn-primary"
+        (click)="signin(); $event.preventDefault()"
+      >
+        登入
       </button>
     </form>
   </main>

@@ -20,15 +20,17 @@ export class LoginComponent implements OnInit {
 
   signin(): void {
     let request = new LoginRequest();
-    request.account = '';
-    request.password = '';
+    request.account = this.admin_account;
+    request.password = this.admin_password;
     this._apiClient.login(request).subscribe((response) => {
       if (response.success) {
         // 將後端回傳的 JWT 存入 localStorage
         localStorage.setItem("adminJWT", response.token as string);
         // todo 登入完成並導頁
+        alert('登入成功!');
       } else {
-        console.log(response.message);
+        // todo 登入錯誤次數過多的鎖定
+        console.log(`${request.account} - ${request.password} : ${response.message}`);
       }
     });
   }

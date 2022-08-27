@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './Portal/index/index.component';
 import { LoginComponent } from './Admin/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginComponent } from './Admin/login/login.component';
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    FormsModule
   ],
   providers: [
     Client,
