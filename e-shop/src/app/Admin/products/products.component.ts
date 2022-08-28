@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  animations: [appModuleAnimation()]
 })
 export class ProductsComponent implements OnInit {
   keyword: string = '';

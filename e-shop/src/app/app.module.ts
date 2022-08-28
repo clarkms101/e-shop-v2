@@ -10,6 +10,9 @@ import { IndexComponent } from './Portal/index/index.component';
 import { LoginComponent } from './Admin/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './Admin/products/products.component';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { ProductsComponent } from './Admin/products/products.component';
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
     Client,

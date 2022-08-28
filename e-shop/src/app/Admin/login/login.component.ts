@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Client, LoginRequest } from 'src/shared/api client/service-proxies';
 
 @Component({
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _apiClient: Client,
-    private _router: Router
+    private _router: Router,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -28,11 +30,11 @@ export class LoginComponent implements OnInit {
       if (response.success) {
         // 將後端回傳的 JWT 存入 localStorage
         localStorage.setItem("adminJWT", response.token as string);
+        this._toastr.success(`${response.message}`);
         this._router.navigate(['admin/products']);
-        alert('登入成功!');
       } else {
+        this._toastr.warning(`${response.message}`);
         // todo 登入錯誤次數過多的鎖定
-        console.log(`${request.account} - ${request.password} : ${response.message}`);
       }
     });
   }
