@@ -1,1 +1,38 @@
-<p>pagination works!</p>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <!-- 上一頁 -->
+    <!-- todo 沒有上一頁加上disabled class -->
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="#"
+        aria-label="Previous"
+        (click)="getData(1 - 1); $event.preventDefault()"
+      >
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <!-- 分頁清單 -->
+    <!-- todo active: pagination.currentPage === page -->
+    <li class="page-item" *ngFor="let page of totalPages">
+      <a
+        class="page-link"
+        href="#"
+        (click)="getData(1); $event.preventDefault()"
+        >{{ currentPage }}</a
+      >
+    </li>
+    <!-- 下一頁 -->
+    <!-- todo 沒有下一頁加上disabled class -->
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="#"
+        aria-label="Next"
+        (click)="getData(1 + 1); $event.preventDefault()"
+      >
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
