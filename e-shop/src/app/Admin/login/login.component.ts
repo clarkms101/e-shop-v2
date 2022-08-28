@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Client, LoginRequest } from 'src/shared/api client/service-proxies';
 
 @Component({
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
   admin_password: string = '';
 
   constructor(
-    private _apiClient: Client
+    private _apiClient: Client,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
       if (response.success) {
         // 將後端回傳的 JWT 存入 localStorage
         localStorage.setItem("adminJWT", response.token as string);
-        // todo 登入完成並導頁
+        this._router.navigate(['admin/products']);
         alert('登入成功!');
       } else {
         // todo 登入錯誤次數過多的鎖定

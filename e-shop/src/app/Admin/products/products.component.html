@@ -1,0 +1,67 @@
+<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h1>產品清單</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button
+                type="button"
+                class="btn bg-blue"
+                (click)="getDataPage(1)"
+              >
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              name="keyword"
+              [placeholder]="'輸入關鍵字'"
+              [(ngModel)]="keyword"
+              (keyup.enter)="getDataPage(1)"
+            />
+          </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead class="bg-light">
+              <tr>
+                <th>產品名稱</th>
+                <th>產品分類</th>
+                <th>原價</th>
+                <th>售價</th>
+                <th>庫存</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{ product.title }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.originPrice }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.num }} - {{ product.unit }}</td>
+                <td>
+                  <input type="button" value="編輯" class="btn btn-default" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer bg-light border-top">
+          <!-- todo 分頁 -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

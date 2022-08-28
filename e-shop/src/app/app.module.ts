@@ -9,12 +9,14 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './Portal/index/index.component';
 import { LoginComponent } from './Admin/login/login.component';
 import { FormsModule } from '@angular/forms';
+import { ProductsComponent } from './Admin/products/products.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    LoginComponent
+    LoginComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
