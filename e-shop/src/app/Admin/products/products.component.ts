@@ -21,6 +21,8 @@ export class ProductsComponent implements OnInit {
     let request = new QueryProductsRequest();
     request.page = 1;
     request.pageSize = 10;
+    let token = localStorage.getItem("adminJWT") as string;
+    this._apiClient.setAuthToken(token);
     this._apiClient.products(request).subscribe((response) => {
       if (response.products !== undefined) {
         this.products = response.products;

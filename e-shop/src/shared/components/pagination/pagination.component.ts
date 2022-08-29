@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
-  page: number = 0;
-  hasPrePage: boolean = false;
+  currentPage: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
