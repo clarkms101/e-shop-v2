@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace e_shop_api
 {
@@ -20,7 +21,13 @@ namespace e_shop_api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseSerilog((context, logger) =>
+                        {
+                            logger.ReadFrom.Configuration(context.Configuration);
+                            logger.WriteTo.Seq("http://localhost:5341");
+                        })
+                        .UseStartup<Startup>();
                 });
     }
 }

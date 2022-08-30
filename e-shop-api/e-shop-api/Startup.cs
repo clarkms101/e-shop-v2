@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using StackExchange.Redis;
 
 namespace e_shop_api
@@ -161,6 +162,8 @@ namespace e_shop_api
 
             app.UseAuthentication();
 
+            app.UseSerilogRequestLogging();
+            
             app.UseRouting();
 
             app.UseAuthorization();
