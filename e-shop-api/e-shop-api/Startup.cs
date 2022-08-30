@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 
 namespace e_shop_api
 {
@@ -138,6 +139,10 @@ namespace e_shop_api
                         .AllowCredentials()
                 )
             );
+
+            // Redis
+            services.AddSingleton<IConnectionMultiplexer>(
+                ConnectionMultiplexer.Connect(Configuration.GetValue<string>("RedisConnectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
