@@ -14,22 +14,12 @@
         <div class="card-header">
           <div class="input-group">
             <div class="input-group-prepend">
-              <button
-                type="button"
-                class="btn bg-blue"
-                (click)="getDataPage(1)"
-              >
+              <button type="button" class="btn bg-blue" (click)="getPageData(1)">
                 <i class="fa fa-search"></i>
               </button>
             </div>
-            <input
-              type="text"
-              class="form-control"
-              name="keyword"
-              [placeholder]="'輸入關鍵字'"
-              [(ngModel)]="keyword"
-              (keyup.enter)="getDataPage(1)"
-            />
+            <input type="text" class="form-control" name="queryProductName" [placeholder]="'輸入產品名稱'"
+              [(ngModel)]="queryProductName" (keyup.enter)="getPageData(1)" />
           </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -59,7 +49,29 @@
           </table>
         </div>
         <div class="card-footer bg-light border-top">
-          <!-- todo 分頁 -->
+          <!-- 分頁 -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item" [ngClass]="{'disabled' : pagination.hasPrePage === false}">
+                <a class="page-link" href="#" aria-label="Previous"
+                  (click)="getPageData(currentPage - 1); $event.preventDefault()">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item" v-for="page in pagination.totalPages" :key="page"
+                :class="{ active: pagination.currentPage === page }">
+                <a class="page-link" href="#" (click)="getPageData(currentPage); $event.preventDefault()">{{
+                  currentPage
+                  }}</a>
+              </li>
+              <li class="page-item" [ngClass]="{'disabled' : pagination.hasNextPage === false}">
+                <a class="page-link" href="#" aria-label="Next"
+                  (click)="getPageData(currentPage + 1); $event.preventDefault()">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
