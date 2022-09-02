@@ -13,6 +13,7 @@ export class ProductsComponent implements OnInit {
   isLoading: boolean = false;
   products: Product[] = [];
   pagination: Pagination = new Pagination();
+  totalPageArray: number[] = [];
   currentPage: number = 0;
 
   constructor(
@@ -36,6 +37,8 @@ export class ProductsComponent implements OnInit {
         this.products = response.products;
         this.pagination = response.pagination;
         this.currentPage = response.pagination.currentPage as number;
+        let totalPages = response.pagination.totalPages as number;
+        this.totalPageArray = Array.from(new Array(totalPages), (x, i) => i + 1)
       }
     });
   }

@@ -76,6 +76,7 @@
               <!-- 分頁 -->
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
+                  <!-- 上一頁 -->
                   <li
                     class="page-item"
                     [ngClass]="{ disabled: pagination.hasPrePage === false }"
@@ -91,21 +92,22 @@
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
+                  <!-- 分頁清單 -->
                   <li
                     class="page-item"
-                    v-for="page in pagination.totalPages"
-                    :key="page"
-                    :class="{ active: pagination.currentPage === page }"
+                    *ngFor="let pageNumber of totalPageArray"
+                    [ngClass]="{ active: pagination.currentPage === pageNumber }"
                   >
                     <a
                       class="page-link"
                       href="#"
                       (click)="
-                        getPageData(currentPage); $event.preventDefault()
+                        getPageData(pageNumber); $event.preventDefault()
                       "
-                      >{{ currentPage }}</a
+                      >{{ pageNumber }}</a
                     >
                   </li>
+                  <!-- 下一頁 -->
                   <li
                     class="page-item"
                     [ngClass]="{ disabled: pagination.hasNextPage === false }"
