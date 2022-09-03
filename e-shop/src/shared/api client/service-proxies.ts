@@ -2770,6 +2770,7 @@ export interface ICreateOrderResponse {
 
 export class QueryOrdersRequest implements IQueryOrdersRequest {
     page?: number;
+    pageSize?: number;
     paymentMethod?: number;
     startDate?: string | undefined;
     endDate?: string | undefined;
@@ -2786,6 +2787,7 @@ export class QueryOrdersRequest implements IQueryOrdersRequest {
     init(_data?: any) {
         if (_data) {
             this.page = _data["page"];
+            this.pageSize = _data["pageSize"];
             this.paymentMethod = _data["paymentMethod"];
             this.startDate = _data["startDate"];
             this.endDate = _data["endDate"];
@@ -2802,6 +2804,7 @@ export class QueryOrdersRequest implements IQueryOrdersRequest {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["page"] = this.page;
+        data["pageSize"] = this.pageSize;
         data["paymentMethod"] = this.paymentMethod;
         data["startDate"] = this.startDate;
         data["endDate"] = this.endDate;
@@ -2811,6 +2814,7 @@ export class QueryOrdersRequest implements IQueryOrdersRequest {
 
 export interface IQueryOrdersRequest {
     page?: number;
+    pageSize?: number;
     paymentMethod?: number;
     startDate?: string | undefined;
     endDate?: string | undefined;
@@ -3679,4 +3683,4 @@ function blobToText(blob: any): Observable<string> {
     });
 }
 
-// 樣版，會合併到service-proxies.ts
+// 會合併到service-proxies.ts

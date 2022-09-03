@@ -30,10 +30,10 @@ export class NavbarComponent implements OnInit {
     this._apiClient.logout(request).subscribe((response) => {
       if (response.success) {
         this._toastr.success(`${response.message}`);
-        this._router.navigate(['admin/login']);
       } else {
         this._toastr.warning(`${response.message}`);
       }
     });
+    this._router.navigate(['admin/login']);
   }
 }

@@ -13,7 +13,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <h1>產品清單</h1>
+              <h1>訂單列表</h1>
             </div>
           </div>
         </div>
@@ -22,51 +22,36 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-header">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <button
-                    type="button"
-                    class="btn bg-blue"
-                    (click)="getPageData(1)"
-                  >
-                    <i class="fa fa-search"></i>
-                  </button>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="queryProductName"
-                  [placeholder]="'輸入產品名稱'"
-                  [(ngModel)]="queryProductName"
-                  (keyup.enter)="getPageData(1)"
-                />
-              </div>
+
             </div>
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap">
                 <thead class="bg-light">
                   <tr>
-                    <th>產品名稱</th>
-                    <th>產品分類</th>
-                    <th>原價</th>
-                    <th>售價</th>
-                    <th>庫存</th>
-                    <th>操作</th>
+                    <th>購買時間</th>
+                    <th>Email</th>
+                    <th>訂單內容</th>
+                    <th>應付金額</th>
+                    <th>付款方式</th>
+                    <th>是否付款</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let product of products">
-                    <td>{{ product.title }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.originPrice }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.num }} - {{ product.unit }}</td>
+                  <tr *ngFor="let order of orders">
+                    <td>{{ order.createDateTime }}</td>
+                    <td>{{ order.email }}</td>
                     <td>
-                      <input
-                        type="button"
-                        value="編輯"
-                        class="btn btn-default"
-                      />
+                      <ul class="list-unstyled" *ngIf="order.orderDetailInfos !== null">
+                        <li *ngFor="let orderDetail of order.orderDetailInfos">
+                          {{ orderDetail.productTitle }} 數量 : {{ orderDetail.qty }} {{ orderDetail.productUnit }}
+                        </li>
+                      </ul>
+                    </td>
+                    <td>{{ order.totalAmount }}</td>
+                    <td>{{ order.paymentMethod }}</td>
+                    <td>
+                      <strong *ngIf="order.isPaid" class="text-success">已付款</strong>
+                      <span *ngIf="order.isPaid===false" class="text-muted">尚未付款</span>
                     </td>
                   </tr>
                 </tbody>

@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SidebarComponent } from './Admin/layout/sidebar/sidebar.component';
 import { NavbarComponent } from './Admin/layout/navbar/navbar.component';
+import { OrdersComponent } from './Admin/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NavbarComponent } from './Admin/layout/navbar/navbar.component';
     LoginComponent,
     ProductsComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
