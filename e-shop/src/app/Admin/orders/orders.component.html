@@ -59,7 +59,7 @@
                 <div class="form-group col-md-2 mb-0 pt-2">
                   <br />
                   <button
-                    class="btn btn-primary form-control"
+                    class="btn btn-success"
                     (click)="getPageData(1)"
                   >
                     查詢
@@ -85,7 +85,7 @@
                     *ngFor="let order of orders"
                     [ngClass]="{ 'text-secondary': !order.isPaid }"
                   >
-                    <td>{{ order.createDateTime }}</td>
+                    <td>{{ order.createDateTime | date: "yyyy-MM-dd" }}</td>
                     <td>{{ order.email }}</td>
                     <td>
                       <ul

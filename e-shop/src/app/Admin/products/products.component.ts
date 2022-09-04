@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +21,8 @@ export class ProductsComponent implements OnInit {
   currentPage: number = 0;
 
   constructor(
-    private _apiClient: Client
+    private _apiClient: Client,
+    private _modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -43,5 +46,32 @@ export class ProductsComponent implements OnInit {
         this.totalPageArray = Array.from(new Array(totalPages), (x, i) => i + 1)
       }
     });
+  }
+
+  create(): void {
+    this._modalService.show(
+      ProductDetailComponent,
+      {
+        class: 'modal-xl',
+        initialState: {
+          isEdit: false
+        },
+      }
+    );
+  }
+
+  edit(id: number | undefined): void {
+    if (id !== undefined) {
+      this._modalService.show(
+        ProductDetailComponent,
+        {
+          class: 'modal-xl',
+          initialState: {
+            id: id,
+            isEdit: true
+          },
+        }
+      );
+    }
   }
 }

@@ -1,0 +1,62 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createRoleForm="ngForm"
+  (ngSubmit)="save()"
+>
+  <app-modal-header
+    [title]="'產品明細'"
+    (onCloseClick)="bsModalRef.hide()"
+  ></app-modal-header>
+  <div class="modal-body">
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="name"> Name </label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          id="name"
+          required
+          minlength="2"
+          maxlength="32"
+        />
+      </div>
+    </div>
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="displayName">
+        DisplayName
+      </label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          name="displayName"
+          id="displayName"
+          required
+          minlength="2"
+          maxlength="32"
+        />
+      </div>
+    </div>
+    <div class="form-group row mb-0">
+      <label class="col-md-3 col-form-label" for="description">
+        RoleDescription
+      </label>
+      <div class="col-md-9">
+        <textarea
+          type="text"
+          class="form-control"
+          name="description"
+          id="description"
+        >
+        </textarea>
+      </div>
+    </div>
+  </div>
+  <app-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createRoleForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></app-modal-footer>
+</form>

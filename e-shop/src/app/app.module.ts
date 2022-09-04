@@ -13,9 +13,17 @@ import { ProductsComponent } from './Admin/products/products.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+// ngx-bootstrap
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SidebarComponent } from './Admin/layout/sidebar/sidebar.component';
 import { NavbarComponent } from './Admin/layout/navbar/navbar.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
+import { ProductDetailComponent } from './Admin/products/product-detail/product-detail.component';
+import { ModalHeaderComponent } from './Common/modal/modal-header/modal-header.component';
+import { ModalFooterComponent } from './Common/modal/modal-footer/modal-footer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +33,10 @@ import { OrdersComponent } from './Admin/orders/orders.component';
     ProductsComponent,
     SidebarComponent,
     NavbarComponent,
-    OrdersComponent
+    OrdersComponent,
+    ProductDetailComponent,
+    ModalHeaderComponent,
+    ModalFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +47,11 @@ import { OrdersComponent } from './Admin/orders/orders.component';
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    // ngx-bootstrap
+    ModalModule.forChild(),
+    BsDropdownModule,
+    CollapseModule,
+    TabsModule,
   ],
   providers: [
     Client,
