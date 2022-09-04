@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
@@ -49,20 +49,18 @@ export class ProductsComponent implements OnInit {
   }
 
   create(): void {
-    this._modalService.show(
-      ProductDetailComponent,
-      {
-        class: 'modal-xl',
-        initialState: {
-          isEdit: false
-        },
-      }
-    );
+    this.showCreateOrEditDialog();
   }
 
   edit(id: number | undefined): void {
+    this.showCreateOrEditDialog(id);
+  }
+
+  showCreateOrEditDialog(id?: number): void {
+    let createOrEditDialog: BsModalRef;
+
     if (id !== undefined) {
-      this._modalService.show(
+      createOrEditDialog = this._modalService.show(
         ProductDetailComponent,
         {
           class: 'modal-xl',
@@ -72,6 +70,25 @@ export class ProductsComponent implements OnInit {
           },
         }
       );
+    } else {
+      createOrEditDialog = this._modalService.show(
+        ProductDetailComponent,
+        {
+          class: 'modal-xl',
+          initialState: {
+            isEdit: false
+          },
+        }
+      );
     }
+
+    // 儲存完重新載入資料
+    createOrEditDialog.content.onSave.subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  refresh(): void {
+    this.getPageData(1);
   }
 }
