@@ -21,9 +21,53 @@
       <section class="content px-2">
         <div class="container-fluid">
           <div class="card">
+            <!-- 查詢框 -->
             <div class="card-header">
-
+              <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                  <label for="">開始日期</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="query_startDate"
+                  />
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                  <label for="">結束日期</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="query_endDate"
+                  />
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                  <label for="paymentMethod">付款方式</label>
+                  <select
+                    id="paymentMethod"
+                    class="form-control"
+                    [(ngModel)]="query_paymentMethod"
+                  >
+                    <option disabled [ngValue]="null">請選擇</option>
+                    <option
+                      *ngFor="let paymentMethod of paymentMethodList"
+                      [ngValue]="paymentMethod.value"
+                    >
+                      {{ paymentMethod.text }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2 mb-0 pt-2">
+                  <br />
+                  <button
+                    class="btn btn-primary form-control"
+                    (click)="getPageData(1)"
+                  >
+                    查詢
+                  </button>
+                </div>
+              </div>
             </div>
+            <!-- 內容 -->
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap">
                 <thead class="bg-light">
@@ -37,21 +81,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let order of orders">
+                  <tr
+                    *ngFor="let order of orders"
+                    [ngClass]="{ 'text-secondary': !order.isPaid }"
+                  >
                     <td>{{ order.createDateTime }}</td>
                     <td>{{ order.email }}</td>
                     <td>
-                      <ul class="list-unstyled" *ngIf="order.orderDetailInfos !== null">
+                      <ul
+                        class="list-unstyled"
+                        *ngIf="order.orderDetailInfos !== null"
+                      >
                         <li *ngFor="let orderDetail of order.orderDetailInfos">
-                          {{ orderDetail.productTitle }} 數量 : {{ orderDetail.qty }} {{ orderDetail.productUnit }}
+                          {{ orderDetail.productTitle }} 數量 :
+                          {{ orderDetail.qty }} {{ orderDetail.productUnit }}
                         </li>
                       </ul>
                     </td>
                     <td>{{ order.totalAmount }}</td>
                     <td>{{ order.paymentMethod }}</td>
                     <td>
-                      <strong *ngIf="order.isPaid" class="text-success">已付款</strong>
-                      <span *ngIf="order.isPaid===false" class="text-muted">尚未付款</span>
+                      <strong *ngIf="order.isPaid" class="text-success"
+                        >已付款</strong
+                      >
+                      <span *ngIf="order.isPaid === false" class="text-muted"
+                        >尚未付款</span
+                      >
                     </td>
                   </tr>
                 </tbody>
