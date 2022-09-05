@@ -27,31 +27,16 @@
                   <!-- 產品查詢 -->
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <button
-                        type="button"
-                        class="btn bg-blue"
-                        (click)="getPageData(1)"
-                      >
+                      <button type="button" class="btn bg-blue" (click)="getPageData(1)">
                         <i class="fa fa-search"></i>
                       </button>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="queryProductName"
-                      [placeholder]="'輸入產品名稱'"
-                      [(ngModel)]="queryProductName"
-                      (keyup.enter)="getPageData(1)"
-                    />
+                    <input type="text" class="form-control" name="queryProductName" [placeholder]="'輸入產品名稱'"
+                      [(ngModel)]="queryProductName" (keyup.enter)="getPageData(1)" />
                   </div>
                 </div>
                 <div class="col-6 text-right">
-                  <input
-                    type="button"
-                    class="btn btn-primary"
-                    value="新增"
-                    (click)="create()"
-                  />
+                  <input type="button" class="btn btn-primary" value="新增" (click)="create()" />
                 </div>
               </div>
             </div>
@@ -76,19 +61,11 @@
                     <td>{{ product.price }}</td>
                     <td>{{ product.num }} {{ product.unit }}</td>
                     <td>
-                      <input
-                        type="button"
-                        value="編輯"
-                        class="btn btn-outline-primary btn-sm mr-2"
-                        (click)="edit(product.productId)"
-                      />
+                      <input type="button" value="編輯" class="btn btn-outline-primary btn-sm mr-2"
+                        (click)="edit(product)" />
 
-                      <input
-                      type="button"
-                      value="刪除"
-                      class="btn btn-outline-danger btn-sm"
-                      (click)="edit(product.productId)"
-                    />
+                      <input type="button" value="刪除" class="btn btn-outline-danger btn-sm"
+                        (click)="remove(product.productId)" />
                     </td>
                   </tr>
                 </tbody>
@@ -99,49 +76,25 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <!-- 上一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasPrePage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Previous"
-                      (click)="
+                  <li class="page-item" [ngClass]="{ disabled: pagination.hasPrePage === false }">
+                    <a class="page-link" href="#" aria-label="Previous" (click)="
                         getPageData(currentPage - 1); $event.preventDefault()
-                      "
-                    >
+                      ">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
                   <!-- 分頁清單 -->
-                  <li
-                    class="page-item"
-                    *ngFor="let pageNumber of totalPageArray"
-                    [ngClass]="{
+                  <li class="page-item" *ngFor="let pageNumber of totalPageArray" [ngClass]="{
                       active: pagination.currentPage === pageNumber
-                    }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      (click)="getPageData(pageNumber); $event.preventDefault()"
-                      >{{ pageNumber }}</a
-                    >
+                    }">
+                    <a class="page-link" href="#" (click)="getPageData(pageNumber); $event.preventDefault()">{{
+                      pageNumber }}</a>
                   </li>
                   <!-- 下一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasNextPage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Next"
-                      (click)="
+                  <li class="page-item" [ngClass]="{ disabled: pagination.hasNextPage === false }">
+                    <a class="page-link" href="#" aria-label="Next" (click)="
                         getPageData(currentPage + 1); $event.preventDefault()
-                      "
-                    >
+                      ">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>

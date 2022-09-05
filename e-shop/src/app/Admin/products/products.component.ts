@@ -52,25 +52,32 @@ export class ProductsComponent implements OnInit {
     this.showCreateOrEditDialog();
   }
 
-  edit(id: number | undefined): void {
-    this.showCreateOrEditDialog(id);
+  edit(product: Product): void {
+    this.showCreateOrEditDialog(product);
   }
 
-  showCreateOrEditDialog(id?: number): void {
+  remove(id: number | undefined): void {
+
+  }
+
+  showCreateOrEditDialog(product?: Product): void {
     let createOrEditDialog: BsModalRef;
 
-    if (id !== undefined) {
+    // Edit
+    if (product !== undefined) {
       createOrEditDialog = this._modalService.show(
         ProductDetailComponent,
         {
           class: 'modal-xl',
           initialState: {
-            id: id,
+            product: product,
             isEdit: true
           },
         }
       );
-    } else {
+    }
+    // Create
+    else {
       createOrEditDialog = this._modalService.show(
         ProductDetailComponent,
         {

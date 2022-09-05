@@ -12,9 +12,9 @@ export class ProductDetailComponent implements OnInit {
   // 外部注入值進來
   id: number = 0;
   isEdit: boolean = false;
+  product: Product = new Product();
   // 內部使用
   saving = false;
-  product = new Product();
   // 元件資料傳遞
   @Output() onSave = new EventEmitter<any>();
 

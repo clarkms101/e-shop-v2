@@ -1,99 +1,51 @@
-<form
-  class="form-horizontal"
-  autocomplete="off"
-  #createOrEditProductForm="ngForm"
-  (ngSubmit)="save()"
->
-  <app-modal-header
-    [title]="'產品明細'"
-    (onCloseClick)="bsModalRef.hide()"
-  ></app-modal-header>
+<form class="form-horizontal" autocomplete="off" #createOrEditProductForm="ngForm" (ngSubmit)="save()">
+  <app-modal-header [title]="'產品明細'" (onCloseClick)="bsModalRef.hide()"></app-modal-header>
   <div class="modal-body">
+
     <!-- 產品名稱 -->
     <div class="form-group row required">
       <label class="col-md-3 col-form-label" for="title"> 產品名稱 </label>
       <div class="col-md-9">
-        <input
-          type="text"
-          class="form-control"
-          name="title"
-          id="title"
-          placeholder="請輸入產品名稱"
-          required
-          [(ngModel)]="product.title"
-        />
+        <input type="text" class="form-control" name="title" id="title" placeholder="請輸入產品名稱" required
+          [(ngModel)]="product.title" />
       </div>
     </div>
     <!-- 產品分類 -->
     <div class="form-group row required">
       <label class="col-md-3 col-form-label" for="category"> 產品分類 </label>
       <div class="col-md-9">
-        <input
-          type="text"
-          class="form-control"
-          name="category"
-          id="category"
-          placeholder="請輸入產品分類"
-          required
-          [(ngModel)]="product.category"
-        />
+        <input type="text" class="form-control" name="category" id="category" placeholder="請輸入產品分類" required
+          [(ngModel)]="product.category" />
       </div>
     </div>
     <!-- 庫存 -->
     <div class="form-group row required">
       <label class="col-md-3 col-form-label" for="num"> 庫存 </label>
       <div class="col-md-9">
-        <input
-          type="number"
-          class="form-control"
-          name="num"
-          id="num"
-          required
-          [(ngModel)]="product.num"
-        />
+        <input type="number" class="form-control" name="num" id="num" required [(ngModel)]="product.num" />
       </div>
     </div>
     <!-- 單位 -->
     <div class="form-group row required">
       <label class="col-md-3 col-form-label" for="unit"> 單位 </label>
       <div class="col-md-9">
-        <input
-          type="text"
-          class="form-control"
-          name="unit"
-          id="unit"
-          placeholder="請輸入單位 ex:組、套"
-          required
-          [(ngModel)]="product.unit"
-        />
+        <input type="text" class="form-control" name="unit" id="unit" placeholder="請輸入單位 ex:組、套" required
+          [(ngModel)]="product.unit" />
       </div>
     </div>
     <!-- 原價 -->
     <div class="form-group row required">
       <label class="col-md-3 col-form-label" for="originPrice"> 原價 </label>
       <div class="col-md-9">
-        <input
-          type="number"
-          class="form-control"
-          name="originPrice"
-          id="originPrice"
-          required
-          [(ngModel)]="product.originPrice"
-        />
+        <input type="number" class="form-control" name="originPrice" id="originPrice" required
+          [(ngModel)]="product.originPrice" />
       </div>
     </div>
     <!-- 售價 -->
     <div class="form-group row required">
       <label class="col-md-3 col-form-label" for="price"> 售價 </label>
       <div class="col-md-9">
-        <input
-          type="number"
-          class="form-control"
-          name="price"
-          id="price"
-          required
-          [(ngModel)]="product.price"
-        />
+        <input type="number" class="form-control" name="price" id="price" required [(ngModel)]="product.price" />
       </div>
     </div>
     <!-- 產品描述 -->
@@ -102,20 +54,13 @@
         產品描述
       </label>
       <div class="col-md-9">
-        <textarea
-          type="text"
-          class="form-control"
-          name="description"
-          id="description"
-          [(ngModel)]="product.description"
-        >
-        </textarea>
+        <textarea type="text" class="form-control" name="description" id="description"
+          [(ngModel)]="product.description">
+  </textarea>
       </div>
     </div>
+
   </div>
-  <app-modal-footer
-    [cancelDisabled]="saving"
-    [saveDisabled]="!createOrEditProductForm.form.valid || saving"
-    (onCancelClick)="bsModalRef.hide()"
-  ></app-modal-footer>
+  <app-modal-footer [cancelDisabled]="saving" [saveDisabled]="!createOrEditProductForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></app-modal-footer>
 </form>
