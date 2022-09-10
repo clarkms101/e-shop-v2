@@ -24,6 +24,7 @@ import { OrdersComponent } from './Admin/orders/orders.component';
 import { ProductDetailComponent } from './Admin/products/product-detail/product-detail.component';
 import { ModalHeaderComponent } from './Common/modal/modal-header/modal-header.component';
 import { ModalFooterComponent } from './Common/modal/modal-footer/modal-footer.component';
+import { AuthGuardService } from 'src/shared/services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ModalFooterComponent } from './Common/modal/modal-footer/modal-footer.c
   providers: [
     Client,
     { provide: API_BASE_URL, useValue: environment.apiUrl },
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
