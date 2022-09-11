@@ -20,6 +20,7 @@ export class OrdersComponent implements OnInit {
   pagination: Pagination = new Pagination();
   totalPageArray: number[] = [];
   currentPage: number = 0;
+  loading = false;
 
   constructor(
     private _apiClient: Client
@@ -37,6 +38,7 @@ export class OrdersComponent implements OnInit {
   }
 
   getPageData(page: number): void {
+    this.loading = true;
     let request = new QueryOrdersRequest();
     request.page = page;
     request.pageSize = 10;
@@ -58,6 +60,7 @@ export class OrdersComponent implements OnInit {
         let totalPages = response.pagination.totalPages as number;
         this.totalPageArray = Array.from(new Array(totalPages), (x, i) => i + 1)
       }
+      this.loading = false;
     });
   }
 }

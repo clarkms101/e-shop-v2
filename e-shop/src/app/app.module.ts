@@ -53,6 +53,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       animationType: ngxLoadingAnimationTypes.wanderingCubes,
       backdropBackgroundColour: "rgba(0,0,0,0.1)",
       backdropBorderRadius: "4px",
+      fullScreenBackdrop: true,
       primaryColour: "#ffffff",
       secondaryColour: "#ffffff",
       tertiaryColour: "#ffffff",
