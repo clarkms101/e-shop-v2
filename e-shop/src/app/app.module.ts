@@ -26,6 +26,7 @@ import { ModalHeaderComponent } from './Common/modal/modal-header/modal-header.c
 import { ModalFooterComponent } from './Common/modal/modal-footer/modal-footer.component';
 import { AuthGuardService } from 'src/shared/services/auth-guard.service';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import { CouponsComponent } from './Admin/coupons/coupons.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
     OrdersComponent,
     ProductDetailComponent,
     ModalHeaderComponent,
-    ModalFooterComponent
+    ModalFooterComponent,
+    CouponsComponent
   ],
   imports: [
     BrowserModule,

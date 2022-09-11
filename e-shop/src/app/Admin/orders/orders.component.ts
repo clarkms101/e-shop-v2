@@ -6,7 +6,7 @@ import { Client, OrderInfo, Pagination, QueryOrdersRequest, SelectionItem } from
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
-  animations: [appModuleAnimation()]
+  // animations: [appModuleAnimation()]
 })
 export class OrdersComponent implements OnInit {
   // data

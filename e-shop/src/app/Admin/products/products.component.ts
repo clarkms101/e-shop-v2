@@ -8,7 +8,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
-  animations: [appModuleAnimation()]
+  // animations: [appModuleAnimation()]
 })
 export class ProductsComponent implements OnInit {
   // data
@@ -94,11 +94,7 @@ export class ProductsComponent implements OnInit {
 
     // 儲存完重新載入資料
     createOrEditDialog.content.onSave.subscribe(() => {
-      this.refresh();
+      this.getPageData(1);
     });
-  }
-
-  refresh(): void {
-    this.getPageData(1);
   }
 }
