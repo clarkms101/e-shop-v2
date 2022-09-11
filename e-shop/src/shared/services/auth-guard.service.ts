@@ -20,8 +20,8 @@ export class AuthGuardService implements CanActivate {
     request.apiAccessKey = apiAccessKey;
 
     return this._apiClient.loginCheck(request).pipe(map(response => {
-      console.log(`login check result ${response.success}`);
-      console.log(`login check result ${response.message}`);
+      // console.log(`login check result ${response.success}`);
+      // console.log(`login check result ${response.message}`);
 
       if (response.success) {
         return true;

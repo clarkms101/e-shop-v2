@@ -25,6 +25,7 @@ import { ProductDetailComponent } from './Admin/products/product-detail/product-
 import { ModalHeaderComponent } from './Common/modal/modal-header/modal-header.component';
 import { ModalFooterComponent } from './Common/modal/modal-footer/modal-footer.component';
 import { AuthGuardService } from 'src/shared/services/auth-guard.service';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,14 @@ import { AuthGuardService } from 'src/shared/services/auth-guard.service';
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: "rgba(0,0,0,0.1)",
+      backdropBorderRadius: "4px",
+      primaryColour: "#ffffff",
+      secondaryColour: "#ffffff",
+      tertiaryColour: "#ffffff",
+    }),
     // ngx-bootstrap
     ModalModule.forChild(),
     BsDropdownModule,

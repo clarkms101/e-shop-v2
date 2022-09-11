@@ -6,7 +6,6 @@ import { OrdersComponent } from './Admin/orders/orders.component';
 import { ProductsComponent } from './Admin/products/products.component';
 import { IndexComponent } from './Portal/index/index.component';
 
-// 路由守衛
 const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'admin/login', component: LoginComponent },
