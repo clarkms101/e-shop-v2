@@ -28,6 +28,7 @@ import { AuthGuardService } from 'src/shared/services/auth-guard.service';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 import { CouponsComponent } from './Admin/coupons/coupons.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { CouponDetailComponent } from './Admin/coupons/coupon-detail/coupon-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ProductDetailComponent,
     ModalHeaderComponent,
     ModalFooterComponent,
-    CouponsComponent
+    CouponsComponent,
+    CouponDetailComponent
   ],
   imports: [
     BrowserModule,

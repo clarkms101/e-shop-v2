@@ -1,0 +1,92 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createOrEditProductForm="ngForm"
+  (ngSubmit)="save()"
+>
+  <app-modal-header
+    [title]="'優惠券'"
+    (onCloseClick)="bsModalRef.hide()"
+  ></app-modal-header>
+  <div class="modal-body">
+    <!-- 標題 -->
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="title"> 標題 </label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          name="title"
+          id="title"
+          placeholder="請輸入標題"
+          required
+          [(ngModel)]="coupon.title"
+        />
+      </div>
+    </div>
+    <!-- 優惠碼 -->
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="couponCode"> 優惠碼 </label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          name="couponCode"
+          id="couponCode"
+          placeholder="請輸入優惠碼"
+          required
+          [(ngModel)]="coupon.couponCode"
+        />
+      </div>
+    </div>
+    <!-- 到期日 -->
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="dueDateTimeStamp">
+        到期日
+      </label>
+      <div class="col-md-9">
+        <input
+          type="date"
+          class="form-control"
+          name="dueDateTimeStamp"
+          id="dueDateTimeStamp"
+          required
+          [(ngModel)]="coupon.dueDateTimeStamp"
+        />
+      </div>
+    </div>
+    <!-- 折扣百分比 -->
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="percent"> 折扣百分比 </label>
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          name="percent"
+          id="percent"
+          placeholder="請輸入折扣百分比"
+          required
+          [(ngModel)]="coupon.percent"
+        />
+      </div>
+    </div>
+    <!-- 是否啟用 -->
+    <div class="form-group row required">
+      <label class="col-md-3 col-form-label" for="isEnabled"> 是否啟用 </label>
+      <div class="col-md-9">
+        <input
+          type="checkbox"
+          name="isEnabled"
+          id="isEnabled"
+          required
+          [(ngModel)]="coupon.isEnabled"
+        />
+      </div>
+    </div>
+  </div>
+  <app-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createOrEditProductForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></app-modal-footer>
+</form>
