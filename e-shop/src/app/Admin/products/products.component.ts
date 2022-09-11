@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
@@ -23,7 +24,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private _apiClient: Client,
-    private _modalService: BsModalService
+    private _modalService: BsModalService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +62,16 @@ export class ProductsComponent implements OnInit {
   }
 
   remove(id: number | undefined): void {
-
+    if (id !== undefined) {
+      this._apiClient.productDELETE(id).subscribe((response) => {
+        if (response.success) {
+          this._toastr.success(`${response.message}`);
+        } else {
+          this._toastr.warning(`${response.message}`);
+        }
+        this.getPageData(1);
+      });
+    }
   }
 
   showCreateOrEditDialog(product?: Product): void {

@@ -65,7 +65,8 @@
                         (click)="edit(product)" />
 
                       <input type="button" value="刪除" class="btn btn-outline-danger btn-sm"
-                        (click)="remove(product.productId)" />
+                      [swal]="deleteSwal" (confirm)="remove(product.productId)"/>
+                      <swal #deleteSwal title="確定刪除 {{ product.title }} ?" etc></swal>
                     </td>
                   </tr>
                 </tbody>
@@ -107,5 +108,4 @@
     </div>
   </div>
 </div>
-
 <ngx-loading [show]="loading"></ngx-loading>

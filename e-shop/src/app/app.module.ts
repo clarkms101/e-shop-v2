@@ -27,6 +27,7 @@ import { ModalFooterComponent } from './Common/modal/modal-footer/modal-footer.c
 import { AuthGuardService } from 'src/shared/services/auth-guard.service';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 import { CouponsComponent } from './Admin/coupons/coupons.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { CouponsComponent } from './Admin/coupons/coupons.component';
       secondaryColour: "#ffffff",
       tertiaryColour: "#ffffff",
     }),
+    SweetAlert2Module.forRoot(),
     // ngx-bootstrap
     ModalModule.forChild(),
     BsDropdownModule,
