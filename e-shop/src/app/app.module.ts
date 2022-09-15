@@ -29,6 +29,10 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 import { CouponsComponent } from './Admin/coupons/coupons.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CouponDetailComponent } from './Admin/coupons/coupon-detail/coupon-detail.component';
+import { ProductComponent } from './Portal/product/product.component';
+import { FooterComponent } from './Portal/layout/footer/footer.component';
+import { MenuComponent } from './Portal/layout/menu/menu.component';
+import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navbar.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { CouponDetailComponent } from './Admin/coupons/coupon-detail/coupon-deta
     ModalHeaderComponent,
     ModalFooterComponent,
     CouponsComponent,
-    CouponDetailComponent
+    CouponDetailComponent,
+    ProductComponent,
+    FooterComponent,
+    MenuComponent,
+    PortalNavbarComponent
   ],
   imports: [
     BrowserModule,
