@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Client, Coupon, CreateCouponRequest, UpdateCouponRequest } from 'src/shared/api client/service-proxies';
+import { DateHelper } from 'src/shared/helpers/DateHelper';
 
 @Component({
   selector: 'app-coupon-detail',
@@ -15,6 +16,8 @@ export class CouponDetailComponent implements OnInit {
   coupon: Coupon = new Coupon();
   // 內部使用
   saving = false;
+  // 日期
+  dueDateTime: Date = new Date();
   // 元件資料傳遞
   @Output() onSave = new EventEmitter<any>();
 
@@ -25,6 +28,10 @@ export class CouponDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.isEdit && this.coupon.dueDateTimeStamp != undefined) {
+      // todo 日期顯示處理
+      this.dueDateTime = DateHelper.getDate(this.coupon.dueDateTimeStamp);
+    }
   }
 
   save(): void {
@@ -34,6 +41,8 @@ export class CouponDetailComponent implements OnInit {
     if (this.isEdit) {
       let editData = new UpdateCouponRequest();
       editData.coupon = this.coupon;
+      editData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(this.dueDateTime);
+
       this._apiClient.couponPUT(editData).subscribe((response) => {
         this._toastr.success(`${response.message}`);
         this.bsModalRef.hide();
@@ -46,6 +55,8 @@ export class CouponDetailComponent implements OnInit {
     else {
       let createData = new CreateCouponRequest();
       createData.coupon = this.coupon;
+      createData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(this.dueDateTime);
+
       this._apiClient.couponPOST(createData).subscribe((response) => {
         this._toastr.success(`${response.message}`);
         this.bsModalRef.hide();

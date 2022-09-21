@@ -41,17 +41,17 @@
     </div>
     <!-- 到期日 -->
     <div class="form-group row required">
-      <label class="col-md-3 col-form-label" for="dueDateTimeStamp">
+      <label class="col-md-3 col-form-label" for="dueDateTime">
         到期日
       </label>
       <div class="col-md-9">
         <input
           type="date"
           class="form-control"
-          name="dueDateTimeStamp"
-          id="dueDateTimeStamp"
+          name="dueDateTime"
+          id="dueDateTime"
           required
-          [(ngModel)]="coupon.dueDateTimeStamp"
+          [(ngModel)]="dueDateTime"
         />
       </div>
     </div>
@@ -60,7 +60,7 @@
       <label class="col-md-3 col-form-label" for="percent"> 折扣百分比 </label>
       <div class="col-md-9">
         <input
-          type="text"
+          type="number"
           class="form-control"
           name="percent"
           id="percent"
@@ -78,7 +78,6 @@
           type="checkbox"
           name="isEnabled"
           id="isEnabled"
-          required
           [(ngModel)]="coupon.isEnabled"
         />
       </div>
