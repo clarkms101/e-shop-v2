@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.DataBase;
@@ -20,6 +21,7 @@ namespace e_shop_api.Applications.Coupon.Command.Create
 
         public async Task<CreateCouponResponse> Handle(CreateCouponRequest request, CancellationToken cancellationToken)
         {
+            var dueDate = request.Coupon.DueDateTimeStamp.ToDateTime();
             var newCoupon = new DataBase.Models.Coupon()
             {
                 Id = request.Coupon.CouponId,
@@ -27,7 +29,8 @@ namespace e_shop_api.Applications.Coupon.Command.Create
                 CouponCode = request.Coupon.CouponCode,
                 Percent = request.Coupon.Percent,
                 IsEnabled = request.Coupon.IsEnabled,
-                DueDateTime = request.Coupon.DueDateTimeStamp.ToDateTime()
+                // 固定該日的 23:59:59
+                DueDateTime = new DateTime(dueDate.Year, dueDate.Month, dueDate.Day, 23, 59, 59)
             };
 
             await _eShopDbContext.Coupons.AddAsync(newCoupon, cancellationToken);

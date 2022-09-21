@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.DataBase;
@@ -20,6 +21,7 @@ namespace e_shop_api.Applications.Coupon.Command.Update
 
         public async Task<UpdateCouponResponse> Handle(UpdateCouponRequest request, CancellationToken cancellationToken)
         {
+            var dueDate = request.Coupon.DueDateTimeStamp.ToDateTime();
             var oldCoupon = await _eShopDbContext.Coupons.FindAsync(request.Coupon.CouponId);
             if (oldCoupon == null)
             {
@@ -34,7 +36,8 @@ namespace e_shop_api.Applications.Coupon.Command.Update
             oldCoupon.CouponCode = request.Coupon.CouponCode;
             oldCoupon.Percent = request.Coupon.Percent;
             oldCoupon.IsEnabled = request.Coupon.IsEnabled;
-            oldCoupon.DueDateTime = request.Coupon.DueDateTimeStamp.ToDateTime();
+            // 固定該日的 23:59:59
+            oldCoupon.DueDateTime = new DateTime(dueDate.Year, dueDate.Month, dueDate.Day, 23, 59, 59);
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 
