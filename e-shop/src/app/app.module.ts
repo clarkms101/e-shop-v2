@@ -18,6 +18,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SidebarComponent } from './Admin/layout/sidebar/sidebar.component';
 import { NavbarComponent } from './Admin/layout/navbar/navbar.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
@@ -77,6 +78,8 @@ import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navb
     BsDropdownModule,
     CollapseModule,
     TabsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   providers: [
     Client,
