@@ -45,14 +45,22 @@
         到期日
       </label>
       <div class="col-md-9">
-        <input
+        <!-- <input
           type="date"
           class="form-control"
           name="dueDateTime"
           id="dueDateTime"
           required
           [(ngModel)]="dueDateTime"
-        />
+        /> -->
+        <input type="text"
+            placeholder="Datepicker"
+            class="form-control"
+            name="dueDateTimeString"
+            id="dueDateTimeString"
+            [(ngModel)]="dueDateTimeString"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+            bsDatepicker>
       </div>
     </div>
     <!-- 折扣百分比 -->

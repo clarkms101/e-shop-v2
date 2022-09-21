@@ -17,7 +17,7 @@ export class CouponDetailComponent implements OnInit {
   // 內部使用
   saving = false;
   // 日期
-  dueDateTime: Date = new Date();
+  dueDateTimeString: any = "";
   // 元件資料傳遞
   @Output() onSave = new EventEmitter<any>();
 
@@ -29,19 +29,21 @@ export class CouponDetailComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isEdit && this.coupon.dueDateTimeStamp != undefined) {
-      // todo 日期顯示處理
-      this.dueDateTime = DateHelper.getDate(this.coupon.dueDateTimeStamp);
+      // todo
+      var date = new Date(this.coupon.dueDateTimeStamp);
+      this.dueDateTimeString = date;
     }
   }
 
   save(): void {
     this.saving = true;
+    let dueDateTime = new Date(this.dueDateTimeString);
 
     // 編輯
     if (this.isEdit) {
       let editData = new UpdateCouponRequest();
       editData.coupon = this.coupon;
-      editData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(this.dueDateTime);
+      editData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(dueDateTime);
 
       this._apiClient.couponPUT(editData).subscribe((response) => {
         this._toastr.success(`${response.message}`);
@@ -55,7 +57,7 @@ export class CouponDetailComponent implements OnInit {
     else {
       let createData = new CreateCouponRequest();
       createData.coupon = this.coupon;
-      createData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(this.dueDateTime);
+      createData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(dueDateTime);
 
       this._apiClient.couponPOST(createData).subscribe((response) => {
         this._toastr.success(`${response.message}`);

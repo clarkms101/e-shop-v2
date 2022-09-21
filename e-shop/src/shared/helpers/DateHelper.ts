@@ -7,13 +7,18 @@ export class DateHelper {
     return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
   }
 
-  static getTimestampSeconds(date: Date) {
-    let time = this.parseDate(date).getTime();
-    let timestampSeconds = Math.floor(time / 1000);
+  // static getTimestampSeconds(date: Date) {
+  //   let time = this.parseDate(date).getTime();
+  //   let timestampSeconds = Math.floor(time / 1000);
+  //   return timestampSeconds;
+  // }
+
+  static getTimestampSeconds(dateTime: Date) {
+    let timestampSeconds = Math.floor(dateTime.getTime() / 1000);
     return timestampSeconds;
   }
 
   static getDate(timestampSeconds: number) {
-    return new Date(timestampSeconds * 1000);
+    return new Date(timestampSeconds);
   }
 }
