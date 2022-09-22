@@ -14,11 +14,13 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 // ngx-bootstrap
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { zhCnLocale } from 'ngx-bootstrap/locale'
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DatepickerModule, BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { SidebarComponent } from './Admin/layout/sidebar/sidebar.component';
 import { NavbarComponent } from './Admin/layout/navbar/navbar.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
@@ -34,6 +36,8 @@ import { ProductComponent } from './Portal/product/product.component';
 import { FooterComponent } from './Portal/layout/footer/footer.component';
 import { MenuComponent } from './Portal/layout/menu/menu.component';
 import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navbar.component';
+
+defineLocale('zh-cn', zhCnLocale);
 
 @NgModule({
   declarations: [
@@ -88,4 +92,8 @@ import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navb
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private bsLocaleService: BsLocaleService) {
+    this.bsLocaleService.use('zh-cn');
+    }
+}
