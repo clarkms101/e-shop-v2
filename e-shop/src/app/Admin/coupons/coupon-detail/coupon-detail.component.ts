@@ -29,7 +29,6 @@ export class CouponDetailComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isEdit && this.coupon.dueDateTimeStamp != undefined) {
-      // todo
       var date = new Date(this.coupon.dueDateTimeStamp);
       this.dueDateTimeString = date;
     }

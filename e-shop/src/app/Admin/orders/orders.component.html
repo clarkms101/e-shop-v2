@@ -29,17 +29,33 @@
                 <div class="form-group col-md-3 mb-0">
                   <label for="">開始日期</label>
                   <input
-                    type="date"
+                    type="text"
+                    placeholder="選擇開始日期"
                     class="form-control"
+                    name="query_startDate"
+                    id="query_startDate"
                     [(ngModel)]="query_startDate"
+                    [bsConfig]="{
+                      dateInputFormat: 'YYYY-MM-DD',
+                      showWeekNumbers: false
+                    }"
+                    bsDatepicker
                   />
                 </div>
                 <div class="form-group col-md-3 mb-0">
                   <label for="">結束日期</label>
                   <input
-                    type="date"
+                    type="text"
+                    placeholder="選擇結束日期"
                     class="form-control"
+                    name="query_endDate"
+                    id="query_endDate"
                     [(ngModel)]="query_endDate"
+                    [bsConfig]="{
+                      dateInputFormat: 'YYYY-MM-DD',
+                      showWeekNumbers: false
+                    }"
+                    bsDatepicker
                   />
                 </div>
                 <div class="form-group col-md-4 mb-0">

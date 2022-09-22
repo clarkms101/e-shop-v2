@@ -21,4 +21,16 @@ export class DateHelper {
   static getDate(timestampSeconds: number) {
     return new Date(timestampSeconds);
   }
+
+  // yyyy-MM-dd
+  static getDateString(dateTime: Date){
+    let yyyy = dateTime.getFullYear();
+    let MM = String(dateTime.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let dd = String(dateTime.getDate()).padStart(2, '0');
+    let HH = String(dateTime.getHours()).padStart(2, '0');
+    let mm = String(dateTime.getMinutes()).padStart(2, '0');
+    let ss = String(dateTime.getSeconds()).padStart(2, '0');
+
+    return `${yyyy}-${MM}-${dd}`;
+  }
 }

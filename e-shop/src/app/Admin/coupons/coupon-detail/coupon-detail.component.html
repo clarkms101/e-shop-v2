@@ -41,26 +41,18 @@
     </div>
     <!-- 到期日 -->
     <div class="form-group row required">
-      <label class="col-md-3 col-form-label" for="dueDateTime">
-        到期日
-      </label>
+      <label class="col-md-3 col-form-label" for="dueDateTime"> 到期日 </label>
       <div class="col-md-9">
-        <!-- <input
-          type="date"
+        <input
+          type="text"
+          placeholder="請選擇日期"
           class="form-control"
-          name="dueDateTime"
-          id="dueDateTime"
-          required
-          [(ngModel)]="dueDateTime"
-        /> -->
-        <input type="text"
-            placeholder="Datepicker"
-            class="form-control"
-            name="dueDateTimeString"
-            id="dueDateTimeString"
-            [(ngModel)]="dueDateTimeString"
-            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
-            bsDatepicker>
+          name="dueDateTimeString"
+          id="dueDateTimeString"
+          [(ngModel)]="dueDateTimeString"
+          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', showWeekNumbers: false }"
+          bsDatepicker
+        />
       </div>
     </div>
     <!-- 折扣百分比 -->

@@ -1,3 +1,4 @@
+import { DateHelper } from 'src/shared/helpers/DateHelper';
 import { Component, OnInit } from '@angular/core';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, OrderInfo, Pagination, QueryOrdersRequest, SelectionItem } from 'src/shared/api client/service-proxies';
@@ -46,10 +47,12 @@ export class OrdersComponent implements OnInit {
       request.paymentMethod = this.query_paymentMethod;
     }
     if (this.query_startDate !== '') {
-      request.startDate = this.query_startDate;
+      // yyyy-MM-dd
+      request.startDate = DateHelper.getDateString(new Date(this.query_startDate));
     }
     if (this.query_endDate !== '') {
-      request.endDate = this.query_endDate;
+      // yyyy-MM-dd
+      request.endDate = DateHelper.getDateString(new Date(this.query_endDate));
     }
 
     this._apiClient.orders(request).subscribe((response) => {
