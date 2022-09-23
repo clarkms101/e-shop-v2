@@ -65,7 +65,6 @@ export class CouponsComponent implements OnInit {
       createOrEditDialog = this._modalService.show(
         CouponDetailComponent,
         {
-          class: 'modal-xl',
           initialState: {
             coupon: coupon,
             isEdit: true
@@ -78,7 +77,6 @@ export class CouponsComponent implements OnInit {
       createOrEditDialog = this._modalService.show(
         CouponDetailComponent,
         {
-          class: 'modal-xl',
           initialState: {
             isEdit: false
           },

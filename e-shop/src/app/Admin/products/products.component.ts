@@ -82,7 +82,7 @@ export class ProductsComponent implements OnInit {
       createOrEditDialog = this._modalService.show(
         ProductDetailComponent,
         {
-          class: 'modal-xl',
+          class: 'modal-lg',
           initialState: {
             product: product,
             isEdit: true
@@ -95,7 +95,7 @@ export class ProductsComponent implements OnInit {
       createOrEditDialog = this._modalService.show(
         ProductDetailComponent,
         {
-          class: 'modal-xl',
+          class: 'modal-lg',
           initialState: {
             isEdit: false
           },

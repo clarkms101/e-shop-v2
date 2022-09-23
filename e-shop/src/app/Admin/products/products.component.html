@@ -78,12 +78,14 @@
                     value="刪除"
                     class="btn btn-outline-danger btn-sm"
                     [swal]="deleteSwal"
-                    (confirm)="remove(product.productId)"
                   />
                   <swal
                     #deleteSwal
                     title="確定刪除 {{ product.title }} ?"
-                    etc
+                    text="刪除後無法還原!"
+                    [showCancelButton]="true"
+                    [focusCancel]="true"
+                    (confirm)="remove(product.productId)"
                   ></swal>
                 </td>
               </tr>
