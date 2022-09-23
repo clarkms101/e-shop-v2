@@ -1,165 +1,152 @@
-<div class="row">
-  <div class="col-md-12">
-    <app-navbar></app-navbar>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-2">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <div class="col-md-10">
-    <div>
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <h2>產品清單</h2>
-            </div>
-          </div>
+<div>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h2>產品清單</h2>
         </div>
-      </section>
-      <section class="content px-2">
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-header">
-              <div class="row">
-                <div class="col-6">
-                  <!-- 產品查詢 -->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <button
-                        type="button"
-                        class="btn bg-blue"
-                        (click)="getPageData(1)"
-                      >
-                        <i class="fa fa-search"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="queryProductName"
-                      [placeholder]="'輸入產品名稱'"
-                      [(ngModel)]="queryProductName"
-                      (keyup.enter)="getPageData(1)"
-                    />
-                  </div>
-                </div>
-                <div class="col-6 text-right">
-                  <input
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <!-- 產品查詢 -->
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button
                     type="button"
-                    class="btn btn-primary"
-                    value="新增"
-                    (click)="create()"
-                  />
+                    class="btn bg-blue"
+                    (click)="getPageData(1)"
+                  >
+                    <i class="fa fa-search"></i>
+                  </button>
                 </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="queryProductName"
+                  [placeholder]="'輸入產品名稱'"
+                  [(ngModel)]="queryProductName"
+                  (keyup.enter)="getPageData(1)"
+                />
               </div>
             </div>
-            <div class="card-body table-responsive p-0">
-              <!-- 查詢內容 -->
-              <table class="table table-hover text-nowrap">
-                <thead class="bg-light">
-                  <tr>
-                    <th>產品名稱</th>
-                    <th>產品分類</th>
-                    <th>原價</th>
-                    <th>售價</th>
-                    <th>庫存</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let product of products">
-                    <td>{{ product.title }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.originPrice }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.num }} {{ product.unit }}</td>
-                    <td>
-                      <input
-                        type="button"
-                        value="編輯"
-                        class="btn btn-outline-primary btn-sm mr-2"
-                        (click)="edit(product)"
-                      />
-
-                      <input
-                        type="button"
-                        value="刪除"
-                        class="btn btn-outline-danger btn-sm"
-                        [swal]="deleteSwal"
-                        (confirm)="remove(product.productId)"
-                      />
-                      <swal
-                        #deleteSwal
-                        title="確定刪除 {{ product.title }} ?"
-                        etc
-                      ></swal>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer bg-light border-top">
-              <!-- 分頁 -->
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <!-- 上一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasPrePage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Previous"
-                      (click)="
-                        getPageData(currentPage - 1); $event.preventDefault()
-                      "
-                    >
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <!-- 分頁清單 -->
-                  <li
-                    class="page-item"
-                    *ngFor="let pageNumber of totalPageArray"
-                    [ngClass]="{
-                      active: pagination.currentPage === pageNumber
-                    }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      (click)="getPageData(pageNumber); $event.preventDefault()"
-                      >{{ pageNumber }}</a
-                    >
-                  </li>
-                  <!-- 下一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasNextPage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Next"
-                      (click)="
-                        getPageData(currentPage + 1); $event.preventDefault()
-                      "
-                    >
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+            <div class="col-6 text-right">
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="新增"
+                (click)="create()"
+              />
             </div>
           </div>
         </div>
-      </section>
+        <div class="card-body table-responsive p-0">
+          <!-- 查詢內容 -->
+          <table class="table table-hover text-nowrap">
+            <thead class="bg-light">
+              <tr>
+                <th>產品名稱</th>
+                <th>產品分類</th>
+                <th>原價</th>
+                <th>售價</th>
+                <th>庫存</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{ product.title }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.originPrice }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.num }} {{ product.unit }}</td>
+                <td>
+                  <input
+                    type="button"
+                    value="編輯"
+                    class="btn btn-outline-primary btn-sm mr-2"
+                    (click)="edit(product)"
+                  />
+
+                  <input
+                    type="button"
+                    value="刪除"
+                    class="btn btn-outline-danger btn-sm"
+                    [swal]="deleteSwal"
+                    (confirm)="remove(product.productId)"
+                  />
+                  <swal
+                    #deleteSwal
+                    title="確定刪除 {{ product.title }} ?"
+                    etc
+                  ></swal>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer bg-light border-top">
+          <!-- 分頁 -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <!-- 上一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasPrePage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Previous"
+                  (click)="
+                    getPageData(currentPage - 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <!-- 分頁清單 -->
+              <li
+                class="page-item"
+                *ngFor="let pageNumber of totalPageArray"
+                [ngClass]="{
+                  active: pagination.currentPage === pageNumber
+                }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  (click)="getPageData(pageNumber); $event.preventDefault()"
+                  >{{ pageNumber }}</a
+                >
+              </li>
+              <!-- 下一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasNextPage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Next"
+                  (click)="
+                    getPageData(currentPage + 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </div>
+
 <ngx-loading [show]="loading"></ngx-loading>

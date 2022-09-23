@@ -1,149 +1,129 @@
-<div class="row">
-  <div class="col-md-12">
-    <app-navbar></app-navbar>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-2">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <div class="col-md-10">
-    <div>
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <h2>優惠券</h2>
-            </div>
-          </div>
+<div>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h2>優惠券</h2>
         </div>
-      </section>
-      <section class="content px-2">
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-header">
-              <div class="row">
-                <div class="col-6">
-                  <!-- 查詢 -->
-                </div>
-                <div class="col-6 text-right">
-                  <input
-                    type="button"
-                    class="btn btn-primary"
-                    value="新增"
-                    (click)="create()"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- 內容 -->
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead class="bg-light">
-                  <tr>
-                    <th>名稱</th>
-                    <th>優惠代碼</th>
-                    <th>折扣百分比</th>
-                    <th>到期日</th>
-                    <th>是否啟用</th>
-                    <th>編輯</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let coupon of coupons">
-                    <td>{{ coupon.title }}</td>
-                    <td>{{ coupon.couponCode }}</td>
-                    <td>{{ coupon.percent }} %</td>
-                    <td>
-                      {{
-                        coupon.dueDateTimeStamp | date: "yyyy-MM-dd HH:mm:ss"
-                      }}
-                    </td>
-                    <td>
-                      <span *ngIf="coupon.isEnabled" class="text-success"
-                        >啟用</span
-                      >
-                      <span
-                        *ngIf="coupon.isEnabled === false"
-                        class="text-muted"
-                        >未啟用</span
-                      >
-                    </td>
-                    <td>
-                      <button
-                        class="btn btn-outline-primary btn-sm"
-                        (click)="edit(coupon)"
-                      >
-                        編輯
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer bg-light border-top">
-              <!-- 分頁 -->
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <!-- 上一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasPrePage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Previous"
-                      (click)="
-                        getPageData(currentPage - 1); $event.preventDefault()
-                      "
-                    >
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <!-- 分頁清單 -->
-                  <li
-                    class="page-item"
-                    *ngFor="let pageNumber of totalPageArray"
-                    [ngClass]="{
-                      active: pagination.currentPage === pageNumber
-                    }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      (click)="
-                        getPageData(pageNumber); $event.preventDefault()
-                      "
-                      >{{ pageNumber }}</a
-                    >
-                  </li>
-                  <!-- 下一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasNextPage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Next"
-                      (click)="
-                        getPageData(currentPage + 1); $event.preventDefault()
-                      "
-                    >
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
-  </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <!-- 查詢 -->
+            </div>
+            <div class="col-6 text-right">
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="新增"
+                (click)="create()"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- 內容 -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead class="bg-light">
+              <tr>
+                <th>名稱</th>
+                <th>優惠代碼</th>
+                <th>折扣百分比</th>
+                <th>到期日</th>
+                <th>是否啟用</th>
+                <th>編輯</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let coupon of coupons">
+                <td>{{ coupon.title }}</td>
+                <td>{{ coupon.couponCode }}</td>
+                <td>{{ coupon.percent }} %</td>
+                <td>
+                  {{ coupon.dueDateTimeStamp | date: "yyyy-MM-dd HH:mm:ss" }}
+                </td>
+                <td>
+                  <span *ngIf="coupon.isEnabled" class="text-success"
+                    >啟用</span
+                  >
+                  <span *ngIf="coupon.isEnabled === false" class="text-muted"
+                    >未啟用</span
+                  >
+                </td>
+                <td>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    (click)="edit(coupon)"
+                  >
+                    編輯
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer bg-light border-top">
+          <!-- 分頁 -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <!-- 上一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasPrePage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Previous"
+                  (click)="
+                    getPageData(currentPage - 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <!-- 分頁清單 -->
+              <li
+                class="page-item"
+                *ngFor="let pageNumber of totalPageArray"
+                [ngClass]="{
+                  active: pagination.currentPage === pageNumber
+                }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  (click)="getPageData(pageNumber); $event.preventDefault()"
+                  >{{ pageNumber }}</a
+                >
+              </li>
+              <!-- 下一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasNextPage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Next"
+                  (click)="
+                    getPageData(currentPage + 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <ngx-loading [show]="loading"></ngx-loading>

@@ -37,6 +37,8 @@ import { FooterComponent } from './Portal/layout/footer/footer.component';
 import { MenuComponent } from './Portal/layout/menu/menu.component';
 import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navbar.component';
 import { Page404Component } from './Common/page/page404/page404.component';
+import { PortalComponent } from './Portal/portal/portal.component';
+import { AdminComponent } from './Admin/admin/admin.component';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -58,7 +60,9 @@ defineLocale('zh-cn', zhCnLocale);
     FooterComponent,
     MenuComponent,
     PortalNavbarComponent,
-    Page404Component
+    Page404Component,
+    PortalComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

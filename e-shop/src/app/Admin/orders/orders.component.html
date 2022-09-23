@@ -1,193 +1,178 @@
-<div class="row">
-  <div class="col-md-12">
-    <app-navbar></app-navbar>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-2">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <div class="col-md-10">
-    <div>
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <h2>訂單列表</h2>
-            </div>
-          </div>
+<div>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h2>訂單列表</h2>
         </div>
-      </section>
-      <section class="content px-2">
-        <div class="container-fluid">
-          <div class="card">
-            <!-- 查詢框 -->
-            <div class="card-header">
-              <div class="form-row">
-                <div class="form-group col-md-3 mb-0">
-                  <label for="">開始日期</label>
-                  <input
-                    type="text"
-                    placeholder="選擇開始日期"
-                    class="form-control"
-                    name="query_startDate"
-                    id="query_startDate"
-                    [(ngModel)]="query_startDate"
-                    [bsConfig]="{
-                      dateInputFormat: 'YYYY-MM-DD',
-                      showWeekNumbers: false
-                    }"
-                    bsDatepicker
-                  />
-                </div>
-                <div class="form-group col-md-3 mb-0">
-                  <label for="">結束日期</label>
-                  <input
-                    type="text"
-                    placeholder="選擇結束日期"
-                    class="form-control"
-                    name="query_endDate"
-                    id="query_endDate"
-                    [(ngModel)]="query_endDate"
-                    [bsConfig]="{
-                      dateInputFormat: 'YYYY-MM-DD',
-                      showWeekNumbers: false
-                    }"
-                    bsDatepicker
-                  />
-                </div>
-                <div class="form-group col-md-4 mb-0">
-                  <label for="paymentMethod">付款方式</label>
-                  <select
-                    id="paymentMethod"
-                    class="form-control"
-                    [(ngModel)]="query_paymentMethod"
-                  >
-                    <option disabled [ngValue]="null">請選擇</option>
-                    <option
-                      *ngFor="let paymentMethod of paymentMethodList"
-                      [ngValue]="paymentMethod.value"
-                    >
-                      {{ paymentMethod.text }}
-                    </option>
-                  </select>
-                </div>
-                <div class="form-group col-md-2 mb-0 pt-2">
-                  <br />
-                  <button class="btn btn-success" (click)="getPageData(1)">
-                    查詢
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- 內容 -->
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead class="bg-light">
-                  <tr>
-                    <th>購買時間</th>
-                    <th>Email</th>
-                    <th>訂單內容</th>
-                    <th>應付金額</th>
-                    <th>付款方式</th>
-                    <th>是否付款</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    *ngFor="let order of orders"
-                    [ngClass]="{ 'text-secondary': !order.isPaid }"
-                  >
-                    <td>
-                      {{ order.createDateTime | date: "yyyy-MM-dd HH:mm:ss" }}
-                    </td>
-                    <td>{{ order.email }}</td>
-                    <td>
-                      <ul
-                        class="list-unstyled"
-                        *ngIf="order.orderDetailInfos !== null"
-                      >
-                        <li *ngFor="let orderDetail of order.orderDetailInfos">
-                          {{ orderDetail.productTitle }} 數量 :
-                          {{ orderDetail.qty }} {{ orderDetail.productUnit }}
-                        </li>
-                      </ul>
-                    </td>
-                    <td>{{ order.totalAmount }}</td>
-                    <td>{{ order.paymentMethod }}</td>
-                    <td>
-                      <strong *ngIf="order.isPaid" class="text-success"
-                        >已付款</strong
-                      >
-                      <span *ngIf="order.isPaid === false" class="text-muted"
-                        >尚未付款</span
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer bg-light border-top">
-              <!-- 分頁 -->
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <!-- 上一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasPrePage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Previous"
-                      (click)="
-                        getPageData(currentPage - 1); $event.preventDefault()
-                      "
-                    >
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <!-- 分頁清單 -->
-                  <li
-                    class="page-item"
-                    *ngFor="let pageNumber of totalPageArray"
-                    [ngClass]="{
-                      active: pagination.currentPage === pageNumber
-                    }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      (click)="getPageData(pageNumber); $event.preventDefault()"
-                      >{{ pageNumber }}</a
-                    >
-                  </li>
-                  <!-- 下一頁 -->
-                  <li
-                    class="page-item"
-                    [ngClass]="{ disabled: pagination.hasNextPage === false }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      aria-label="Next"
-                      (click)="
-                        getPageData(currentPage + 1); $event.preventDefault()
-                      "
-                    >
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
-  </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <!-- 查詢框 -->
+        <div class="card-header">
+          <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+              <label for="">開始日期</label>
+              <input
+                type="text"
+                placeholder="選擇開始日期"
+                class="form-control"
+                name="query_startDate"
+                id="query_startDate"
+                [(ngModel)]="query_startDate"
+                [bsConfig]="{
+                  dateInputFormat: 'YYYY-MM-DD',
+                  showWeekNumbers: false
+                }"
+                bsDatepicker
+              />
+            </div>
+            <div class="form-group col-md-3 mb-0">
+              <label for="">結束日期</label>
+              <input
+                type="text"
+                placeholder="選擇結束日期"
+                class="form-control"
+                name="query_endDate"
+                id="query_endDate"
+                [(ngModel)]="query_endDate"
+                [bsConfig]="{
+                  dateInputFormat: 'YYYY-MM-DD',
+                  showWeekNumbers: false
+                }"
+                bsDatepicker
+              />
+            </div>
+            <div class="form-group col-md-4 mb-0">
+              <label for="paymentMethod">付款方式</label>
+              <select
+                id="paymentMethod"
+                class="form-control"
+                [(ngModel)]="query_paymentMethod"
+              >
+                <option disabled [ngValue]="null">請選擇</option>
+                <option
+                  *ngFor="let paymentMethod of paymentMethodList"
+                  [ngValue]="paymentMethod.value"
+                >
+                  {{ paymentMethod.text }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-2 mb-0 pt-2">
+              <br />
+              <button class="btn btn-success" (click)="getPageData(1)">
+                查詢
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 內容 -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead class="bg-light">
+              <tr>
+                <th>購買時間</th>
+                <th>Email</th>
+                <th>訂單內容</th>
+                <th>應付金額</th>
+                <th>付款方式</th>
+                <th>是否付款</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let order of orders"
+                [ngClass]="{ 'text-secondary': !order.isPaid }"
+              >
+                <td>
+                  {{ order.createDateTime | date: "yyyy-MM-dd HH:mm:ss" }}
+                </td>
+                <td>{{ order.email }}</td>
+                <td>
+                  <ul
+                    class="list-unstyled"
+                    *ngIf="order.orderDetailInfos !== null"
+                  >
+                    <li *ngFor="let orderDetail of order.orderDetailInfos">
+                      {{ orderDetail.productTitle }} 數量 :
+                      {{ orderDetail.qty }} {{ orderDetail.productUnit }}
+                    </li>
+                  </ul>
+                </td>
+                <td>{{ order.totalAmount }}</td>
+                <td>{{ order.paymentMethod }}</td>
+                <td>
+                  <strong *ngIf="order.isPaid" class="text-success"
+                    >已付款</strong
+                  >
+                  <span *ngIf="order.isPaid === false" class="text-muted"
+                    >尚未付款</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer bg-light border-top">
+          <!-- 分頁 -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <!-- 上一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasPrePage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Previous"
+                  (click)="
+                    getPageData(currentPage - 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <!-- 分頁清單 -->
+              <li
+                class="page-item"
+                *ngFor="let pageNumber of totalPageArray"
+                [ngClass]="{
+                  active: pagination.currentPage === pageNumber
+                }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  (click)="getPageData(pageNumber); $event.preventDefault()"
+                  >{{ pageNumber }}</a
+                >
+              </li>
+              <!-- 下一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasNextPage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Next"
+                  (click)="
+                    getPageData(currentPage + 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
-
 <ngx-loading [show]="loading"></ngx-loading>
