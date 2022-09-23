@@ -36,6 +36,7 @@ import { ProductComponent } from './Portal/product/product.component';
 import { FooterComponent } from './Portal/layout/footer/footer.component';
 import { MenuComponent } from './Portal/layout/menu/menu.component';
 import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navbar.component';
+import { Page404Component } from './Common/page/page404/page404.component';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -56,7 +57,8 @@ defineLocale('zh-cn', zhCnLocale);
     ProductComponent,
     FooterComponent,
     MenuComponent,
-    PortalNavbarComponent
+    PortalNavbarComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,
