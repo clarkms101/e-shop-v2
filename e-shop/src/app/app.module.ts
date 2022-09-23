@@ -39,6 +39,7 @@ import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navb
 import { Page404Component } from './Common/page/page404/page404.component';
 import { PortalComponent } from './Portal/portal/portal.component';
 import { AdminComponent } from './Admin/admin/admin.component';
+import { ProductListComponent } from './Portal/product-list/product-list.component';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -62,7 +63,8 @@ defineLocale('zh-cn', zhCnLocale);
     PortalNavbarComponent,
     Page404Component,
     PortalComponent,
-    AdminComponent
+    AdminComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

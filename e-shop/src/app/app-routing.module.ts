@@ -11,11 +11,16 @@ import { IndexComponent } from './Portal/index/index.component';
 import { PortalComponent } from './Portal/portal/portal.component';
 
 const routes: Routes = [
+  // layout 頁面(導至預設頁面)
+  { path: 'portal', redirectTo: 'portal/index' },
+  { path: 'admin', redirectTo: 'admin/login' },
+  // portal 頁面
   {
     path: 'portal', component: PortalComponent, children: [
       { path: 'index', component: IndexComponent },
     ]
   },
+  // admin 頁面
   { path: 'admin/login', component: LoginComponent },
   {
     path: 'admin', component: AdminComponent, children: [
@@ -24,8 +29,9 @@ const routes: Routes = [
       { path: 'coupons', component: CouponsComponent, canActivate: [AuthGuardService] },
     ]
   },
+  // 其它頁面
   { path: '404', component: Page404Component },
-  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: '', redirectTo: 'portal/index', pathMatch: 'full' },
   { path: '**', redirectTo: '404' }
 ];
 
