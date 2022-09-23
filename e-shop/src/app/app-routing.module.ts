@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'src/shared/services/auth-guard.service';
-import { AdminComponent } from './Admin/admin/admin.component';
+import { AdminComponent } from './Admin/layout/admin/admin.component';
 import { CouponsComponent } from './Admin/coupons/coupons.component';
 import { LoginComponent } from './Admin/login/login.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
 import { ProductsComponent } from './Admin/products/products.component';
 import { Page404Component } from './Common/page/page404/page404.component';
 import { IndexComponent } from './Portal/index/index.component';
-import { PortalComponent } from './Portal/portal/portal.component';
+import { PortalComponent } from './Portal/layout/portal/portal.component';
 
 const routes: Routes = [
   // layout 頁面(導至預設頁面)
