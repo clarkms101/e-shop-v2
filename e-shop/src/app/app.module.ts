@@ -76,13 +76,13 @@ defineLocale('zh-cn', zhCnLocale);
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.wanderingCubes,
-      backdropBackgroundColour: "rgba(0,0,0,0.1)",
-      backdropBorderRadius: "4px",
+      animationType: ngxLoadingAnimationTypes.pulse,
+      backdropBackgroundColour: "rgba(255,255,255,0.3)",
+      backdropBorderRadius: "10px",
       fullScreenBackdrop: true,
-      primaryColour: "#ffffff",
-      secondaryColour: "#ffffff",
-      tertiaryColour: "#ffffff",
+      primaryColour: "#D0D0D0",
+      secondaryColour: "#D0D0D0",
+      tertiaryColour: "#D0D0D0",
     }),
     SweetAlert2Module.forRoot(),
     // ngx-bootstrap
