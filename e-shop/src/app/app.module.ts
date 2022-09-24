@@ -6,7 +6,6 @@ import { Client } from 'src/shared/api client/service-proxies';
 import { API_BASE_URL } from 'src/shared/api client/service-proxies';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IndexComponent } from './Portal/index/index.component';
 import { LoginComponent } from './Admin/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './Admin/products/products.component';
@@ -37,16 +36,15 @@ import { FooterComponent } from './Portal/layout/footer/footer.component';
 import { MenuComponent } from './Portal/layout/menu/menu.component';
 import { PortalNavbarComponent } from './Portal/layout/portal-navbar/portal-navbar.component';
 import { Page404Component } from './Common/page/page404/page404.component';
-import { PortalComponent } from './Portal/layout/portal/portal.component';
-import { AdminComponent } from './Admin/layout/admin/admin.component';
 import { ProductListComponent } from './Portal/product-list/product-list.component';
+import { PortalLayoutComponent } from './Portal/layout/portal-layout/portal-layout.component';
+import { AdminLayoutComponent } from './Admin/layout/admin-layout/admin-layout.component';
 
 defineLocale('zh-cn', zhCnLocale);
 
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent,
     LoginComponent,
     ProductsComponent,
     SidebarComponent,
@@ -62,9 +60,9 @@ defineLocale('zh-cn', zhCnLocale);
     MenuComponent,
     PortalNavbarComponent,
     Page404Component,
-    PortalComponent,
-    AdminComponent,
-    ProductListComponent
+    ProductListComponent,
+    PortalLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -103,5 +101,5 @@ defineLocale('zh-cn', zhCnLocale);
 export class AppModule {
   constructor(private bsLocaleService: BsLocaleService) {
     this.bsLocaleService.use('zh-cn');
-    }
+  }
 }

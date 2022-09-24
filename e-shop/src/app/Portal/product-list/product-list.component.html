@@ -1,111 +1,150 @@
-<div class="d-flex mb-4">
-  <!-- Search bar -->
-  <form class="form-inline my-3 my-lg-0">
-    <div class="input-group">
-      <input
-        class="form-control"
-        type="text"
-        placeholder="請輸入產品相關名稱"
-        aria-label="Search"
-      />
-      <div class="input-group-append">
-        <button class="btn btn-outline-warning" type="submit">
-          <i class="fa fa-search" aria-hidden="true"></i> 搜尋
-        </button>
-      </div>
+<div class="jumbotron jumbotron-fluid jumbotron-bg d-flex align-items-end">
+  <div class="container">
+    <div class="p-3 bg-lighter">
+      <h1 class="display-3 font-weight-bold">買到剁手手！最後出清</h1>
+      <p class="lead">
+        This is a modified jumbotron that occupies the entire horizontal space
+        of its parent.
+      </p>
     </div>
-  </form>
+  </div>
 </div>
-<!-- 產品列表 -->
-<div class="tab-content">
-  <div class="tab-pane active">
-    <div class="row">
-      <!-- 產品 -->
-      <div class="col-md-4 mb-4" *ngFor="let product of products">
-        <div class="card border-0 box-shadow text-center h-100">
-          <img class="card-img-top" [src]="product.imageUrl" alt="產品圖片" />
-          <div class="card-body">
-            <h4 class="card-title">{{ product.title }}</h4>
-            <p class="card-text">
-              {{ product.description }}
-            </p>
-            <p class="card-text">
-              {{ product.content }}
-            </p>
+<div class="container main-contant mb-1">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- layout - menu -->
+      <app-menu></app-menu>
+    </div>
+
+    <div class="col-md-9">
+      <div class="d-flex mb-4">
+        <!-- Search bar -->
+        <form class="form-inline my-3 my-lg-0">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="請輸入產品相關名稱"
+              aria-label="Search"
+              id="queryProductName"
+              name="queryProductName"
+              [(ngModel)]="queryProductName"
+              (keyup.enter)="getPageData(1)"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-warning"
+                type="submit"
+                (click)="getPageData(1)"
+              >
+                <i class="fa fa-search" aria-hidden="true"></i> 搜尋
+              </button>
+            </div>
           </div>
-          <div class="card-footer border-top-0 bg-white">
-            <!-- 啟用中 -->
-            <!-- todo 導向產品明細頁面 -->
-            <a
-              *ngIf="product.isEnabled === true"
-              href=""
-              class="btn btn-outline-secondary btn-block btn-sm"
-            >
-              <i class="fa fa-cart-plus" aria-hidden="true"></i>
-              搶購去
-            </a>
-            <!-- 停用中 -->
-            <a
-              *ngIf="product.isEnabled === false"
-              href=""
-              class="btn btn-secondary btn-user btn-block disabled"
-            >
-              <i class="fa fa-truck"></i>
-              即將到貨
-            </a>
+        </form>
+      </div>
+      <!-- 產品列表 -->
+      <div class="tab-content">
+        <div class="tab-pane active">
+          <div class="row">
+            <!-- 產品 -->
+            <div class="col-md-4 mb-4" *ngFor="let product of products">
+              <div class="card border-0 box-shadow text-center h-100">
+                <img
+                  class="card-img-top"
+                  [src]="product.imageUrl"
+                  alt="產品圖片"
+                />
+                <div class="card-body">
+                  <h4 class="card-title">{{ product.title }}</h4>
+                  <p class="card-text">
+                    {{ product.description }}
+                  </p>
+                  <p class="card-text">
+                    {{ product.content }}
+                  </p>
+                </div>
+                <div class="card-footer border-top-0 bg-white">
+                  <!-- 啟用中 -->
+                  <!-- todo 導向產品明細頁面 -->
+                  <a
+                    *ngIf="product.isEnabled === true"
+                    href=""
+                    [routerLink]="['/portal/product']"
+                    class="btn btn-outline-secondary btn-block btn-sm"
+                  >
+                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    搶購去
+                  </a>
+                  <!-- 停用中 -->
+                  <a
+                    *ngIf="product.isEnabled === false"
+                    href=""
+                    class="btn btn-secondary btn-user btn-block disabled"
+                  >
+                    <i class="fa fa-truck"></i>
+                    即將到貨
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- pagination -->
+          <nav aria-label="Page navigation" class="my-5">
+            <ul class="pagination justify-content-center">
+              <!-- 上一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasPrePage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Previous"
+                  (click)="
+                    getPageData(currentPage - 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <!-- 分頁清單 -->
+              <li
+                class="page-item"
+                *ngFor="let pageNumber of totalPageArray"
+                [ngClass]="{
+                  active: pagination.currentPage === pageNumber
+                }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  (click)="getPageData(pageNumber); $event.preventDefault()"
+                  >{{ pageNumber }}</a
+                >
+              </li>
+              <!-- 下一頁 -->
+              <li
+                class="page-item"
+                [ngClass]="{ disabled: pagination.hasNextPage === false }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  aria-label="Next"
+                  (click)="
+                    getPageData(currentPage + 1); $event.preventDefault()
+                  "
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
-
-    <!-- pagination -->
-    <nav aria-label="Page navigation" class="my-5">
-      <ul class="pagination justify-content-center">
-        <!-- 上一頁 -->
-        <li
-          class="page-item"
-          [ngClass]="{ disabled: pagination.hasPrePage === false }"
-        >
-          <a
-            class="page-link"
-            href="#"
-            aria-label="Previous"
-            (click)="getPageData(currentPage - 1); $event.preventDefault()"
-          >
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <!-- 分頁清單 -->
-        <li
-          class="page-item"
-          *ngFor="let pageNumber of totalPageArray"
-          [ngClass]="{
-            active: pagination.currentPage === pageNumber
-          }"
-        >
-          <a
-            class="page-link"
-            href="#"
-            (click)="getPageData(pageNumber); $event.preventDefault()"
-            >{{ pageNumber }}</a
-          >
-        </li>
-        <!-- 下一頁 -->
-        <li
-          class="page-item"
-          [ngClass]="{ disabled: pagination.hasNextPage === false }"
-        >
-          <a
-            class="page-link"
-            href="#"
-            aria-label="Next"
-            (click)="getPageData(currentPage + 1); $event.preventDefault()"
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </div>
 
