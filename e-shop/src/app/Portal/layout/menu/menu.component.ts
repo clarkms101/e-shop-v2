@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   menuItemArray: Array<menuItem> = [];
+  @Input() selectCategory: string = "";
 
   constructor() { }
 
@@ -28,6 +29,12 @@ export class MenuComponent implements OnInit {
     menuItem3.itemCategory = '寵物用品';
     menuItem3.itemIsActive = false;
     this.menuItemArray.push(menuItem3);
+
+    this.menuItemArray.forEach(item => {
+      if (item.itemCategory == this.selectCategory) {
+        item.itemIsActive = true;
+      }
+    });
   }
 
   activeItem(itemIndex: number): void {
