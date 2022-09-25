@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
     let menuItem1 = new menuItem();
     menuItem1.itemName = '金牌專賣店';
     menuItem1.itemCategory = '金牌';
-    menuItem1.itemIsActive = true;
+    menuItem1.itemIsActive = false;
     this.menuItemArray.push(menuItem1);
 
     let menuItem2 = new menuItem();

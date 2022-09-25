@@ -66,11 +66,11 @@
                 </div>
                 <div class="card-footer border-top-0 bg-white">
                   <!-- 啟用中 -->
-                  <!-- todo 導向產品明細頁面 -->
                   <a
                     *ngIf="product.isEnabled === true"
                     href=""
                     [routerLink]="['/portal/product']"
+                    [queryParams]="{ productId: product.productId }"
                     class="btn btn-outline-secondary btn-block btn-sm"
                   >
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>

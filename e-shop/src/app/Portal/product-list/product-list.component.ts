@@ -8,8 +8,6 @@ import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/ap
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  // route params
-
   // data
   products: Product[] = [];
   // query
