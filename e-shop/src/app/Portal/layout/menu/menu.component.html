@@ -4,27 +4,42 @@
   <a
     class="list-group-item list-group-item-action"
     data-toggle="list"
+    [ngClass]="{
+      active: menuItemArray[0].itemIsActive === true
+    }"
     [routerLink]="['/portal/products']"
-    [queryParams]="{ category: '金牌' }"
+    [queryParams]="{ category: menuItemArray[0].itemCategory }"
+    (click)="activeItem(0)"
   >
-    <i class="fa fa-suitcase" aria-hidden="true"></i> 金牌專賣店</a
+    <i class="fa fa-suitcase" aria-hidden="true"></i>
+    {{ menuItemArray[0].itemName }}</a
   >
   <!-- 禮品 -->
   <a
     class="list-group-item list-group-item-action"
     data-toggle="list"
+    [ngClass]="{
+      active: menuItemArray[1].itemIsActive === true
+    }"
     [routerLink]="['/portal/products']"
-    [queryParams]="{ category: '禮品' }"
+    [queryParams]="{ category: menuItemArray[1].itemCategory }"
+    (click)="activeItem(1)"
   >
-    <i class="fa fa-gift" aria-hidden="true"></i> 禮品區</a
+    <i class="fa fa-gift" aria-hidden="true"></i>
+    {{ menuItemArray[1].itemName }}</a
   >
   <!-- 寵物用品 -->
   <a
     class="list-group-item list-group-item-action"
     data-toggle="list"
+    [ngClass]="{
+      active: menuItemArray[2].itemIsActive === true
+    }"
     [routerLink]="['/portal/products']"
-    [queryParams]="{ category: '寵物用品' }"
+    [queryParams]="{ category: menuItemArray[2].itemCategory }"
+    (click)="activeItem(2)"
   >
-    <i class="fa fa-paw" aria-hidden="true"></i> 寵物用品</a
+    <i class="fa fa-paw" aria-hidden="true"></i>
+    {{ menuItemArray[2].itemName }}</a
   >
 </div>
