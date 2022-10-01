@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationError, Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Client, Product } from 'src/shared/api client/service-proxies';
 
 @Component({
@@ -17,28 +16,19 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private activeRoute: ActivatedRoute,
+    private _activeRoute: ActivatedRoute,
     private _apiClient: Client
-  ) {
-    this._router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
-        this.activeRoute.queryParams
-          .subscribe(params => {
-            if (params['productId'] !== undefined) {
-              this.productId = params['productId'] as number;
-              this.getProductData(this.productId);
-            } else {
-              this._router.navigate(['portal/products']);
-            }
-          });
-      }
-      if (event instanceof NavigationError) {
-        console.log(event.error);
-      }
-    });
-  }
+  ) { }
 
   ngOnInit(): void {
+    this._activeRoute.queryParams.subscribe(queryParams => {
+      if (queryParams['productId'] !== undefined) {
+        this.productId = queryParams['productId'] as number;
+        this.getProductData(this.productId);
+      } else {
+        this._router.navigate(['portal/products']);
+      }
+    });
   }
 
   getProductData(productId: number) {

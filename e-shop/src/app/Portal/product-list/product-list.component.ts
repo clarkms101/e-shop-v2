@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
 
 @Component({
@@ -20,47 +20,26 @@ export class ProductListComponent implements OnInit {
   loading = false;
 
   constructor(
-    private router: Router,
-    private activeRoute: ActivatedRoute,
+    private _activeRoute: ActivatedRoute,
     private _apiClient: Client
-  ) {
-    this.router.events.subscribe((event: any) => {
-      // NavigationStart
-      if (event instanceof NavigationStart) {
-        // QueryString參數 尚未有值
-      }
-
-      // NavigationEnd
-      if (event instanceof NavigationEnd) {
-        // console.log(event);
-
-        // 取得QueryString參數
-        this.activeRoute.queryParams
-          .subscribe(params => {
-            // console.log(params);
-
-            if (params['category'] !== undefined) {
-              this.queryCategoryName = params['category'];
-              // console.log(this.queryCategoryName);
-
-            } else {
-              let defaultCategory = '金牌';
-              this.queryCategoryName = defaultCategory;
-            }
-          });
-
-        this.getPageData(1);
-      }
-
-      // NavigationError
-      if (event instanceof NavigationError) {
-        // console.log(event.error);
-      }
-    });
-  }
+  ) { }
 
   ngOnInit(): void {
+    this._activeRoute.queryParams.subscribe(queryParams => {
+      // console.log('activeRoute queryParams change!');
 
+      // 取得QueryString參數
+      if (queryParams['category'] !== undefined) {
+        this.queryCategoryName = queryParams['category'];
+        // console.log(this.queryCategoryName);
+
+      } else {
+        let defaultCategory = '金牌';
+        this.queryCategoryName = defaultCategory;
+      }
+
+      this.getPageData(1);
+    });
   }
 
   getPageData(page: number): void {
