@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Client, Product } from 'src/shared/api client/service-proxies';
+import { CartDetail, Client, CreateCartDetailRequest, Product } from 'src/shared/api client/service-proxies';
 
 @Component({
   selector: 'app-product',
@@ -48,8 +48,19 @@ export class ProductComponent implements OnInit {
 
   addToCart() {
     if (this.selectQty !== 0) {
-      // todo 加入購物車快取 id, qty
-      this._toastr.success(`${this.product.title} x ${this.selectQty} ${this.product.unit} 已加入購物車!`);
+      let request = new CreateCartDetailRequest();
+      request.cartDetail = new CartDetail();
+      request.cartDetail.productId = this.product.productId;
+      request.cartDetail.qty = this.selectQty;
+
+      this._apiClient.cartPOST(request).subscribe((response) => {
+        if (response.success) {
+          this._toastr.success(`${this.product.title} x ${this.selectQty} ${this.product.unit} 已加入購物車!`);
+          // todo 更新navbar購物車的數量
+        } else {
+          this._toastr.error(response.message);
+        }
+      });
     }
     else {
       this._toastr.warning('請選擇購買數量!');
