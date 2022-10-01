@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-portal-navbar',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./portal-navbar.component.css']
 })
 export class PortalNavbarComponent implements OnInit {
+  shoppingCarItemCount: number = 0
 
-  constructor() { }
+  constructor(
+    private store: Store<{
+      shoppingCarItemCount: number
+    }>
+  ) { }
 
   ngOnInit(): void {
+    this.store.select('shoppingCarItemCount').subscribe(data => {
+      this.shoppingCarItemCount = data;
+    });
   }
-
 }

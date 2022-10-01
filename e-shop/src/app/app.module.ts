@@ -12,6 +12,9 @@ import { ProductsComponent } from './Admin/products/products.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+// ngrx
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 // ngx-bootstrap
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { zhCnLocale } from 'ngx-bootstrap/locale'
@@ -39,6 +42,8 @@ import { Page404Component } from './Common/page/page404/page404.component';
 import { ProductListComponent } from './Portal/product-list/product-list.component';
 import { PortalLayoutComponent } from './Portal/layout/portal-layout/portal-layout.component';
 import { AdminLayoutComponent } from './Admin/layout/admin-layout/admin-layout.component';
+import { ShoppingCar_RootEffects } from 'src/shared/store/shopping-car.effects';
+import { shoppingCarItemCountReducer } from 'src/shared/store/shopping-car.reducer';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -72,7 +77,11 @@ defineLocale('zh-cn', zhCnLocale);
     FormsModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.pulse,
       backdropBackgroundColour: "rgba(255,255,255,0.3)",
@@ -89,7 +98,12 @@ defineLocale('zh-cn', zhCnLocale);
     CollapseModule,
     TabsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    // ngrx
+    EffectsModule.forRoot([ShoppingCar_RootEffects]),
+    StoreModule.forRoot({
+      shoppingCarItemCount: shoppingCarItemCountReducer
+    }),
   ],
   providers: [
     Client,

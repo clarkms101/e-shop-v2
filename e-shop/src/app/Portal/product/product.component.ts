@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { CartDetail, Client, CreateCartDetailRequest, Product } from 'src/shared/api client/service-proxies';
+import { CallApiGetShoppingCarItemCount } from 'src/shared/store/shopping-car.action';
+import { ShoppingCar_RootState } from 'src/shared/store/shopping-car.reducer';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +22,8 @@ export class ProductComponent implements OnInit {
     private _router: Router,
     private _activeRoute: ActivatedRoute,
     private _apiClient: Client,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _store: Store<{ rootState: ShoppingCar_RootState }>
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +60,7 @@ export class ProductComponent implements OnInit {
       this._apiClient.cartPOST(request).subscribe((response) => {
         if (response.success) {
           this._toastr.success(`${this.product.title} x ${this.selectQty} ${this.product.unit} 已加入購物車!`);
-          // todo 更新navbar購物車的數量
+          this._store.dispatch(CallApiGetShoppingCarItemCount());
         } else {
           this._toastr.error(response.message);
         }
