@@ -2,7 +2,7 @@
   <nav aria-label="breadcrumb" role="navigation">
     <ol class="breadcrumb bg-transparent pl-0">
       <li class="breadcrumb-item">
-        <a href="/">首頁</a>
+        <a [routerLink]="['/portal/products']">首頁</a>
       </li>
       <li class="breadcrumb-item">
         <a
@@ -58,11 +58,15 @@
             [(ngModel)]="selectQty"
           >
             <option [ngValue]="0" disabled>-- 請選擇數量 --</option>
-            <option *ngFor="let qty of QtyArray">
+            <option *ngFor="let qty of QtyArray" [ngValue]="qty">
               {{ qty }} {{ product.unit }}
             </option>
           </select>
-          <a href="shoppingCart-checkout.html" class="btn btn-primary">
+          <a
+            href=""
+            class="btn btn-primary"
+            (click)="addToCart(); $event.preventDefault()"
+          >
             <i class="fa fa-cart-plus" aria-hidden="true"></i> 加入購物車
           </a>
         </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Client, Product } from 'src/shared/api client/service-proxies';
 
 @Component({
@@ -17,7 +18,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private _router: Router,
     private _activeRoute: ActivatedRoute,
-    private _apiClient: Client
+    private _apiClient: Client,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +44,15 @@ export class ProductComponent implements OnInit {
       let maxQty = new Array(10);
       this.QtyArray = Array.from(maxQty, (x, i) => i + 1)
     });
+  }
+
+  addToCart() {
+    if (this.selectQty !== 0) {
+      // todo 加入購物車快取 id, qty
+      this._toastr.success(`${this.product.title} x ${this.selectQty} ${this.product.unit} 已加入購物車!`);
+    }
+    else {
+      this._toastr.warning('請選擇購買數量!');
+    }
   }
 }
