@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
 
 @Component({
@@ -20,6 +21,7 @@ export class ProductListComponent implements OnInit {
   loading = false;
 
   constructor(
+    private _router: Router,
     private _activeRoute: ActivatedRoute,
     private _apiClient: Client
   ) { }
@@ -51,11 +53,15 @@ export class ProductListComponent implements OnInit {
     request.category = this.queryCategoryName;
     this._apiClient.products(request).subscribe((response) => {
       if (response.products !== undefined && response.pagination !== undefined) {
-        this.products = response.products;
-        this.pagination = response.pagination;
-        this.currentPage = response.pagination.currentPage as number;
-        let totalPages = response.pagination.totalPages as number;
-        this.totalPageArray = Array.from(new Array(totalPages), (x, i) => i + 1)
+        if (response.success && response.products.length > 0) {
+          this.products = response.products;
+          this.pagination = response.pagination;
+          this.currentPage = response.pagination.currentPage as number;
+          let totalPages = response.pagination.totalPages as number;
+          this.totalPageArray = Array.from(new Array(totalPages), (x, i) => i + 1)
+        } else {
+          this._router.navigate(['portal/products']);
+        }
       }
       this.loading = false;
     });

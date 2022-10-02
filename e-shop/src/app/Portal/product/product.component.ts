@@ -30,7 +30,12 @@ export class ProductComponent implements OnInit {
     this._activeRoute.queryParams.subscribe(queryParams => {
       if (queryParams['productId'] !== undefined) {
         this.productId = queryParams['productId'] as number;
-        this.getProductData(this.productId);
+        // 檢查是否為數字
+        if (isNaN(this.productId)) {
+          this._router.navigate(['portal/products']);
+        } else {
+          this.getProductData(this.productId);
+        }
       } else {
         this._router.navigate(['portal/products']);
       }
@@ -40,13 +45,17 @@ export class ProductComponent implements OnInit {
   getProductData(productId: number) {
     this.loading = true;
     this._apiClient.productGET(productId).subscribe((response) => {
-      this.product = response.product as Product;
+      if (response.success) {
+        this.product = response.product as Product;
+        // todo 先固定上限10單位
+        // let maxQty = new Array(this.product.num as number);
+        let maxQty = new Array(10);
+        this.QtyArray = Array.from(maxQty, (x, i) => i + 1)
+      } else {
+        this._router.navigate(['portal/products']);
+        this._toastr.error('查無此商品!');
+      }
       this.loading = false;
-
-      // todo 先固定上限10單位
-      // let maxQty = new Array(this.product.num as number);
-      let maxQty = new Array(10);
-      this.QtyArray = Array.from(maxQty, (x, i) => i + 1)
     });
   }
 
