@@ -10,6 +10,7 @@ import { ProductComponent } from './Portal/product/product.component';
 import { ProductListComponent } from './Portal/product-list/product-list.component';
 import { PortalLayoutComponent } from './Portal/layout/portal-layout/portal-layout.component';
 import { AdminLayoutComponent } from './Admin/layout/admin-layout/admin-layout.component';
+import { ShoppingCartCheckoutComponent } from './Portal/shopping-cart-checkout/shopping-cart-checkout.component';
 
 const routes: Routes = [
   // layout 頁面(導至預設頁面)
@@ -20,6 +21,7 @@ const routes: Routes = [
     path: 'portal', component: PortalLayoutComponent, children: [
       { path: 'products', component: ProductListComponent },
       { path: 'product', component: ProductComponent },
+      { path: 'shopping-cart-checkout', component: ShoppingCartCheckoutComponent },
     ]
   },
   // admin 頁面
@@ -38,7 +40,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
