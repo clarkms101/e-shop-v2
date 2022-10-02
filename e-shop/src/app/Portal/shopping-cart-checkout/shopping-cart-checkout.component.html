@@ -23,15 +23,32 @@
       <div class="card">
         <div class="card-header" id="headingOne">
           <h6 class="mb-0 d-flex align-items-center">
-            <a data-toggle="collapse" href="#collapseOne">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseBasic"
+            >
               顯示購物車細節
-              <i class="fa fa-angle-down" aria-hidden="true"></i>
-            </a>
-            <span class="h3 ml-auto mb-0">$520</span>
+              <i
+                class="fa fa-angle-down"
+                aria-hidden="true"
+                *ngIf="isCollapsed"
+              ></i>
+              <i
+                class="fa fa-angle-up"
+                aria-hidden="true"
+                *ngIf="isCollapsed === false"
+              ></i>
+            </button>
+            <span class="h3 ml-auto mb-0">{{
+              finalTotalAmount | currency: "TWD":"symbol":"1.0-0"
+            }}</span>
           </h6>
         </div>
       </div>
-      <div id="collapseOne" class="collapse mt-3">
+      <div id="collapseBasic" [collapse]="isCollapsed">
         <table class="table table-sm">
           <thead>
             <tr>
@@ -43,38 +60,75 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <!-- 商品資訊 -->
+            <tr *ngFor="let item of carts">
               <td class="align-middle text-center">
-                <a
-                  href="#removeModal"
-                  class="text-muted"
-                  data-toggle="modal"
-                  data-title="刪除 金牌西裝 1 件"
+                <!-- 刪除商品 -->
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  [swal]="deleteSwal"
                 >
-                  <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
+                  <i class="fa fa-trash-o"></i>
+                </button>
+                <swal
+                  #deleteSwal
+                  title="確定移除 {{ getProduct(item.product).title }} ?"
+                  text="從購物車移除商品"
+                  [showCancelButton]="true"
+                  [focusCancel]="true"
+                  (confirm)="removeFromCart(item.cartDetailId)"
+                ></swal>
               </td>
               <td class="align-middle">
                 <img
-                  src="https://images.unsplash.com/photo-1494281258937-45f28753affd?w=1350"
+                  [src]="getProduct(item.product).imageUrl"
+                  alt="產品圖片"
                   class="img-fluid img-thumbnail"
-                  alt=""
                 />
               </td>
-              <td class="align-middle">金牌西裝</td>
-              <td class="align-middle">1 件</td>
-              <td class="align-middle text-right">$520</td>
+              <td class="align-middle">
+                <a
+                  [routerLink]="['/portal/product']"
+                  [queryParams]="{
+                    productId: getProduct(item.product).productId
+                  }"
+                  >{{ getProduct(item.product).title }}</a
+                >
+              </td>
+              <td class="align-middle">
+                {{ item.qty }} {{ getProduct(item.product).unit }}
+              </td>
+              <td class="align-middle text-right">
+                {{
+                  getShoppingItemPrice(item) | currency: "TWD":"symbol":"1.0-0"
+                }}
+              </td>
             </tr>
+
+            <!-- 運費 -->
             <tr>
               <td colspan="4" class="text-right">運費</td>
               <td class="text-right">
-                <strong>$60</strong>
+                <strong>$0</strong>
               </td>
             </tr>
-            <tr>
+
+            <!-- 合計 -->
+            <tr *ngIf="finalTotalAmount !== totalAmount">
+              <td colspan="4" class="text-right text-success">合計</td>
+              <td class="text-right text-success">
+                <strong>{{
+                  finalTotalAmount | currency: "TWD":"symbol":"1.0-0"
+                }}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="finalTotalAmount === totalAmount">
               <td colspan="4" class="text-right">合計</td>
               <td class="text-right">
-                <strong>$580</strong>
+                <strong>{{
+                  totalAmount | currency: "TWD":"symbol":"1.0-0"
+                }}</strong>
               </td>
             </tr>
           </tbody>
@@ -143,7 +197,13 @@
           <a [routerLink]="['/portal/products']" class="btn btn-secondary mr-2"
             >繼續選購</a
           >
-          <button type="submit" class="btn btn-primary">確認付款</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            *ngIf="carts.length !== 0"
+          >
+            確認付款
+          </button>
           <!-- <a href="" class="btn btn-primary"
             >確認付款</a
           > -->

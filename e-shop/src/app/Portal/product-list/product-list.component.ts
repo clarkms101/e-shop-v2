@@ -27,6 +27,8 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this._activeRoute.queryParams.subscribe(queryParams => {
       // console.log('activeRoute queryParams change!');
 
@@ -45,7 +47,6 @@ export class ProductListComponent implements OnInit {
   }
 
   getPageData(page: number): void {
-    this.loading = true;
     let request = new QueryProductsRequest();
     request.page = page;
     request.pageSize = 6;
