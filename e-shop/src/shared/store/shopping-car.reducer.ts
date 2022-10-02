@@ -1,16 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
+import { QueryCartResponse } from "../api client/service-proxies";
 import { UpdateShoppingCarItemCountStore } from "./shopping-car.action";
 
 export interface ShoppingCar_RootState {
-  shoppingCarItemCount: number;
+  shoppingCarInfo: QueryCartResponse;
 }
 
 export const initialState: ShoppingCar_RootState = {
-  shoppingCarItemCount: 0
+  shoppingCarInfo: new QueryCartResponse()
 }
 
 export const shoppingCarItemCountReducer =
   createReducer(
-    initialState.shoppingCarItemCount,
+    initialState.shoppingCarInfo,
     on(UpdateShoppingCarItemCountStore, (state, action) => action.payload),
   );

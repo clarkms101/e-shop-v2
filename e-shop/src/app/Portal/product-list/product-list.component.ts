@@ -21,7 +21,7 @@ export class ProductListComponent implements OnInit {
   loading = false;
 
   constructor(
-    private _router: Router,
+    private _toastr: ToastrService,
     private _activeRoute: ActivatedRoute,
     private _apiClient: Client
   ) { }
@@ -60,9 +60,10 @@ export class ProductListComponent implements OnInit {
           let totalPages = response.pagination.totalPages as number;
           this.totalPageArray = Array.from(new Array(totalPages), (x, i) => i + 1)
         } else {
-          this._router.navigate(['portal/products']);
+          this._toastr.warning('查無商品資料!');
         }
       }
+      this.queryProductName = '';
       this.loading = false;
     });
   }

@@ -1,16 +1,77 @@
 <nav class="navbar navbar-light bg-light">
-  <a [routerLink]="['/portal/products']" class="logo-text">
+  <a [routerLink]="['/portal/products']" class="navbar-brand logo-text">
     <i class="fa fa-heart text-info" aria-hidden="true"></i>
     E-Shop
   </a>
+
   <!-- 購物車的商品數量-->
-  <div class="dropdown ml-auto">
-    <a href="" class="btn btn-sm btn-cart">
+  <div class="ml-auto" dropdown>
+    <!-- 圖示 -->
+    <button
+      id="button-basic"
+      dropdownToggle
+      type="button"
+      class="btn btn-sm btn-cart bg-light"
+      aria-controls="dropdown-basic"
+    >
       <i class="fa fa-shopping-cart text-dark fa-2x" aria-hidden="true"></i>
       <span class="badge badge-pill badge-danger">{{
         shoppingCarItemCount
       }}</span>
       <span class="sr-only">unread messages</span>
-    </a>
+    </button>
+    <!-- 內容 -->
+    <div
+      id="dropdown-basic"
+      *dropdownMenu
+      class="dropdown-menu dropdown-menu-right p-3 mr-3"
+      style="min-width: 350px"
+      data-offset="400"
+    >
+      <h6>已選擇商品</h6>
+      <table class="table table-sm">
+        <!-- 有商品 -->
+        <tbody *ngIf="this.shoppingCarItemCount !== 0">
+          <tr *ngFor="let item of shoppingCarItemInfoList">
+            <td class="align-middle text-center">
+              <!-- 刪除商品 -->
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                [swal]="deleteSwal"
+              >
+                <i class="fa fa-trash-o"></i>
+              </button>
+              <swal
+                #deleteSwal
+                title="確定移除 {{ getProduct(item.product).title }} ?"
+                text="從購物車移除商品"
+                [showCancelButton]="true"
+                [focusCancel]="true"
+                (confirm)="removeFromCart(item.cartDetailId)"
+              ></swal>
+            </td>
+            <td class="align-middle">{{ getProduct(item.product).title }}</td>
+            <td class="align-middle">
+              {{ item.qty }} {{ getProduct(item.product).unit }}
+            </td>
+            <td class="align-middle text-right">
+              {{
+                getShoppingItemPrice(item) | currency: "TWD":"symbol":"1.0-0"
+              }}
+            </td>
+          </tr>
+        </tbody>
+        <!-- 無商品 -->
+        <tbody *ngIf="this.shoppingCarItemCount === 0">
+          <tr>
+            <td>尚未加入任何產品，快去逛逛吧！</td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="#" class="btn btn-primary btn-block">
+        <i class="fa fa-cart-plus" aria-hidden="true"></i> 結帳去
+      </a>
+    </div>
   </div>
 </nav>

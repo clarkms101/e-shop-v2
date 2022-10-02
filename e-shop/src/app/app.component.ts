@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CallApiGetShoppingCarItemCount } from 'src/shared/store/shopping-car.action';
+import { CallApiGetShoppingCarInfo } from 'src/shared/store/shopping-car.action';
 import { ShoppingCar_RootState } from 'src/shared/store/shopping-car.reducer';
 
 @Component({
@@ -17,6 +17,6 @@ export class AppComponent {
   title = 'e-shop';
 
   ngOnInit(): void {
-    this._store.dispatch(CallApiGetShoppingCarItemCount());
+    this._store.dispatch(CallApiGetShoppingCarInfo());
   }
 }

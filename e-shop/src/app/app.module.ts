@@ -102,7 +102,7 @@ defineLocale('zh-cn', zhCnLocale);
     // ngrx
     EffectsModule.forRoot([ShoppingCar_RootEffects]),
     StoreModule.forRoot({
-      shoppingCarItemCount: shoppingCarItemCountReducer
+      shoppingCarInfo: shoppingCarItemCountReducer
     }),
   ],
   providers: [
