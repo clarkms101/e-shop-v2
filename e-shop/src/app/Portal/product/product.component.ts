@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { CartDetail, Client, CreateCartDetailRequest, Product } from 'src/shared/api client/service-proxies';
-import { CallApiGetShoppingCarInfo } from 'src/shared/store/shopping-car.action';
-import { ShoppingCar_RootState } from 'src/shared/store/shopping-car.reducer';
+import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
+import { ShoppingCart_RootState } from 'src/shared/store/shopping-cart.reducer';
 
 @Component({
   selector: 'app-product',
@@ -23,7 +23,7 @@ export class ProductComponent implements OnInit {
     private _activeRoute: ActivatedRoute,
     private _apiClient: Client,
     private _toastr: ToastrService,
-    private _store: Store<{ rootState: ShoppingCar_RootState }>
+    private _store: Store<{ rootState: ShoppingCart_RootState }>
   ) { }
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class ProductComponent implements OnInit {
       this._apiClient.cartPOST(request).subscribe((response) => {
         if (response.success) {
           this._toastr.success(`${this.product.title} x ${this.selectQty} ${this.product.unit} 已加入購物車!`);
-          this._store.dispatch(CallApiGetShoppingCarInfo());
+          this._store.dispatch(CallApiGetShoppingCartInfo());
         } else {
           this._toastr.error(response.message);
         }

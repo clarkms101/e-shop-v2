@@ -42,8 +42,8 @@ import { Page404Component } from './Common/page/page404/page404.component';
 import { ProductListComponent } from './Portal/product-list/product-list.component';
 import { PortalLayoutComponent } from './Portal/layout/portal-layout/portal-layout.component';
 import { AdminLayoutComponent } from './Admin/layout/admin-layout/admin-layout.component';
-import { ShoppingCar_RootEffects } from 'src/shared/store/shopping-car.effects';
-import { shoppingCarItemCountReducer } from 'src/shared/store/shopping-car.reducer';
+import { ShoppingCart_RootEffects } from 'src/shared/store/shopping-cart.effects';
+import { shoppingCartItemCountReducer } from 'src/shared/store/shopping-cart.reducer';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -100,9 +100,9 @@ defineLocale('zh-cn', zhCnLocale);
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     // ngrx
-    EffectsModule.forRoot([ShoppingCar_RootEffects]),
+    EffectsModule.forRoot([ShoppingCart_RootEffects]),
     StoreModule.forRoot({
-      shoppingCarInfo: shoppingCarItemCountReducer
+      shoppingCartInfo: shoppingCartItemCountReducer
     }),
   ],
   providers: [

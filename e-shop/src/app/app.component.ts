@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CallApiGetShoppingCarInfo } from 'src/shared/store/shopping-car.action';
-import { ShoppingCar_RootState } from 'src/shared/store/shopping-car.reducer';
+import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
+import { ShoppingCart_RootState } from 'src/shared/store/shopping-cart.reducer';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,12 @@ import { ShoppingCar_RootState } from 'src/shared/store/shopping-car.reducer';
 export class AppComponent {
 
   constructor(
-    private _store: Store<{ rootState: ShoppingCar_RootState }>
+    private _store: Store<{ rootState: ShoppingCart_RootState }>
   ) { }
 
   title = 'e-shop';
 
   ngOnInit(): void {
-    this._store.dispatch(CallApiGetShoppingCarInfo());
+    this._store.dispatch(CallApiGetShoppingCartInfo());
   }
 }

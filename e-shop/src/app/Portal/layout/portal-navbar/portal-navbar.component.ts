@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Cart, Client, QueryCartResponse, ShoppingProduct } from 'src/shared/api client/service-proxies';
-import { CallApiGetShoppingCarInfo } from 'src/shared/store/shopping-car.action';
+import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
 
 @Component({
   selector: 'app-portal-navbar',
@@ -10,25 +10,25 @@ import { CallApiGetShoppingCarInfo } from 'src/shared/store/shopping-car.action'
   styleUrls: ['./portal-navbar.component.css']
 })
 export class PortalNavbarComponent implements OnInit {
-  shoppingCarItemInfoList: Cart[] = [];
-  shoppingCarItemCount: number = 0
+  shoppingCartItemInfoList: Cart[] = [];
+  shoppingCartItemCount: number = 0
 
   constructor(
     private _toastr: ToastrService,
     private _apiClient: Client,
     private _store: Store<{
-      shoppingCarInfo: QueryCartResponse
+      shoppingCartInfo: QueryCartResponse
     }>
   ) { }
 
   ngOnInit(): void {
-    this._store.select('shoppingCarInfo').subscribe(data => {
+    this._store.select('shoppingCartInfo').subscribe(data => {
       if (data.success) {
-        this.shoppingCarItemCount = data.carts?.length as number;
-        this.shoppingCarItemInfoList = data.carts as Cart[];
+        this.shoppingCartItemCount = data.carts?.length as number;
+        this.shoppingCartItemInfoList = data.carts as Cart[];
       } else {
-        this.shoppingCarItemCount = 0;
-        this.shoppingCarItemInfoList = [];
+        this.shoppingCartItemCount = 0;
+        this.shoppingCartItemInfoList = [];
       }
     });
   }
@@ -40,7 +40,7 @@ export class PortalNavbarComponent implements OnInit {
       } else {
         this._toastr.error('移除商品失敗!');
       }
-      this._store.dispatch(CallApiGetShoppingCarInfo());
+      this._store.dispatch(CallApiGetShoppingCartInfo());
     });
   }
 
@@ -48,9 +48,9 @@ export class PortalNavbarComponent implements OnInit {
     return product as ShoppingProduct;
   }
 
-  getShoppingItemPrice(carItem: Cart): number {
-    let product = carItem.product as ShoppingProduct;
-    let itemPrice = (carItem.qty as number) * (product.price as number)
+  getShoppingItemPrice(cartItem: Cart): number {
+    let product = cartItem.product as ShoppingProduct;
+    let itemPrice = (cartItem.qty as number) * (product.price as number)
     return itemPrice;
   }
 }

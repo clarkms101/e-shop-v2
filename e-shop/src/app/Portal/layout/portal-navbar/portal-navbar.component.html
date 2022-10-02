@@ -16,7 +16,7 @@
     >
       <i class="fa fa-shopping-cart text-dark fa-2x" aria-hidden="true"></i>
       <span class="badge badge-pill badge-danger">{{
-        shoppingCarItemCount
+        shoppingCartItemCount
       }}</span>
       <span class="sr-only">unread messages</span>
     </button>
@@ -31,8 +31,8 @@
       <h6>已選擇商品</h6>
       <table class="table table-sm">
         <!-- 有商品 -->
-        <tbody *ngIf="this.shoppingCarItemCount !== 0">
-          <tr *ngFor="let item of shoppingCarItemInfoList">
+        <tbody *ngIf="this.shoppingCartItemCount !== 0">
+          <tr *ngFor="let item of shoppingCartItemInfoList">
             <td class="align-middle text-center">
               <!-- 刪除商品 -->
               <button
@@ -51,7 +51,15 @@
                 (confirm)="removeFromCart(item.cartDetailId)"
               ></swal>
             </td>
-            <td class="align-middle">{{ getProduct(item.product).title }}</td>
+            <td class="align-middle">
+              <a
+                [routerLink]="['/portal/product']"
+                [queryParams]="{
+                  productId: getProduct(item.product).productId
+                }"
+                >{{ getProduct(item.product).title }}</a
+              >
+            </td>
             <td class="align-middle">
               {{ item.qty }} {{ getProduct(item.product).unit }}
             </td>
@@ -63,7 +71,7 @@
           </tr>
         </tbody>
         <!-- 無商品 -->
-        <tbody *ngIf="this.shoppingCarItemCount === 0">
+        <tbody *ngIf="this.shoppingCartItemCount === 0">
           <tr>
             <td>尚未加入任何產品，快去逛逛吧！</td>
           </tr>
