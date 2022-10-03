@@ -77,6 +77,12 @@ namespace e_shop_api.Utility
             // remove item
             cartCacheInfo.ShoppingCartItems.Remove(cartCacheInfoDetail);
 
+            // reset coupon
+            if (cartCacheInfo.ShoppingCartItems.Count == 0)
+            {
+                cartCacheInfo.CouponId = null;
+            }
+            
             // update cart to cache
             _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
 

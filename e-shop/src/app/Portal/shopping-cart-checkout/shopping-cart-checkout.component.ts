@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { Cart, Client, QueryCartResponse, SelectionItem, ShoppingProduct } from 'src/shared/api client/service-proxies';
+import { Cart, CartCoupon, Client, QueryCartResponse, SelectionItem, ShoppingProduct, UpdateCartCouponRequest } from 'src/shared/api client/service-proxies';
 import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
 
 @Component({
@@ -14,6 +14,7 @@ export class ShoppingCartCheckoutComponent implements OnInit {
   carts: Cart[] = [];
   totalAmount: number = 0;
   finalTotalAmount: number = 0;
+  couponCode: string = '';
   // 下拉
   countryList: SelectionItem[] = [];
   cityList: SelectionItem[] = [];
@@ -90,6 +91,24 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     let product = cartItem.product as ShoppingProduct;
     let itemPrice = (cartItem.qty as number) * (product.price as number)
     return itemPrice;
+  }
+
+  useCouponCode(): void {
+    let request = new UpdateCartCouponRequest();
+    let coupon = new CartCoupon();
+    coupon.couponCode = this.couponCode;
+    request.coupon = coupon;
+
+    this._apiClient.useCoupon(request).subscribe((response) => {
+      if (response.success) {
+        this._toastr.success(response.message);
+        this._store.dispatch(CallApiGetShoppingCartInfo());
+        this.couponCode = '';
+      }
+      else {
+        this._toastr.warning(response.message);
+      }
+    });
   }
 
   nextStep(): void {

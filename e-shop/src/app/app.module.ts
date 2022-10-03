@@ -85,7 +85,7 @@ defineLocale('zh-cn', zhCnLocale);
       preventDuplicates: true,
     }),
     NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.pulse,
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
       backdropBackgroundColour: "rgba(255,255,255,0.3)",
       backdropBorderRadius: "10px",
       fullScreenBackdrop: true,
