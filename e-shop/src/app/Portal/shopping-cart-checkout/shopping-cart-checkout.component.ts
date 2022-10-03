@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { Cart, Client, QueryCartResponse, ShoppingProduct } from 'src/shared/api client/service-proxies';
+import { Cart, Client, QueryCartResponse, SelectionItem, ShoppingProduct } from 'src/shared/api client/service-proxies';
 import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
 
 @Component({
@@ -10,10 +10,15 @@ import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.actio
   styleUrls: ['./shopping-cart-checkout.component.css']
 })
 export class ShoppingCartCheckoutComponent implements OnInit {
-  isCollapsed = true;
+  isCollapsed = false;
   carts: Cart[] = [];
   totalAmount: number = 0;
   finalTotalAmount: number = 0;
+  // 下拉
+  countryList: SelectionItem[] = [];
+  cityList: SelectionItem[] = [];
+  // 表單資料
+  userInfo: UserInfo = new UserInfo;
 
   constructor(
     private _toastr: ToastrService,
@@ -24,6 +29,7 @@ export class ShoppingCartCheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // 訂閱購物車資訊
     this._store.select('shoppingCartInfo').subscribe(data => {
       if (data.success) {
         this.carts = data.carts as Cart[];
@@ -33,6 +39,34 @@ export class ShoppingCartCheckoutComponent implements OnInit {
         this.carts = [];
         this.totalAmount = 0;
         this.finalTotalAmount = 0;
+      }
+    });
+
+    // 下拉資料取得
+    this._apiClient.country().subscribe((response) => {
+      if (response.success) {
+        this.countryList = response.items as SelectionItem[];
+      }
+    });
+
+    this.resetUserInfo();
+  }
+
+  resetUserInfo(): void {
+    let defaultCountryId = 1;
+    this.userInfo.UserName = '';
+    this.userInfo.Email = '';
+    this.userInfo.Country = defaultCountryId;
+    this.userInfo.City = null;
+    this.userInfo.ZipCode = '';
+    this.userInfo.Address = '';
+    this.setCityListData(defaultCountryId);
+  }
+
+  setCityListData(countryId: number): void {
+    this._apiClient.city(countryId).subscribe((response) => {
+      if (response.success) {
+        this.cityList = response.items as SelectionItem[];
       }
     });
   }
@@ -57,4 +91,17 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     let itemPrice = (cartItem.qty as number) * (product.price as number)
     return itemPrice;
   }
+
+  nextStep(): void {
+    // todo
+  }
+}
+
+class UserInfo {
+  UserName: string | null | undefined;
+  Email: string | null | undefined;
+  Country: number | null | undefined;
+  City: number | null | undefined;
+  ZipCode: string | null | undefined;
+  Address: string | null | undefined;
 }

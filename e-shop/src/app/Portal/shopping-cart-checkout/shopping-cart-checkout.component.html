@@ -30,7 +30,7 @@
               [attr.aria-expanded]="!isCollapsed"
               aria-controls="collapseBasic"
             >
-              顯示購物車細節
+              購物明細
               <i
                 class="fa fa-angle-down"
                 aria-hidden="true"
@@ -136,71 +136,123 @@
       </div>
 
       <h5 class="py-3 mt-5 mb-2 text-center bg-light">訂購人資訊</h5>
-      <form id="needs-validation" novalidate>
+      <form #userOrderInfoForm="ngForm">
         <div class="form-row">
+          <!-- 姓名 -->
           <div class="form-group col-md-6">
             <label for="username">姓名</label>
             <input
               type="text"
               class="form-control"
               id="username"
+              name="username"
               placeholder="姓名"
               required
+              [(ngModel)]="userInfo.UserName"
             />
             <div class="invalid-feedback">請輸入姓名</div>
           </div>
+          <!-- Email -->
           <div class="form-group col-md-6">
             <label for="email">Email</label>
             <input
               type="email"
               class="form-control"
               id="email"
+              name="email"
               placeholder="Email"
               required
+              [(ngModel)]="userInfo.Email"
             />
             <div class="invalid-feedback">請輸入正確的 Email</div>
           </div>
         </div>
         <div class="form-row">
+          <!-- 國家 -->
           <div class="form-group col-md-4">
-            <label for="state">國家</label>
-            <select id="state" class="form-control" required>
-              <option selected>台灣</option>
-              <option>...</option>
+            <label for="country">國家</label>
+            <select
+              id="country"
+              name="country"
+              class="form-control"
+              [(ngModel)]="userInfo.Country"
+              (ngModelChange)="setCityListData($event)"
+              required
+            >
+              <option disabled [ngValue]="null">請選擇</option>
+              <option
+                *ngFor="let country of countryList"
+                [ngValue]="country.value"
+              >
+                {{ country.text }}
+              </option>
             </select>
           </div>
+          <!-- 城市 -->
           <div class="form-group col-md">
             <label for="city">城市</label>
-            <select name="" id="city" class="form-control" required>
-              <option value="台北市">台北市</option>
-              <option value="台南市">台南市</option>
-              <option value="高雄市">高雄市</option>
+            <select
+              id="city"
+              name="city"
+              class="form-control"
+              [(ngModel)]="userInfo.City"
+              required
+            >
+              <option disabled [ngValue]="null">請選擇</option>
+              <option *ngFor="let city of cityList" [ngValue]="city.value">
+                {{ city.text }}
+              </option>
             </select>
           </div>
+          <!-- 郵遞區號 -->
           <div class="form-group col-md">
-            <label for="inputZip">郵遞區號</label>
-            <input type="text" class="form-control" id="inputZip" />
+            <label for="zipcode">郵遞區號</label>
+            <input
+              type="text"
+              class="form-control"
+              id="zipcode"
+              name="zipcode"
+              [(ngModel)]="userInfo.ZipCode"
+            />
           </div>
         </div>
+        <!-- 地址 -->
         <div class="form-group">
           <label for="inputAddress">地址</label>
           <input
             type="text"
             class="form-control"
-            id="inputAddress"
-            placeholder="重慶南路一段122號"
+            id="address"
+            name="address"
+            placeholder="中正路一段123號"
             required
+            [(ngModel)]="userInfo.Address"
           />
           <div class="invalid-feedback">請輸入地址</div>
         </div>
+        <!-- 下一步 -->
         <div class="text-right">
+          <!-- 重新填寫 -->
+          <button
+            type="button"
+            class="btn btn-secondary mr-2"
+            (click)="resetUserInfo()"
+          >
+            重新填寫
+          </button>
+
+          <!-- 繼續選購 -->
           <a [routerLink]="['/portal/products']" class="btn btn-secondary mr-2"
             >繼續選購</a
           >
+
+          <!-- 確認付款 -->
           <button
-            type="submit"
+            type="button"
             class="btn btn-primary"
             *ngIf="carts.length !== 0"
+            [disabled]="userOrderInfoForm.form.valid === false"
+            (click)="nextStep()"
           >
             確認付款
           </button>

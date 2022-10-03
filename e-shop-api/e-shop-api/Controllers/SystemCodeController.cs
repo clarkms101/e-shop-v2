@@ -15,6 +15,7 @@ namespace e_shop_api.Controllers
         {
             return new SystemCodeResponse()
             {
+                Success = true,
                 Items = Selection.GetPaymentMethod()
             };
         }
@@ -24,6 +25,7 @@ namespace e_shop_api.Controllers
         {
             return new SystemCodeResponse()
             {
+                Success = true,
                 Items = Selection.GetCountry()
             };
         }
@@ -33,6 +35,7 @@ namespace e_shop_api.Controllers
         {
             return new SystemCodeResponse()
             {
+                Success = true,
                 Items = Selection.GetCity(countryId)
             };
         }

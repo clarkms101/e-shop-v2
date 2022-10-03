@@ -32,7 +32,9 @@ export class OrdersComponent implements OnInit {
     this._apiClient.setAuthToken(token);
 
     this._apiClient.paymentMethod().subscribe((response) => {
-      this.paymentMethodList = response.items as SelectionItem[];
+      if (response.success) {
+        this.paymentMethodList = response.items as SelectionItem[];
+      }
     });
 
     this.getPageData(1);
