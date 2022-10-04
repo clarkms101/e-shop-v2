@@ -33,6 +33,7 @@ namespace e_shop_api.DataBase
             // Order
             modelBuilder.Entity<Order>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Order>().HasKey(s => s.Id);
+            modelBuilder.Entity<Order>().HasIndex(s => s.SerialNumber);
             
             // OrderDetail
             modelBuilder.Entity<OrderDetail>().Property(p => p.Id).ValueGeneratedOnAdd();

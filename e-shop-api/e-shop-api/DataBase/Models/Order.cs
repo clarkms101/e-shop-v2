@@ -9,6 +9,12 @@ namespace e_shop_api.DataBase.Models
         [Required] public int Id { get; set; }
 
         /// <summary>
+        /// 訂單編號(guid,供外部查詢)
+        /// </summary>
+        [Column(TypeName = "varchar(15)")]
+        public string SerialNumber { get; set; }
+        
+        /// <summary>
         /// 會員Id(非會員的訪客，填null即可)
         /// </summary>
         public int? UserId { get; set; }
