@@ -627,11 +627,11 @@ export class Client extends ApiBase {
     /**
      * @return Success
      */
-    orderGET(id: number): Observable<QueryOrderResponse> {
-        let url_ = this.baseUrl + "/api/Order/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+    orderGET(serialNumber: string): Observable<QueryOrderResponse> {
+        let url_ = this.baseUrl + "/api/Order/{serialNumber}";
+        if (serialNumber === undefined || serialNumber === null)
+            throw new Error("The parameter 'serialNumber' must be defined.");
+        url_ = url_.replace("{serialNumber}", encodeURIComponent("" + serialNumber));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2498,6 +2498,7 @@ export interface IOrderDetailInfo {
 
 export class OrderInfo implements IOrderInfo {
     orderId?: number;
+    serialNumber?: string | undefined;
     userId?: number | undefined;
     isPaid?: boolean;
     paymentMethod?: string | undefined;
@@ -2523,6 +2524,7 @@ export class OrderInfo implements IOrderInfo {
     init(_data?: any) {
         if (_data) {
             this.orderId = _data["orderId"];
+            this.serialNumber = _data["serialNumber"];
             this.userId = _data["userId"];
             this.isPaid = _data["isPaid"];
             this.paymentMethod = _data["paymentMethod"];
@@ -2552,6 +2554,7 @@ export class OrderInfo implements IOrderInfo {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["orderId"] = this.orderId;
+        data["serialNumber"] = this.serialNumber;
         data["userId"] = this.userId;
         data["isPaid"] = this.isPaid;
         data["paymentMethod"] = this.paymentMethod;
@@ -2574,6 +2577,7 @@ export class OrderInfo implements IOrderInfo {
 
 export interface IOrderInfo {
     orderId?: number;
+    serialNumber?: string | undefined;
     userId?: number | undefined;
     isPaid?: boolean;
     paymentMethod?: string | undefined;
@@ -2727,7 +2731,7 @@ export interface ICreateOrderRequest {
 export class CreateOrderResponse implements ICreateOrderResponse {
     success?: boolean;
     message?: string | undefined;
-    orderId?: number;
+    serialNumber?: string | undefined;
 
     constructor(data?: ICreateOrderResponse) {
         if (data) {
@@ -2742,7 +2746,7 @@ export class CreateOrderResponse implements ICreateOrderResponse {
         if (_data) {
             this.success = _data["success"];
             this.message = _data["message"];
-            this.orderId = _data["orderId"];
+            this.serialNumber = _data["serialNumber"];
         }
     }
 
@@ -2757,7 +2761,7 @@ export class CreateOrderResponse implements ICreateOrderResponse {
         data = typeof data === 'object' ? data : {};
         data["success"] = this.success;
         data["message"] = this.message;
-        data["orderId"] = this.orderId;
+        data["serialNumber"] = this.serialNumber;
         return data;
     }
 }
@@ -2765,7 +2769,7 @@ export class CreateOrderResponse implements ICreateOrderResponse {
 export interface ICreateOrderResponse {
     success?: boolean;
     message?: string | undefined;
-    orderId?: number;
+    serialNumber?: string | undefined;
 }
 
 export class QueryOrdersRequest implements IQueryOrdersRequest {

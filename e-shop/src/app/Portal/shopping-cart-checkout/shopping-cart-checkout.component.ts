@@ -152,13 +152,15 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     request.orderForm.userName = this.userInfo.UserName as string;
     request.orderForm.address = address;
     request.orderForm.email = this.userInfo.Email as string;
+    request.orderForm.tel = this.userInfo.Tel as string;
+    request.orderForm.message = this.userInfo.Message as string;
     request.orderForm.paymentMethod = paymentType as string;
 
     this._apiClient.orderPOST(request).subscribe((response) => {
       if (response.success) {
         this._toastr.success(response.message);
         this._store.dispatch(CallApiGetShoppingCartInfo());
-        this._router.navigate(['portal/order-checkout']);
+        this._router.navigate(['portal/order-checkout'], { queryParams: { serialNumber: response.serialNumber } });
       }
       else {
         this._toastr.error(response.message);
@@ -204,8 +206,8 @@ class UserInfo {
   City: number | null | undefined;
   ZipCode: string | null | undefined;
   Address: string | null | undefined;
-  // tel
-  // message
+  Tel: string | null | undefined;
+  Message: string | null | undefined;
 }
 
 class CreditCardInfo {

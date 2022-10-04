@@ -23,7 +23,8 @@ namespace e_shop_api.Applications.Order.Query
 
         public async Task<QueryOrderResponse> Handle(QueryOrderRequest request, CancellationToken cancellationToken)
         {
-            var selectOrder = await _eShopDbContext.Orders.FindAsync(request.OrderId);
+            var selectOrder = await _eShopDbContext.Orders.Where(s => s.SerialNumber == request.SerialNumber)
+                .SingleOrDefaultAsync(cancellationToken: cancellationToken);
             if (selectOrder == null)
             {
                 return new QueryOrderResponse()

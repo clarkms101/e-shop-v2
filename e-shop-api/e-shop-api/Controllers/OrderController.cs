@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using e_shop_api.Applications.Order.Command.Create;
 using e_shop_api.Applications.Order.Query;
 using MediatR;
@@ -17,12 +18,12 @@ namespace e_shop_api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<QueryOrderResponse> Get([FromRoute] int id)
+        [HttpGet("{serialNumber:guid}")]
+        public async Task<QueryOrderResponse> Get([FromRoute] Guid serialNumber)
         {
             var request = new QueryOrderRequest()
             {
-                OrderId = id
+                SerialNumber = serialNumber.ToString()
             };
             var result = await _mediator.Send(request);
             return result;

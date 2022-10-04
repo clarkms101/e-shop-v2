@@ -1,1 +1,84 @@
-<p>order-checkout works!</p>
+<div class="container main-contant py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center mb-3 text-secondary">訂購完成</h1>
+
+      <h4 class="text-center my-4">購買商品</h4>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th width="100"></th>
+            <th>商品名稱</th>
+            <th width="100">數量</th>
+            <th width="80">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orderInfo.orderDetailInfos">
+            <td class="align-middle">
+              <img
+                [src]="item.imageUrl"
+                class="img-fluid img-thumbnail"
+                alt="商品圖片"
+              />
+            </td>
+            <td class="align-middle">{{ item.productTitle }}</td>
+            <td class="align-middle">{{ item.qty }}/{{ item.productUnit }}</td>
+            <td class="align-middle text-right">
+              {{ item.productPrice | currency }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right">運費</td>
+            <td class="text-right">
+              <strong>$0</strong>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right">合計</td>
+            <td class="text-right">
+              <strong>{{
+                orderInfo.totalAmount | currency: "TWD":"symbol":"1.0-0"
+              }}</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h4 class="text-center my-4">訂購資訊</h4>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th width="200">Email</th>
+            <td>{{ orderInfo.email }}</td>
+          </tr>
+          <tr>
+            <th>姓名</th>
+            <td>{{ orderInfo.userName }}</td>
+          </tr>
+          <tr>
+            <th>電話</th>
+            <td>{{ orderInfo.tel }}</td>
+          </tr>
+          <tr>
+            <th>地址</th>
+            <td>{{ orderInfo.address }}</td>
+          </tr>
+          <tr>
+            <th>註記</th>
+            <td>{{ orderInfo.message }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <section class="form-row align-items">
+        <div class="col text-right">
+          <a [routerLink]="['/portal/products']" class="btn btn-info mr-2"
+            >繼續購物</a
+          >
+          <a href="javascript:window.print()" class="btn btn-info">訂單列印</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

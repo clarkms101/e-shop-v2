@@ -103,7 +103,7 @@
               <td class="align-middle">
                 <img
                   [src]="getProduct(item.product).imageUrl"
-                  alt="產品圖片"
+                  alt="商品圖片"
                   class="img-fluid img-thumbnail"
                 />
               </td>
@@ -274,7 +274,7 @@
         </div>
         <!-- 地址 -->
         <div class="form-group">
-          <label for="inputAddress">地址</label>
+          <label for="address">地址</label>
           <input
             type="text"
             class="form-control"
@@ -286,6 +286,34 @@
           />
           <div class="invalid-feedback">請輸入地址</div>
         </div>
+        <!-- 手機號碼 -->
+        <div class="form-group">
+          <label for="tel">手機號碼</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="tel"
+            name="tel"
+            placeholder=""
+            required
+            [(ngModel)]="userInfo.Tel"
+          />
+          <div class="invalid-feedback">請輸入手機號碼</div>
+        </div>
+        <!-- 註記 -->
+        <div class="form-group">
+          <label for="message">註記</label>
+          <input
+            type="text"
+            class="form-control"
+            id="message"
+            name="message"
+            placeholder=""
+            [(ngModel)]="userInfo.Message"
+          />
+          <div class="invalid-feedback">請輸入註記</div>
+        </div>
+
         <!-- 下一步 -->
         <div class="text-right">
           <!-- 重新填寫 -->

@@ -11,7 +11,7 @@ namespace e_shop_api.DataBase.Models
         /// <summary>
         /// 訂單編號(guid,供外部查詢)
         /// </summary>
-        [Column(TypeName = "varchar(15)")]
+        [Column(TypeName = "varchar(50)")]
         public string SerialNumber { get; set; }
         
         /// <summary>

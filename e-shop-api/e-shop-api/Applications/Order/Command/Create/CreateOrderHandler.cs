@@ -36,6 +36,7 @@ namespace e_shop_api.Applications.Order.Command.Create
             var shoppingCart = await _queryCartHandler.Handle(new QueryCartRequest(), cancellationToken);
             var newOrder = new DataBase.Models.Order()
             {
+                SerialNumber = Guid.NewGuid().ToString(),
                 UserId = null,
                 IsPaid = false,
                 PaymentMethod = string.IsNullOrWhiteSpace(request.OrderForm.PaymentMethod)
@@ -78,7 +79,7 @@ namespace e_shop_api.Applications.Order.Command.Create
             {
                 Success = true,
                 Message = "訂單已建立!",
-                OrderId = newOrder.Id
+                SerialNumber = newOrder.SerialNumber
             };
         }
     }

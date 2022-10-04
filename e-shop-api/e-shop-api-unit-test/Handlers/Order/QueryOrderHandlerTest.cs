@@ -26,6 +26,7 @@ public class QueryOrderHandlerTest : TestBase
         FakeEShopDbContext.Orders.Add(new e_shop_api.DataBase.Models.Order()
         {
             Id = 1,
+            SerialNumber = "fb39c58d-c94c-4362-8a83-cbee0a1f50d7",
             UserId = null,
             UserName = "Clark",
             Address = "TestAddress",
@@ -41,6 +42,7 @@ public class QueryOrderHandlerTest : TestBase
         FakeEShopDbContext.Orders.Add(new e_shop_api.DataBase.Models.Order()
         {
             Id = 2,
+            SerialNumber = "a5ccb6a1-2eb3-4683-bc7b-a01d2a6b4351",
             UserId = null,
             UserName = "Clark",
             Address = "TestAddress2",
@@ -87,7 +89,7 @@ public class QueryOrderHandlerTest : TestBase
     {
         var request = new QueryOrderRequest()
         {
-            OrderId = 1
+            SerialNumber = "fb39c58d-c94c-4362-8a83-cbee0a1f50d7"
         };
         var expected = new QueryOrderResponse()
         {
@@ -131,7 +133,7 @@ public class QueryOrderHandlerTest : TestBase
     {
         var request = new QueryOrderRequest()
         {
-            OrderId = 99
+            SerialNumber = "ed4aa83c-9fb9-4577-a4af-4aaa8a579131"
         };
         var expected = new QueryOrderResponse()
         {

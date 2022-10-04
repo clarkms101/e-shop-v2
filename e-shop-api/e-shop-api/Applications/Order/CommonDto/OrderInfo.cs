@@ -5,6 +5,7 @@ namespace e_shop_api.Applications.Order.CommonDto
     public class OrderInfo
     {
         public int OrderId { get; set; }
+        public string SerialNumber { get; set; }
         public int? UserId { get; set; }
         public bool IsPaid { get; set; }
         public string PaymentMethod { get; set; }
