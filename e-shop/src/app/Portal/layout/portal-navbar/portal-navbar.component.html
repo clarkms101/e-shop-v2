@@ -77,12 +77,21 @@
           </tr>
         </tbody>
       </table>
+      <!-- 結帳去 -->
       <a
         [routerLink]="['/portal/shopping-cart-checkout']"
         class="btn btn-primary btn-block"
+        *ngIf="this.shoppingCartItemCount !== 0"
       >
         <i class="fa fa-cart-plus" aria-hidden="true"></i> 結帳去
       </a>
+      <!-- 繼續選購 -->
+      <a
+        [routerLink]="['/portal/products']"
+        class="btn btn-secondary btn-block"
+        *ngIf="this.shoppingCartItemCount === 0"
+        ><i class="fa fa-cart-plus" aria-hidden="true"></i> 繼續選購</a
+      >
     </div>
   </div>
 </nav>

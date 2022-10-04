@@ -11,6 +11,7 @@ import { ProductListComponent } from './Portal/product-list/product-list.compone
 import { PortalLayoutComponent } from './Portal/layout/portal-layout/portal-layout.component';
 import { AdminLayoutComponent } from './Admin/layout/admin-layout/admin-layout.component';
 import { ShoppingCartCheckoutComponent } from './Portal/shopping-cart-checkout/shopping-cart-checkout.component';
+import { OrderCheckoutComponent } from './Portal/order-checkout/order-checkout.component';
 
 const routes: Routes = [
   // layout 頁面(導至預設頁面)
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'products', component: ProductListComponent },
       { path: 'product', component: ProductComponent },
       { path: 'shopping-cart-checkout', component: ShoppingCartCheckoutComponent },
+      { path: 'order-checkout', component: OrderCheckoutComponent },
     ]
   },
   // admin 頁面

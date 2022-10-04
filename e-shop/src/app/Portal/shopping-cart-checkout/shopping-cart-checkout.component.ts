@@ -1,8 +1,11 @@
+import { OrderForm } from './../../../shared/api client/service-proxies';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { add } from 'ngx-bootstrap/chronos';
 import { ToastrService } from 'ngx-toastr';
-import { Cart, CartCoupon, Client, QueryCartResponse, SelectionItem, ShoppingProduct, UpdateCartCouponRequest } from 'src/shared/api client/service-proxies';
+import { Cart, CartCoupon, Client, CreateOrderRequest, QueryCartResponse, SelectionItem, ShoppingProduct, UpdateCartCouponRequest } from 'src/shared/api client/service-proxies';
 import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart-checkout',
@@ -20,8 +23,15 @@ export class ShoppingCartCheckoutComponent implements OnInit {
   cityList: SelectionItem[] = [];
   // 表單資料
   userInfo: UserInfo = new UserInfo;
+  creditCardInfo: CreditCardInfo = new CreditCardInfo;
+  // step
+  currentStep: Step = Step.UserInfo;
+  // enum
+  Step = Step;
+  PaymentType = PaymentType;
 
   constructor(
+    private _router: Router,
     private _toastr: ToastrService,
     private _apiClient: Client,
     private _store: Store<{
@@ -51,6 +61,7 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     });
 
     this.resetUserInfo();
+    this.resetCreditCardInfo();
   }
 
   resetUserInfo(): void {
@@ -62,6 +73,13 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     this.userInfo.ZipCode = '';
     this.userInfo.Address = '';
     this.setCityListData(defaultCountryId);
+  }
+
+  resetCreditCardInfo(): void {
+    this.creditCardInfo.CardUserName = '';
+    this.creditCardInfo.CardNumber = '';
+    this.creditCardInfo.CardCvc = '';
+    this.creditCardInfo.CardExpiration = '';
   }
 
   setCityListData(countryId: number): void {
@@ -99,6 +117,11 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     coupon.couponCode = this.couponCode;
     request.coupon = coupon;
 
+    if (this.couponCode === '') {
+      this._toastr.warning('請輸入優惠碼!');
+      return;
+    }
+
     this._apiClient.useCoupon(request).subscribe((response) => {
       if (response.success) {
         this._toastr.success(response.message);
@@ -111,8 +134,66 @@ export class ShoppingCartCheckoutComponent implements OnInit {
     });
   }
 
-  nextStep(): void {
-    // todo
+  toUserInfoStep(): void {
+    this.scrollToTop();
+    this.currentStep = Step.UserInfo;
+  }
+
+  toPaymentStep(): void {
+    this.scrollToTop();
+    this.currentStep = Step.Payment;
+  }
+
+  // 送出訂單
+  createOrder(paymentType: PaymentType): void {
+    let request = new CreateOrderRequest();
+    request.orderForm = new OrderForm();
+    let address = this.getUserFullAddress();
+    request.orderForm.userName = this.userInfo.UserName as string;
+    request.orderForm.address = address;
+    request.orderForm.email = this.userInfo.Email as string;
+    request.orderForm.paymentMethod = paymentType as string;
+
+    this._apiClient.orderPOST(request).subscribe((response) => {
+      if (response.success) {
+        this._toastr.success(response.message);
+        this._store.dispatch(CallApiGetShoppingCartInfo());
+        this._router.navigate(['portal/order-checkout']);
+      }
+      else {
+        this._toastr.error(response.message);
+      }
+    });
+  }
+
+  scrollToTop(): void {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'auto'
+    });
+  }
+
+  getCountryName(countryValue: number | null | undefined): string {
+    var countryItem = this.countryList.find(function (item, index, array) {
+      return item.value === countryValue;
+    });
+    return countryItem?.text as string;
+  }
+
+  getCityName(cityValue: number | null | undefined): string {
+    var cityItem = this.cityList.find(function (item, index, array) {
+      return item.value === cityValue;
+    });
+    return cityItem?.text as string;
+  }
+
+  getUserFullAddress(): string {
+    let country = this.getCountryName(this.userInfo.Country);
+    let city = this.getCityName(this.userInfo.City);
+    let zipCode = this.userInfo.ZipCode;
+    let address = this.userInfo.Address;
+    return `${country} ${city} ${zipCode} ${address}`;
   }
 }
 
@@ -123,4 +204,23 @@ class UserInfo {
   City: number | null | undefined;
   ZipCode: string | null | undefined;
   Address: string | null | undefined;
+  // tel
+  // message
+}
+
+class CreditCardInfo {
+  CardUserName: string | null | undefined;
+  CardNumber: string | null | undefined;
+  CardExpiration: string | null | undefined;
+  CardCvc: string | null | undefined;
+}
+
+export enum Step {
+  UserInfo = 'UserInfo',
+  Payment = 'Payment',
+}
+
+export enum PaymentType {
+  CashOnDelivery = 'CashOnDelivery',
+  CreditCardPayment = 'CreditCardPayment'
 }

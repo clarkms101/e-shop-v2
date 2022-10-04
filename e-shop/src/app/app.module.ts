@@ -45,6 +45,7 @@ import { AdminLayoutComponent } from './Admin/layout/admin-layout/admin-layout.c
 import { ShoppingCart_RootEffects } from 'src/shared/store/shopping-cart.effects';
 import { shoppingCartItemCountReducer } from 'src/shared/store/shopping-cart.reducer';
 import { ShoppingCartCheckoutComponent } from './Portal/shopping-cart-checkout/shopping-cart-checkout.component';
+import { OrderCheckoutComponent } from './Portal/order-checkout/order-checkout.component';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -69,7 +70,8 @@ defineLocale('zh-cn', zhCnLocale);
     ProductListComponent,
     PortalLayoutComponent,
     AdminLayoutComponent,
-    ShoppingCartCheckoutComponent
+    ShoppingCartCheckoutComponent,
+    OrderCheckoutComponent
   ],
   imports: [
     BrowserModule,
