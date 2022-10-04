@@ -62,8 +62,10 @@
               <tr *ngFor="let product of products">
                 <td>{{ product.title }}</td>
                 <td>{{ product.category }}</td>
-                <td>{{ product.originPrice }}</td>
-                <td>{{ product.price }}</td>
+                <td>
+                  {{ product.originPrice | currency: "TWD":"symbol":"1.0-0" }}
+                </td>
+                <td>{{ product.price | currency: "TWD":"symbol":"1.0-0" }}</td>
                 <td>{{ product.num }} {{ product.unit }}</td>
                 <td>
                   <input

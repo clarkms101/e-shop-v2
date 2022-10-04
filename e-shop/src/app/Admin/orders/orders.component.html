@@ -103,7 +103,9 @@
                     </li>
                   </ul>
                 </td>
-                <td>{{ order.totalAmount }}</td>
+                <td>
+                  {{ order.totalAmount | currency: "TWD":"symbol":"1.0-0" }}
+                </td>
                 <td>{{ order.paymentMethod }}</td>
                 <td>
                   <strong *ngIf="order.isPaid" class="text-success"
