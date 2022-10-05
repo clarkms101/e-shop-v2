@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Admin.Command.Login;
+using e_shop_api.Enumeration;
 using e_shop_api.Utility.Dto;
 using e_shop_api.Utility.Interface;
 using e_shop_api_unit_test.Utility;
@@ -46,7 +47,8 @@ public class LoginHandlerTest : TestBase
         {
             Id = 2,
             Account = "Tom",
-            Password = "cc03e747a6afbbcbf8be7668acfebee5"
+            Password = "cc03e747a6afbbcbf8be7668acfebee5",
+            Permission = Permission.Public
         });
         FakeEShopDbContext.SaveChanges();
 

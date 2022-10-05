@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using e_shop_api.Enumeration;
 
 namespace e_shop_api.DataBase.Models
 {
@@ -21,5 +22,12 @@ namespace e_shop_api.DataBase.Models
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Password { get; set; }
+        
+        /// <summary>
+        /// 權限
+        /// </summary>
+        [Required]
+        [Column(TypeName = "varchar(50)")]
+        public Permission Permission { get; set; }
     }
 }

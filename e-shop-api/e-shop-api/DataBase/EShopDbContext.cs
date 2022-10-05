@@ -1,5 +1,6 @@
 using System;
 using e_shop_api.DataBase.Models;
+using e_shop_api.Enumeration;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_shop_api.DataBase
@@ -22,6 +23,7 @@ namespace e_shop_api.DataBase
                 Id = 1,
                 Account = "Clark",
                 Password = "cc03e747a6afbbcbf8be7668acfebee5", // test123
+                Permission = Permission.Public,
                 CreationTime = DateTime.Now,
                 LastModificationTime = DateTime.Now
             });
