@@ -19,4 +19,5 @@ export class JwtHelper {
 export class AdminInfo {
   JwtKeyApiAccessKey: string | undefined;
   JwtKeyAdminPermission: string | undefined;
+  JwtKeyAdminAccount: string | undefined;
 }

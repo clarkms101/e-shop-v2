@@ -58,7 +58,7 @@ namespace e_shop_api.Applications.Order.Command.Update
                 return new UpdateOrderResponse()
                 {
                     Success = false,
-                    Message = "查詢此訂單!"
+                    Message = "查無此訂單!"
                 };
             }
         }

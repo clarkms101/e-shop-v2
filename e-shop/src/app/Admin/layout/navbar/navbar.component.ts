@@ -10,6 +10,7 @@ import { JwtHelper } from 'src/shared/helpers/JwtHelper';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  admin_account: string = '';
 
   constructor(
     private _toastr: ToastrService,
@@ -20,6 +21,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     let token = localStorage.getItem("adminJWT") as string;
     this._apiClient.setAuthToken(token);
+
+    this.admin_account = JwtHelper.parseJwt().JwtKeyAdminAccount as string;
   }
 
   signout(): void {

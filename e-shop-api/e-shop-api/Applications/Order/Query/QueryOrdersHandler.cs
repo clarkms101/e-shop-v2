@@ -117,7 +117,7 @@ namespace e_shop_api.Applications.Order.Query
                 string.IsNullOrWhiteSpace(request.EndDate) == false)
             {
                 var startDate = request.StartDate.ToDate();
-                var endDate = request.EndDate.ToDate();
+                var endDate = request.EndDate.ToDate().AddHours(23).AddMinutes(59).AddSeconds(59);
                 orders = orders.Where(s =>
                     s.CreationTime >= startDate && s.CreationTime <= endDate);
             }
