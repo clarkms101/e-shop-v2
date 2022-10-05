@@ -25,6 +25,12 @@ namespace e_shop_api.DataBase.Models
         public bool IsPaid { get; set; }
 
         /// <summary>
+        /// 訂單狀態
+        /// </summary>
+        [Column(TypeName = "varchar(20)")]
+        public string OrderStatus { get; set; }
+        
+        /// <summary>
         /// 付款方式
         /// </summary>
         [Column(TypeName = "varchar(50)")]

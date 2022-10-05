@@ -26,11 +26,11 @@ export class OrderCheckoutComponent implements OnInit {
           if (response.success) {
             this.orderInfo = response.orderInfo as OrderInfo;
           } else {
-            // this._router.navigate(['portal/products']);
+            this._router.navigate(['portal/products']);
           }
         });
       } else {
-        // this._router.navigate(['portal/products']);
+        this._router.navigate(['portal/products']);
       }
     });
 

@@ -5,6 +5,7 @@ using e_shop_api.Applications.Cart.Command.Update;
 using e_shop_api.Applications.Cart.Query;
 using e_shop_api.DataBase;
 using e_shop_api.DataBase.Models;
+using e_shop_api.Enumeration;
 using e_shop_api.Utility.Const;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,7 @@ namespace e_shop_api.Applications.Order.Command.Create
                 SerialNumber = Guid.NewGuid().ToString(),
                 UserId = null,
                 IsPaid = false,
+                OrderStatus = OrderStatus.Created.ToString(),
                 PaymentMethod = string.IsNullOrWhiteSpace(request.OrderForm.PaymentMethod)
                     ? null
                     : request.OrderForm.PaymentMethod,
