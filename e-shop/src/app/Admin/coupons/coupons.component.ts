@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, Coupon, Pagination } from 'src/shared/api client/service-proxies';
+import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 import { CouponDetailComponent } from './coupon-detail/coupon-detail.component';
 
 @Component({
@@ -19,6 +20,7 @@ export class CouponsComponent implements OnInit {
   totalPageArray: number[] = [];
   currentPage: number = 0;
   loading = false;
+  permission: string = '';
 
   constructor(
     private _apiClient: Client,
@@ -29,7 +31,7 @@ export class CouponsComponent implements OnInit {
   ngOnInit(): void {
     let token = localStorage.getItem("adminJWT") as string;
     this._apiClient.setAuthToken(token);
-
+    this.permission = JwtHelper.parseJwt().JwtKeyAdminPermission as string;
     this.getPageData(1);
   }
 

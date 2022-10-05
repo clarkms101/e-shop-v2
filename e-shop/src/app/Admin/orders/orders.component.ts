@@ -2,6 +2,7 @@ import { DateHelper } from 'src/shared/helpers/DateHelper';
 import { Component, OnInit } from '@angular/core';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, OrderInfo, Pagination, QueryOrdersRequest, SelectionItem } from 'src/shared/api client/service-proxies';
+import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 
 @Component({
   selector: 'app-orders',
@@ -22,7 +23,7 @@ export class OrdersComponent implements OnInit {
   totalPageArray: number[] = [];
   currentPage: number = 0;
   loading = false;
-
+  permission: string = '';
   constructor(
     private _apiClient: Client
   ) { }
@@ -30,6 +31,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     let token = localStorage.getItem("adminJWT") as string;
     this._apiClient.setAuthToken(token);
+    this.permission = JwtHelper.parseJwt().JwtKeyAdminPermission as string;
 
     this._apiClient.paymentMethod().subscribe((response) => {
       if (response.success) {

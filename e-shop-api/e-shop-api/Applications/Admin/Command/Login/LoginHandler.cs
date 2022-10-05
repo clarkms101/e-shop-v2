@@ -52,6 +52,7 @@ namespace e_shop_api.Applications.Admin.Command.Login
                     {
                         Account = adminInfo.Account,
                         ApiAccessKey = apiAccessKey,
+                        Permission = adminInfo.Permission.ToString(),
                         Device = device,
                         ExpiredTimeStamp = _jwtUtility.GetExpiredTimeStamp()
                     };

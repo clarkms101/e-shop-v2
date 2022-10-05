@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
+import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @Component({
@@ -21,6 +22,7 @@ export class ProductsComponent implements OnInit {
   totalPageArray: number[] = [];
   currentPage: number = 0;
   loading = false;
+  permission: string = '';
 
   constructor(
     private _apiClient: Client,
@@ -31,6 +33,8 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     let token = localStorage.getItem("adminJWT") as string;
     this._apiClient.setAuthToken(token);
+    this.permission = JwtHelper.parseJwt().JwtKeyAdminPermission as string;
+
     this.getPageData(1);
   }
 
