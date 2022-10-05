@@ -70,4 +70,12 @@ export class OrdersComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  orderFinished(serialNumber: string | undefined): void {
+    // todo
+  }
+
+  orderCancel(serialNumber: string | undefined): void {
+    // todo
+  }
 }

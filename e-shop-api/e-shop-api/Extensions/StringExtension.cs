@@ -30,7 +30,7 @@ namespace e_shop_api.Extensions
         public static string RemovePostFix(this string str, params string[] postFixes)
         {
             if (str == null)
-                return (string) null;
+                return (string)null;
             if (string.IsNullOrEmpty(str))
                 return string.Empty;
             // if (((ICollection<string>) postFixes).IsNullOrEmpty<string>())
@@ -51,6 +51,11 @@ namespace e_shop_api.Extensions
             if (str.Length < len)
                 throw new ArgumentException("len argument can not be bigger than given string's length!");
             return str.Substring(0, len);
+        }
+
+        public static T FromStringToEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof(T), value);
         }
     }
 }

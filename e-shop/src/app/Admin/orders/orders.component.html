@@ -75,12 +75,15 @@
           <table class="table table-hover text-nowrap">
             <thead class="bg-light">
               <tr>
+                <th>訂單編號</th>
+                <th>訂單狀態</th>
                 <th>購買時間</th>
                 <th>Email</th>
                 <th>訂單內容</th>
                 <th>應付金額</th>
                 <th>付款方式</th>
                 <th>是否付款</th>
+                <th *ngIf="permission === 'Owner'">操作</th>
               </tr>
             </thead>
             <tbody>
@@ -88,6 +91,8 @@
                 *ngFor="let order of orders"
                 [ngClass]="{ 'text-secondary': !order.isPaid }"
               >
+                <td>{{ order.orderId }}</td>
+                <td>{{ order.orderStatus }}</td>
                 <td>
                   {{ order.createDateTime | date: "yyyy-MM-dd HH:mm:ss" }}
                 </td>
@@ -114,6 +119,29 @@
                   <span *ngIf="order.isPaid === false" class="text-muted"
                     >尚未付款</span
                   >
+                </td>
+                <td *ngIf="permission === 'Owner'">
+                  <input
+                    type="button"
+                    value="交易完成"
+                    class="btn btn-outline-primary btn-sm mr-2"
+                    (click)="orderFinished(order.serialNumber)"
+                  />
+
+                  <input
+                    type="button"
+                    value="交易取消"
+                    class="btn btn-outline-danger btn-sm"
+                    [swal]="deleteSwal"
+                  />
+                  <swal
+                    #deleteSwal
+                    title="確定取消交易 訂單編號 : {{ order.orderId }} ?"
+                    text="手動取消交易!"
+                    [showCancelButton]="true"
+                    [focusCancel]="true"
+                    (confirm)="orderCancel(order.serialNumber)"
+                  ></swal>
                 </td>
               </tr>
             </tbody>

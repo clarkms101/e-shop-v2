@@ -8,6 +8,7 @@ namespace e_shop_api.Applications.Order.CommonDto
         public string SerialNumber { get; set; }
         public int? UserId { get; set; }
         public bool IsPaid { get; set; }
+        public string OrderStatus { get; set; }
         public string PaymentMethod { get; set; }
         public long CreateDateTime { get; set; }
         public long? PaidDateTime { get; set; }

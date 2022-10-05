@@ -2501,6 +2501,7 @@ export class OrderInfo implements IOrderInfo {
     serialNumber?: string | undefined;
     userId?: number | undefined;
     isPaid?: boolean;
+    orderStatus?: string | undefined;
     paymentMethod?: string | undefined;
     createDateTime?: number;
     paidDateTime?: number | undefined;
@@ -2527,6 +2528,7 @@ export class OrderInfo implements IOrderInfo {
             this.serialNumber = _data["serialNumber"];
             this.userId = _data["userId"];
             this.isPaid = _data["isPaid"];
+            this.orderStatus = _data["orderStatus"];
             this.paymentMethod = _data["paymentMethod"];
             this.createDateTime = _data["createDateTime"];
             this.paidDateTime = _data["paidDateTime"];
@@ -2557,6 +2559,7 @@ export class OrderInfo implements IOrderInfo {
         data["serialNumber"] = this.serialNumber;
         data["userId"] = this.userId;
         data["isPaid"] = this.isPaid;
+        data["orderStatus"] = this.orderStatus;
         data["paymentMethod"] = this.paymentMethod;
         data["createDateTime"] = this.createDateTime;
         data["paidDateTime"] = this.paidDateTime;
@@ -2580,6 +2583,7 @@ export interface IOrderInfo {
     serialNumber?: string | undefined;
     userId?: number | undefined;
     isPaid?: boolean;
+    orderStatus?: string | undefined;
     paymentMethod?: string | undefined;
     createDateTime?: number;
     paidDateTime?: number | undefined;
