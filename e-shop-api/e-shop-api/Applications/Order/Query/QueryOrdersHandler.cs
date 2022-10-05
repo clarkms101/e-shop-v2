@@ -59,6 +59,7 @@ namespace e_shop_api.Applications.Order.Query
                 .Select(s => new OrderInfo()
                 {
                     OrderId = s.Id,
+                    SerialNumber = s.SerialNumber,
                     UserId = s.UserId,
                     IsPaid = s.IsPaid,
                     OrderStatus = s.OrderStatus.FromStringToEnum<OrderStatus>().GetDescriptionText(),

@@ -18,13 +18,6 @@ namespace e_shop_api.Controllers
         }
         
         [HttpPost]
-        public async Task<CreditCardPayOrderResponse> CreditCardPay([FromBody] CreditCardPayOrderRequest request)
-        {
-            var result = await _mediator.Send(request);
-            return result;
-        }
-        
-        [HttpPost]
         public async Task<UpdateCartCouponResponse> UseCoupon([FromBody] UpdateCartCouponRequest request)
         {
             var result = await _mediator.Send(request);

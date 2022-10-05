@@ -1,8 +1,9 @@
 import { DateHelper } from 'src/shared/helpers/DateHelper';
 import { Component, OnInit } from '@angular/core';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
-import { Client, OrderInfo, Pagination, QueryOrdersRequest, SelectionItem } from 'src/shared/api client/service-proxies';
+import { Client, OrderInfo, OrderStatus, Pagination, QueryOrdersRequest, SelectionItem, UpdateOrderRequest } from 'src/shared/api client/service-proxies';
 import { JwtHelper } from 'src/shared/helpers/JwtHelper';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders',
@@ -24,8 +25,10 @@ export class OrdersComponent implements OnInit {
   currentPage: number = 0;
   loading = false;
   permission: string = '';
+
   constructor(
-    private _apiClient: Client
+    private _apiClient: Client,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -71,11 +74,28 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  orderFinished(serialNumber: string | undefined): void {
-    // todo
-  }
-
-  orderCancel(serialNumber: string | undefined): void {
-    // todo
+  updateOrder(serialNumber: string | undefined, orderStatus: string) {
+    let request = new UpdateOrderRequest();
+    request.serialNumber = serialNumber;
+    switch (orderStatus) {
+      case 'Finished':
+        request.orderStatus = OrderStatus._1; // Finished 對應後端的Enum
+        break;
+      case 'Cancel':
+        request.orderStatus = OrderStatus._2;
+        break;
+      case 'Refund':
+        request.orderStatus = OrderStatus._3;
+        break;
+    }
+    this._apiClient.orderPUT(request).subscribe((response) => {
+      if (response.success) {
+        this._toastr.success(`${response.message}`);
+        this.getPageData(1);
+      }
+      else {
+        this._toastr.warning(`${response.message}`);
+      }
+    });
   }
 }

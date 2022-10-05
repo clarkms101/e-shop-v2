@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using e_shop_api.ActionFilters;
 using e_shop_api.Applications.Order.Command.Create;
+using e_shop_api.Applications.Order.Command.Update;
 using e_shop_api.Applications.Order.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +33,14 @@ namespace e_shop_api.Controllers
 
         [HttpPost]
         public async Task<CreateOrderResponse> Post([FromBody] CreateOrderRequest request)
+        {
+            var result = await _mediator.Send(request);
+            return result;
+        }
+
+        [AdminAuthActionFilter]
+        [HttpPut]
+        public async Task<UpdateOrderResponse> Put([FromBody] UpdateOrderRequest request)
         {
             var result = await _mediator.Send(request);
             return result;

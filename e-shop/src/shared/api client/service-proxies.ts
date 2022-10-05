@@ -742,6 +742,64 @@ export class Client extends ApiBase {
      * @param body (optional)
      * @return Success
      */
+    orderPUT(body: UpdateOrderRequest | undefined): Observable<UpdateOrderResponse> {
+        let url_ = this.baseUrl + "/api/Order";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("put", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processOrderPUT(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processOrderPUT(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<UpdateOrderResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<UpdateOrderResponse>;
+        }));
+    }
+
+    protected processOrderPUT(response: HttpResponseBase): Observable<UpdateOrderResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UpdateOrderResponse.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UpdateOrderResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional)
+     * @return Success
+     */
     orders(body: QueryOrdersRequest | undefined): Observable<QueryOrdersResponse> {
         let url_ = this.baseUrl + "/api/Orders";
         url_ = url_.replace(/[?&]$/, "");
@@ -1080,64 +1138,6 @@ export class Client extends ApiBase {
             }));
         }
         return _observableOf<QueryProductsResponse>(null as any);
-    }
-
-    /**
-     * @param body (optional)
-     * @return Success
-     */
-    creditCardPay(body: CreditCardPayOrderRequest | undefined): Observable<CreditCardPayOrderResponse> {
-        let url_ = this.baseUrl + "/api/Shopping/CreditCardPay";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
-            return this.http.request("post", url_, transformedOptions_);
-        })).pipe(_observableMergeMap((response_: any) => {
-            return this.processCreditCardPay(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreditCardPay(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<CreditCardPayOrderResponse>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<CreditCardPayOrderResponse>;
-        }));
-    }
-
-    protected processCreditCardPay(response: HttpResponseBase): Observable<CreditCardPayOrderResponse> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreditCardPayOrderResponse.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<CreditCardPayOrderResponse>(null as any);
     }
 
     /**
@@ -2776,6 +2776,93 @@ export interface ICreateOrderResponse {
     serialNumber?: string | undefined;
 }
 
+export enum OrderStatus {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+}
+
+export class UpdateOrderRequest implements IUpdateOrderRequest {
+    serialNumber?: string | undefined;
+    orderStatus?: OrderStatus;
+
+    constructor(data?: IUpdateOrderRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.serialNumber = _data["serialNumber"];
+            this.orderStatus = _data["orderStatus"];
+        }
+    }
+
+    static fromJS(data: any): UpdateOrderRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateOrderRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["serialNumber"] = this.serialNumber;
+        data["orderStatus"] = this.orderStatus;
+        return data;
+    }
+}
+
+export interface IUpdateOrderRequest {
+    serialNumber?: string | undefined;
+    orderStatus?: OrderStatus;
+}
+
+export class UpdateOrderResponse implements IUpdateOrderResponse {
+    success?: boolean;
+    message?: string | undefined;
+
+    constructor(data?: IUpdateOrderResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.success = _data["success"];
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): UpdateOrderResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateOrderResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["success"] = this.success;
+        data["message"] = this.message;
+        return data;
+    }
+}
+
+export interface IUpdateOrderResponse {
+    success?: boolean;
+    message?: string | undefined;
+}
+
 export class QueryOrdersRequest implements IQueryOrdersRequest {
     page?: number;
     pageSize?: number;
@@ -3298,98 +3385,6 @@ export interface IQueryProductsResponse {
     message?: string | undefined;
     products?: Product[] | undefined;
     pagination?: Pagination;
-}
-
-export class CreditCardPayOrderRequest implements ICreditCardPayOrderRequest {
-    orderId?: number;
-    cardUserName?: string | undefined;
-    cardNumber?: string | undefined;
-    cardExpiration?: string | undefined;
-    cardCvc?: string | undefined;
-
-    constructor(data?: ICreditCardPayOrderRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.orderId = _data["orderId"];
-            this.cardUserName = _data["cardUserName"];
-            this.cardNumber = _data["cardNumber"];
-            this.cardExpiration = _data["cardExpiration"];
-            this.cardCvc = _data["cardCvc"];
-        }
-    }
-
-    static fromJS(data: any): CreditCardPayOrderRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreditCardPayOrderRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["orderId"] = this.orderId;
-        data["cardUserName"] = this.cardUserName;
-        data["cardNumber"] = this.cardNumber;
-        data["cardExpiration"] = this.cardExpiration;
-        data["cardCvc"] = this.cardCvc;
-        return data;
-    }
-}
-
-export interface ICreditCardPayOrderRequest {
-    orderId?: number;
-    cardUserName?: string | undefined;
-    cardNumber?: string | undefined;
-    cardExpiration?: string | undefined;
-    cardCvc?: string | undefined;
-}
-
-export class CreditCardPayOrderResponse implements ICreditCardPayOrderResponse {
-    success?: boolean;
-    message?: string | undefined;
-
-    constructor(data?: ICreditCardPayOrderResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.success = _data["success"];
-            this.message = _data["message"];
-        }
-    }
-
-    static fromJS(data: any): CreditCardPayOrderResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreditCardPayOrderResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["success"] = this.success;
-        data["message"] = this.message;
-        return data;
-    }
-}
-
-export interface ICreditCardPayOrderResponse {
-    success?: boolean;
-    message?: string | undefined;
 }
 
 export class CartCoupon implements ICartCoupon {

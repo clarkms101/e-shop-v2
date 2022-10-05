@@ -83,7 +83,7 @@
                 <th>應付金額</th>
                 <th>付款方式</th>
                 <th>是否付款</th>
-                <th *ngIf="permission === 'Owner'">操作</th>
+                <th *ngIf="permission === 'Owner'">狀態編輯</th>
               </tr>
             </thead>
             <tbody>
@@ -122,16 +122,18 @@
                 </td>
                 <td *ngIf="permission === 'Owner'">
                   <input
+                    *ngIf="order.orderStatus === '訂單已建立'"
                     type="button"
-                    value="交易完成"
+                    value="完成"
                     class="btn btn-outline-primary btn-sm mr-2"
-                    (click)="orderFinished(order.serialNumber)"
+                    (click)="updateOrder(order.serialNumber, 'Finished')"
                   />
 
                   <input
+                    *ngIf="order.orderStatus === '訂單已建立'"
                     type="button"
-                    value="交易取消"
-                    class="btn btn-outline-danger btn-sm"
+                    value="取消"
+                    class="btn btn-outline-danger btn-sm mr-2"
                     [swal]="deleteSwal"
                   />
                   <swal
@@ -140,7 +142,23 @@
                     text="手動取消交易!"
                     [showCancelButton]="true"
                     [focusCancel]="true"
-                    (confirm)="orderCancel(order.serialNumber)"
+                    (confirm)="updateOrder(order.serialNumber, 'Cancel')"
+                  ></swal>
+
+                  <input
+                    *ngIf="order.orderStatus === '訂單已建立'"
+                    type="button"
+                    value="退款"
+                    class="btn btn-outline-danger btn-sm"
+                    [swal]="deleteSwal"
+                  />
+                  <swal
+                    #deleteSwal
+                    title="確定退款 訂單編號 : {{ order.orderId }} ?"
+                    text="手動退款!"
+                    [showCancelButton]="true"
+                    [focusCancel]="true"
+                    (confirm)="updateOrder(order.serialNumber, 'Refund')"
                   ></swal>
                 </td>
               </tr>
