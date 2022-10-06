@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.Command.Update;
@@ -53,10 +54,10 @@ namespace e_shop_api.Applications.Order.Command.Create
                 Tel = request.OrderForm.Tel,
                 Message = request.OrderForm.Message
             };
-
             await _eShopDbContext.Orders.AddAsync(newOrder, cancellationToken);
-            await _eShopDbContext.SaveChangesAsync(cancellationToken);
 
+            await _eShopDbContext.SaveChangesAsync(cancellationToken);
+            
             // create order detail
             foreach (var cartDetail in shoppingCart.Carts)
             {
@@ -64,10 +65,19 @@ namespace e_shop_api.Applications.Order.Command.Create
                 {
                     OrderId = newOrder.Id,
                     ProductId = cartDetail.Product.ProductId,
-                    Qty = cartDetail.Qty
+                    Qty = cartDetail.Qty,
+                    CreationTime = DateTime.Now
                 };
                 await _eShopDbContext.OrderDetails.AddAsync(orderDetail, cancellationToken);
             }
+
+            // update product 庫存 todo
+            // foreach (var item in shoppingCart.Carts)
+            // {
+            //     var product = _eShopDbContext.Products.Single(s => s.Id == item.Product.ProductId);
+            //     product.Num -= item.Qty;
+            //     product.LastModificationTime = DateTime.Now;
+            // }
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace e_shop_api.Applications.Order.Command.Update
                         message = "訂單已退款";
                         break;
                 }
+                order.LastModificationTime = DateTime.Now;
 
                 await _eShopDbContext.SaveChangesAsync(cancellationToken);
 

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.DataBase;
@@ -40,6 +41,7 @@ namespace e_shop_api.Applications.Product.Command.Update
             oldProduct.Content = request.Product.Content;
             oldProduct.IsEnabled = request.Product.IsEnabled;
             oldProduct.Num = request.Product.Num;
+            oldProduct.LastModificationTime = DateTime.Now;
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 

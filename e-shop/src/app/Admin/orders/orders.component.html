@@ -79,35 +79,21 @@
                 <th>訂單狀態</th>
                 <th>購買時間</th>
                 <th>Email</th>
-                <th>訂單內容</th>
                 <th>應付金額</th>
                 <th>付款方式</th>
                 <th>是否付款</th>
+                <th>明細</th>
                 <th *ngIf="permission === 'Owner'">狀態編輯</th>
               </tr>
             </thead>
             <tbody>
-              <tr
-                *ngFor="let order of orders"
-                [ngClass]="{ 'text-secondary': !order.isPaid }"
-              >
+              <tr *ngFor="let order of orders">
                 <td>{{ order.orderId }}</td>
                 <td>{{ order.orderStatus }}</td>
                 <td>
                   {{ order.createDateTime | date: "yyyy-MM-dd HH:mm:ss" }}
                 </td>
                 <td>{{ order.email }}</td>
-                <td>
-                  <ul
-                    class="list-unstyled"
-                    *ngIf="order.orderDetailInfos !== null"
-                  >
-                    <li *ngFor="let orderDetail of order.orderDetailInfos">
-                      {{ orderDetail.productTitle }} 數量 :
-                      {{ orderDetail.qty }} {{ orderDetail.productUnit }}
-                    </li>
-                  </ul>
-                </td>
                 <td>
                   {{ order.totalAmount | currency: "TWD":"symbol":"1.0-0" }}
                 </td>
@@ -119,6 +105,14 @@
                   <span *ngIf="order.isPaid === false" class="text-muted"
                     >尚未付款</span
                   >
+                </td>
+                <td>
+                  <input
+                    type="button"
+                    value="檢視"
+                    class="btn btn-outline-primary btn-sm mr-2"
+                    (click)="showOrderDetail(order.serialNumber)"
+                  />
                 </td>
                 <td *ngIf="permission === 'Owner'">
                   <input

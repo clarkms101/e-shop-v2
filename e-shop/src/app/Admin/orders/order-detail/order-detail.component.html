@@ -1,0 +1,93 @@
+<form class="form-horizontal" autocomplete="off" #OrderForm="ngForm">
+  <app-modal-header
+    [title]="'訂單明細'"
+    (onCloseClick)="bsModalRef.hide()"
+  ></app-modal-header>
+  <div class="modal-body">
+    <!-- 商品明細 -->
+    <h5 class="text-center my-4">商品明細</h5>
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th width="100"></th>
+          <th>商品名稱</th>
+          <th width="100">數量</th>
+          <th width="80">小計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderInfo.orderDetailInfos">
+          <td class="align-middle">
+            <img
+              [src]="item.imageUrl"
+              class="img-fluid img-thumbnail"
+              alt="商品圖片"
+            />
+          </td>
+          <td class="align-middle">{{ item.productTitle }}</td>
+          <td class="align-middle">{{ item.qty }}/{{ item.productUnit }}</td>
+          <td class="align-middle text-right">
+            {{ item.productPrice | currency: "TWD":"symbol":"1.0-0" }}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right">運費</td>
+          <td class="text-right">$0</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right">(折扣後)合計</td>
+          <td class="text-right">
+            <strong>{{
+              orderInfo.totalAmount | currency: "TWD":"symbol":"1.0-0"
+            }}</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <!-- 訂購資訊 -->
+    <h5 class="text-center my-4">訂購資訊</h5>
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th>訂單編號</th>
+          <td>{{ orderInfo.orderId }}</td>
+        </tr>
+        <tr>
+          <th>訂單狀態</th>
+          <td>{{ orderInfo.orderStatus }}</td>
+        </tr>
+        <tr>
+          <th>訂單金額</th>
+          <td>
+            {{ orderInfo.totalAmount | currency: "TWD":"symbol":"1.0-0" }}
+          </td>
+        </tr>
+        <tr>
+          <th>支付方式</th>
+          <td>{{ orderInfo.paymentMethod }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ orderInfo.email }}</td>
+        </tr>
+        <tr>
+          <th>姓名</th>
+          <td>{{ orderInfo.userName }}</td>
+        </tr>
+        <tr>
+          <th>電話</th>
+          <td>{{ orderInfo.tel }}</td>
+        </tr>
+        <tr>
+          <th>地址</th>
+          <td>{{ orderInfo.address }}</td>
+        </tr>
+        <tr>
+          <th>註記</th>
+          <td>{{ orderInfo.message }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

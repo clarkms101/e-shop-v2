@@ -4,6 +4,8 @@ import { appModuleAnimation } from 'src/shared/animations/routerTransition';
 import { Client, OrderInfo, OrderStatus, Pagination, QueryOrdersRequest, SelectionItem, UpdateOrderRequest } from 'src/shared/api client/service-proxies';
 import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 import { ToastrService } from 'ngx-toastr';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @Component({
   selector: 'app-orders',
@@ -28,7 +30,8 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private _apiClient: Client,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _modalService: BsModalService,
   ) { }
 
   ngOnInit(): void {
@@ -72,6 +75,20 @@ export class OrdersComponent implements OnInit {
       }
       this.loading = false;
     });
+  }
+
+  showOrderDetail(serialNumber: string | undefined): void {
+    let viewDialog: BsModalRef;
+
+    viewDialog = this._modalService.show(
+      OrderDetailComponent,
+      {
+        class: 'modal-lg',
+        initialState: {
+          serialNumber: serialNumber as string
+        },
+      }
+    );
   }
 
   updateOrder(serialNumber: string | undefined, orderStatus: string) {
