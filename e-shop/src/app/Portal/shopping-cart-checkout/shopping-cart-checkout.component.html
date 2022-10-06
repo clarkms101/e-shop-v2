@@ -191,22 +191,23 @@
       </div>
 
       <!-- 訂購人資訊 -->
-      <h5 class="py-3 mt-5 mb-2 text-center bg-light">訂購人資訊</h5>
+      <h5 class="py-3 mt-5 mb-2 text-center bg-light">收件人資訊</h5>
       <form #userInfoForm="ngForm">
+        <!-- row-1 -->
         <div class="form-row">
-          <!-- 姓名 -->
+          <!-- 收件人姓名 -->
           <div class="form-group col-md-6">
-            <label for="username">姓名</label>
+            <label for="username">收件人姓名</label>
             <input
               type="text"
               class="form-control"
               id="username"
               name="username"
-              placeholder="姓名"
+              placeholder="輸入收件人姓名"
               required
               [(ngModel)]="userInfo.UserName"
             />
-            <div class="invalid-feedback">請輸入姓名</div>
+            <div class="invalid-feedback">請輸入收件人姓名</div>
           </div>
           <!-- Email -->
           <div class="form-group col-md-6">
@@ -216,13 +217,31 @@
               class="form-control"
               id="email"
               name="email"
-              placeholder="Email"
+              placeholder="輸入收件人Email"
               required
               [(ngModel)]="userInfo.Email"
             />
             <div class="invalid-feedback">請輸入正確的 Email</div>
           </div>
         </div>
+        <!-- row-2 -->
+        <div class="form-row">
+          <!-- 手機號碼 -->
+          <div class="form-group col-md-6">
+            <label for="tel">手機號碼</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="tel"
+              name="tel"
+              placeholder="輸入手機號碼"
+              required
+              [(ngModel)]="userInfo.Tel"
+            />
+            <div class="invalid-feedback">請輸入手機號碼</div>
+          </div>
+        </div>
+        <!-- row-3 -->
         <div class="form-row">
           <!-- 國家 -->
           <div class="form-group col-md-4">
@@ -245,7 +264,7 @@
             </select>
           </div>
           <!-- 城市 -->
-          <div class="form-group col-md">
+          <div class="form-group col-md-4">
             <label for="city">城市</label>
             <select
               id="city"
@@ -261,57 +280,50 @@
             </select>
           </div>
           <!-- 郵遞區號 -->
-          <div class="form-group col-md">
+          <div class="form-group col-md-4">
             <label for="zipcode">郵遞區號</label>
             <input
               type="text"
               class="form-control"
               id="zipcode"
               name="zipcode"
+              placeholder="640"
               [(ngModel)]="userInfo.ZipCode"
             />
           </div>
         </div>
-        <!-- 地址 -->
-        <div class="form-group">
-          <label for="address">地址</label>
-          <input
-            type="text"
-            class="form-control"
-            id="address"
-            name="address"
-            placeholder="中正路一段123號"
-            required
-            [(ngModel)]="userInfo.Address"
-          />
-          <div class="invalid-feedback">請輸入地址</div>
+        <!-- row-4 -->
+        <div class="form-row">
+          <!-- 收件人地址 -->
+          <div class="form-group col-md-12">
+            <label for="address">收件人地址</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="address"
+              placeholder="中正路一段123號"
+              required
+              [(ngModel)]="userInfo.Address"
+            />
+            <div class="invalid-feedback">請輸入收件人地址</div>
+          </div>
         </div>
-        <!-- 手機號碼 -->
-        <div class="form-group">
-          <label for="tel">手機號碼</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="tel"
-            name="tel"
-            placeholder=""
-            required
-            [(ngModel)]="userInfo.Tel"
-          />
-          <div class="invalid-feedback">請輸入手機號碼</div>
-        </div>
-        <!-- 註記 -->
-        <div class="form-group">
-          <label for="message">註記</label>
-          <input
-            type="text"
-            class="form-control"
-            id="message"
-            name="message"
-            placeholder=""
-            [(ngModel)]="userInfo.Message"
-          />
-          <div class="invalid-feedback">請輸入註記</div>
+        <!-- row-5 -->
+        <div class="form-row">
+          <!-- 註記 -->
+          <div class="form-group col-md-12">
+            <label for="message">註記</label>
+            <textarea
+              rows="3"
+              class="form-control"
+              id="message"
+              name="message"
+              placeholder="輸入註記說明"
+              [(ngModel)]="userInfo.Message"
+            ></textarea>
+            <div class="invalid-feedback">請輸入註記</div>
+          </div>
         </div>
 
         <!-- 下一步 -->
@@ -457,7 +469,7 @@
                     type="tel"
                     class="input-lg form-control cc-cvc"
                     autocomplete="off"
-                    placeholder="••••"
+                    placeholder="•••"
                     required
                     [(ngModel)]="creditCardInfo.CardCvc"
                   />

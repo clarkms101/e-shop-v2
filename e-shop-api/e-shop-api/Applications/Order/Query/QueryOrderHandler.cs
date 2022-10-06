@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Order.CommonDto;
 using e_shop_api.DataBase;
+using e_shop_api.Enumeration;
 using e_shop_api.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -60,7 +61,8 @@ namespace e_shop_api.Applications.Order.Query
                     OrderId = selectOrder.Id,
                     UserId = selectOrder.UserId,
                     IsPaid = selectOrder.IsPaid,
-                    PaymentMethod = selectOrder.PaymentMethod,
+                    OrderStatus = selectOrder.OrderStatus.FromStringToEnum<OrderStatus>().GetDescriptionText(),
+                    PaymentMethod = selectOrder.PaymentMethod.FromStringToEnum<PaymentMethod>().GetDescriptionText(),
                     CreateDateTime = selectOrder.CreationTime.ToTimeStamp(),
                     PaidDateTime = selectOrder.PaidDateTime?.ToTimeStamp(),
                     TotalAmount = selectOrder.TotalAmount,

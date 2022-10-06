@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,7 @@ export class MenuComponent implements OnInit {
   menuItemArray: Array<menuItem> = [];
   @Input() selectCategory: string = "";
 
-  constructor() { }
+  constructor(private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     let menuItem1 = new menuItem();
@@ -42,6 +43,10 @@ export class MenuComponent implements OnInit {
       item.itemIsActive = false;
     });
     this.menuItemArray[itemIndex].itemIsActive = true;
+  }
+
+  notYetOpen(): void {
+    this._toastr.warning('該分類尚未開放!');
   }
 }
 

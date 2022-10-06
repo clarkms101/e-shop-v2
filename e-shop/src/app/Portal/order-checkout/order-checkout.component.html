@@ -3,7 +3,7 @@
     <div class="col-md-8">
       <h1 class="text-center mb-3 text-secondary">訂購完成</h1>
 
-      <h4 class="text-center my-4">購買商品</h4>
+      <h4 class="text-center my-4">商品明細</h4>
       <table class="table table-sm">
         <thead>
           <tr>
@@ -25,7 +25,7 @@
             <td class="align-middle">{{ item.productTitle }}</td>
             <td class="align-middle">{{ item.qty }}/{{ item.productUnit }}</td>
             <td class="align-middle text-right">
-              {{ item.productPrice | currency }}
+              {{ item.productPrice | currency: "TWD":"symbol":"1.0-0" }}
             </td>
           </tr>
           <tr>
@@ -49,7 +49,25 @@
       <table class="table">
         <tbody>
           <tr>
-            <th width="200">Email</th>
+            <th>訂單編號</th>
+            <td>{{ orderInfo.orderId }}</td>
+          </tr>
+          <tr>
+            <th>訂單狀態</th>
+            <td>{{ orderInfo.orderStatus }}</td>
+          </tr>
+          <tr>
+            <th>訂單金額</th>
+            <td>
+              {{ orderInfo.totalAmount | currency: "TWD":"symbol":"1.0-0" }}
+            </td>
+          </tr>
+          <tr>
+            <th>支付方式</th>
+            <td>{{ orderInfo.paymentMethod }}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
             <td>{{ orderInfo.email }}</td>
           </tr>
           <tr>

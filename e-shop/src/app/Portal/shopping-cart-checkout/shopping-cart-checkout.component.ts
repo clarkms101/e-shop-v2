@@ -76,10 +76,10 @@ export class ShoppingCartCheckoutComponent implements OnInit {
   }
 
   resetCreditCardInfo(): void {
-    this.creditCardInfo.CardUserName = '';
-    this.creditCardInfo.CardNumber = '';
-    this.creditCardInfo.CardCvc = '';
-    this.creditCardInfo.CardExpiration = '';
+    this.creditCardInfo.CardUserName = 'Clark';
+    this.creditCardInfo.CardNumber = '1234 1234 1234 1234';
+    this.creditCardInfo.CardCvc = '12 / 27';
+    this.creditCardInfo.CardExpiration = '678';
   }
 
   setCityListData(countryId: number): void {
