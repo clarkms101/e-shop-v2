@@ -134,10 +134,10 @@
                     type="button"
                     value="取消"
                     class="btn btn-outline-danger btn-sm mr-2"
-                    [swal]="deleteSwal"
+                    [swal]="cancelSwal"
                   />
                   <swal
-                    #deleteSwal
+                    #cancelSwal
                     title="確定取消交易 訂單編號 : {{ order.orderId }} ?"
                     text="手動取消交易!"
                     [showCancelButton]="true"
@@ -150,10 +150,10 @@
                     type="button"
                     value="退款"
                     class="btn btn-outline-danger btn-sm"
-                    [swal]="deleteSwal"
+                    [swal]="refundSwal"
                   />
                   <swal
-                    #deleteSwal
+                    #refundSwal
                     title="確定退款 訂單編號 : {{ order.orderId }} ?"
                     text="手動退款!"
                     [showCancelButton]="true"
