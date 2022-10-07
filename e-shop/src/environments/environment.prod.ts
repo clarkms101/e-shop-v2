@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: ''
+  apiUrl: 'https://e-shop-v2-backend-clark.herokuapp.com'
 };

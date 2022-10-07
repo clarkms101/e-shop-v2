@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["e-shop-api/e-shop-api.csproj", "e-shop-api/"]
-RUN dotnet restore "e-shop-api/e-shop-api.csproj"
+COPY ["e-shop-api.csproj", ""]
+RUN dotnet restore "./e-shop-api.csproj"
 COPY . .
-WORKDIR "/src/e-shop-api"
+WORKDIR "/src/."
 RUN dotnet build "e-shop-api.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -19,4 +19,4 @@ RUN dotnet publish "e-shop-api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "e-shop-api.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet e-shop-api.dll
