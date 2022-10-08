@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Order.CommonDto;
 using e_shop_api.Applications.Order.Query;
 using e_shop_api.DataBase.Models;
+using e_shop_api.Enumeration;
 using e_shop_api.Extensions;
 using e_shop_api_unit_test.Utility;
 using FluentAssertions;
@@ -35,7 +36,8 @@ public class QueryOrderHandlerTest : TestBase
             IsPaid = true,
             Message = "TestMessage",
             PaidDateTime = new DateTime(2021, 10, 31),
-            PaymentMethod = "TestPay",
+            PaymentMethod = PaymentMethod.CashOnDelivery.ToString(),
+            OrderStatus = OrderStatus.Created.ToString(),
             Tel = "123456789",
             TotalAmount = 1999
         });
@@ -51,7 +53,8 @@ public class QueryOrderHandlerTest : TestBase
             IsPaid = true,
             Message = "TestMessage2",
             PaidDateTime = new DateTime(2021, 11, 26),
-            PaymentMethod = "TestPay",
+            PaymentMethod = PaymentMethod.CashOnDelivery.ToString(),
+            OrderStatus = OrderStatus.Created.ToString(),
             Tel = "123456789",
             TotalAmount = 2999
         });
@@ -100,7 +103,8 @@ public class QueryOrderHandlerTest : TestBase
                 OrderId = 1,
                 UserId = null,
                 IsPaid = true,
-                PaymentMethod = "TestPay",
+                PaymentMethod = PaymentMethod.CashOnDelivery.GetDescriptionText(),
+                OrderStatus = OrderStatus.Created.GetDescriptionText(),
                 CreateDateTime = new DateTime(2021, 10, 30).ToTimeStamp(),
                 PaidDateTime = new DateTime(2021, 10, 31).ToTimeStamp(),
                 TotalAmount = 1999,

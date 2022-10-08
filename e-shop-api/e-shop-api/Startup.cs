@@ -54,8 +54,18 @@ namespace e_shop_api
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
-            services.AddSingleton<IShoppingCartUtility, ShoppingCartUtility>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            switch (Configuration["CacheType"])
+            {
+                case "memory":
+                    services.AddSingleton<IShoppingCartUtility, ShoppingCartUtilityByMemoryCache>();
+                    break;
+                case "redis":
+                    services.AddSingleton<IShoppingCartUtility, ShoppingCartUtilityByRedis>();
+                    services.AddSingleton<IConnectionMultiplexer>(
+                        ConnectionMultiplexer.Connect(Configuration.GetValue<string>("RedisConnectionString")));
+                    break;
+            }
 
             // Jwt Start
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -80,7 +90,7 @@ namespace e_shop_api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "e_shop_api", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "e_shop_api", Version = "v1" });
 
                 // swagger 支援 Jwt
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -94,7 +104,7 @@ namespace e_shop_api
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
-                    {new OpenApiSecurityScheme() { }, new List<string>()}
+                    { new OpenApiSecurityScheme() { }, new List<string>() }
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -140,10 +150,6 @@ namespace e_shop_api
                         .AllowCredentials()
                 )
             );
-
-            // Redis
-            services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(Configuration.GetValue<string>("RedisConnectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -163,7 +169,7 @@ namespace e_shop_api
             app.UseAuthentication();
 
             app.UseSerilogRequestLogging();
-            
+
             app.UseRouting();
 
             app.UseAuthorization();

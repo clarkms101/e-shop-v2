@@ -9,11 +9,11 @@ using StackExchange.Redis;
 
 namespace e_shop_api.Utility
 {
-    public class ShoppingCartUtility : IShoppingCartUtility
+    public class ShoppingCartUtilityByRedis : IShoppingCartUtility
     {
         private readonly IConnectionMultiplexer _multiplexer;
 
-        public ShoppingCartUtility(IMemoryCacheUtility memoryCacheUtility, IConnectionMultiplexer multiplexer)
+        public ShoppingCartUtilityByRedis(IConnectionMultiplexer multiplexer)
         {
             _multiplexer = multiplexer;
         }
@@ -82,7 +82,7 @@ namespace e_shop_api.Utility
             {
                 cartCacheInfo.CouponId = null;
             }
-            
+
             // update cart to cache
             _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
 
