@@ -19,8 +19,20 @@
         id="title"
         placeholder="請輸入標題"
         required
+        maxlength="50"
         [(ngModel)]="coupon.title"
+        #title="ngModel"
       />
+      <!-- check -->
+      <div *ngIf="title.invalid && (title.dirty || title.touched)">
+        <label for="" class="text-danger" *ngIf="title.errors?.['required']"
+          >請輸入標題!</label
+        >
+        <br />
+        <label for="" class="text-danger" *ngIf="title.errors?.['maxlength']"
+          >輸入內容請少於50個字!</label
+        >
+      </div>
     </div>
     <!-- 優惠碼 -->
     <div class="form-group required">
@@ -33,7 +45,26 @@
         placeholder="請輸入優惠碼"
         required
         [(ngModel)]="coupon.couponCode"
+        #couponCode="ngModel"
       />
+      <!-- check -->
+      <div
+        *ngIf="couponCode.invalid && (couponCode.dirty || couponCode.touched)"
+      >
+        <label
+          for=""
+          class="text-danger"
+          *ngIf="couponCode.errors?.['required']"
+          >請輸入優惠碼!</label
+        >
+        <br />
+        <label
+          for=""
+          class="text-danger"
+          *ngIf="couponCode.errors?.['maxlength']"
+          >輸入內容請少於50個字!</label
+        >
+      </div>
     </div>
     <!-- 到期日 -->
     <div class="form-group required">
@@ -60,7 +91,14 @@
         placeholder="95 => 95折"
         required
         [(ngModel)]="coupon.percent"
+        #percent="ngModel"
       />
+      <!-- check -->
+      <div *ngIf="percent.invalid && (percent.dirty || percent.touched)">
+        <label for="" class="text-danger" *ngIf="percent.errors?.['required']"
+          >請輸入折扣百分比!</label
+        >
+      </div>
     </div>
     <!-- 是否啟用 -->
     <div class="form-group">

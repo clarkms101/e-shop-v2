@@ -23,7 +23,17 @@
             placeholder="請輸入圖片網址"
             required
             [(ngModel)]="product.imageUrl"
+            #imageUrl="ngModel"
           />
+          <!-- check -->
+          <div *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)">
+            <label
+              for=""
+              class="text-danger"
+              *ngIf="imageUrl.errors?.['required']"
+              >請輸入圖片網址!</label
+            >
+          </div>
         </div>
         <!-- 圖片檢視 -->
         <img class="img-fluid" [src]="product.imageUrl" alt="" />
@@ -40,8 +50,23 @@
             id="title"
             placeholder="請輸入產品名稱"
             required
+            maxlength="50"
             [(ngModel)]="product.title"
+            #title="ngModel"
           />
+          <!-- check -->
+          <div *ngIf="title.invalid && (title.dirty || title.touched)">
+            <label for="" class="text-danger" *ngIf="title.errors?.['required']"
+              >請輸入產品名稱!</label
+            >
+            <br />
+            <label
+              for=""
+              class="text-danger"
+              *ngIf="title.errors?.['maxlength']"
+              >輸入內容請少於50個字!</label
+            >
+          </div>
         </div>
         <!-- 產品分類 -->
         <div class="form-group">
@@ -53,8 +78,26 @@
             id="category"
             placeholder="請輸入產品分類"
             required
+            maxlength="50"
             [(ngModel)]="product.category"
+            #category="ngModel"
           />
+          <!-- check -->
+          <div *ngIf="category.invalid && (category.dirty || category.touched)">
+            <label
+              for=""
+              class="text-danger"
+              *ngIf="category.errors?.['required']"
+              >請輸入產品分類!</label
+            >
+            <br />
+            <label
+              for=""
+              class="text-danger"
+              *ngIf="category.errors?.['maxlength']"
+              >輸入內容請少於50個字!</label
+            >
+          </div>
         </div>
         <!-- 庫存、單位 -->
         <div class="form-row">
@@ -69,7 +112,14 @@
               placeholder="請輸入庫存量"
               required
               [(ngModel)]="product.num"
+              #num="ngModel"
             />
+            <!-- check -->
+            <div *ngIf="num.invalid && (num.dirty || num.touched)">
+              <label for="" class="text-danger" *ngIf="num.errors?.['required']"
+                >請輸入庫存量!</label
+              >
+            </div>
           </div>
           <!-- 單位 -->
           <div class="form-group col-md-6">
@@ -81,8 +131,26 @@
               id="unit"
               placeholder="請輸入單位 ex:組、套"
               required
+              maxlength="50"
               [(ngModel)]="product.unit"
+              #unit="ngModel"
             />
+            <!-- check -->
+            <div *ngIf="unit.invalid && (unit.dirty || unit.touched)">
+              <label
+                for=""
+                class="text-danger"
+                *ngIf="unit.errors?.['required']"
+                >請輸入單位!</label
+              >
+              <br />
+              <label
+                for=""
+                class="text-danger"
+                *ngIf="unit.errors?.['maxlength']"
+                >輸入內容請少於50個字!</label
+              >
+            </div>
           </div>
         </div>
         <!-- 原價、售價 -->
@@ -98,7 +166,22 @@
               placeholder="請輸入原始價格"
               required
               [(ngModel)]="product.originPrice"
+              #originPrice="ngModel"
             />
+            <!-- check -->
+            <div
+              *ngIf="
+                originPrice.invalid &&
+                (originPrice.dirty || originPrice.touched)
+              "
+            >
+              <label
+                for=""
+                class="text-danger"
+                *ngIf="originPrice.errors?.['required']"
+                >請輸入原始價格!</label
+              >
+            </div>
           </div>
           <!-- 售價 -->
           <div class="form-group col-md-6">
@@ -111,7 +194,17 @@
               placeholder="請輸入實際出售價格"
               required
               [(ngModel)]="product.price"
+              #price="ngModel"
             />
+            <!-- check -->
+            <div *ngIf="price.invalid && (price.dirty || price.touched)">
+              <label
+                for=""
+                class="text-danger"
+                *ngIf="price.errors?.['required']"
+                >請輸入實際出售價格!</label
+              >
+            </div>
           </div>
         </div>
         <hr />
@@ -124,9 +217,24 @@
             name="description"
             id="description"
             [(ngModel)]="product.description"
+            maxlength="250"
             placeholder="請輸入產品描述"
+            #description="ngModel"
           >
           </textarea>
+          <!-- check -->
+          <div
+            *ngIf="
+              description.invalid && (description.dirty || description.touched)
+            "
+          >
+            <label
+              for=""
+              class="text-danger"
+              *ngIf="description.errors?.['maxlength']"
+              >輸入內容請少於250個字!</label
+            >
+          </div>
         </div>
         <!-- 說明內容 -->
         <div class="form-group">
@@ -138,8 +246,18 @@
             id="content"
             [(ngModel)]="product.content"
             placeholder="請輸入產品說明內容"
+            #content="ngModel"
           >
           </textarea>
+          <!-- check -->
+          <div *ngIf="content.invalid && (content.dirty || content.touched)">
+            <label
+              for=""
+              class="text-danger"
+              *ngIf="content.errors?.['maxlength']"
+              >輸入內容請少於250個字!</label
+            >
+          </div>
         </div>
         <!-- 是否啟用 -->
         <div class="form-group">

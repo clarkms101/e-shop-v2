@@ -10,22 +10,22 @@
     * 密碼 : test123
     * `ps: 此帳號只有檢視權限`
 
-### 使用的技術、平台
-* 前端
+### 使用技術
+* Frontend
     * Angular 13
     * TypeScript
-* 後端
+* Backend
     * .Net 5
     * C#
     * EF Core (Code First)
-* 資料庫
+* Database
     * PostgreSQL
-* 快取
+* Cache
     * Redis
     * MemoryCache
 * Log
     * Serilog
-* 雲端平台
+* Paas
     * Heroku
 
 ### 架構圖
