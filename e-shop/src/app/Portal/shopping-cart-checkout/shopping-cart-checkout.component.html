@@ -203,9 +203,21 @@
               name="username"
               placeholder="輸入收件人姓名"
               required
+              maxlength="50"
               [(ngModel)]="userInfo.UserName"
+              #UserName="ngModel"
             />
-            <div class="invalid-feedback">請輸入收件人姓名</div>
+            <!-- check -->
+            <div
+              *ngIf="UserName.invalid && (UserName.dirty || UserName.touched)"
+            >
+              <p class="text-danger" *ngIf="UserName.errors?.['required']">
+                請輸入收件人姓名!
+              </p>
+              <p class="text-danger" *ngIf="UserName.errors?.['maxlength']">
+                請輸入內容請少於50個字!
+              </p>
+            </div>
           </div>
           <!-- Email -->
           <div class="form-group col-md-6">
@@ -217,9 +229,23 @@
               name="email"
               placeholder="輸入收件人Email"
               required
+              maxlength="50"
+              email
               [(ngModel)]="userInfo.Email"
+              #Email="ngModel"
             />
-            <div class="invalid-feedback">請輸入正確的 Email</div>
+            <!-- check -->
+            <div *ngIf="Email.invalid && (Email.dirty || Email.touched)">
+              <p class="text-danger" *ngIf="Email.errors?.['email']">
+                請輸入正確格式的Email
+              </p>
+              <p class="text-danger" *ngIf="Email.errors?.['required']">
+                請輸入收件人Email
+              </p>
+              <p class="text-danger" *ngIf="Email.errors?.['maxlength']">
+                請輸入內容請少於50個字!
+              </p>
+            </div>
           </div>
         </div>
         <!-- row-2 -->
@@ -228,15 +254,25 @@
           <div class="form-group col-md-6">
             <label for="tel">手機號碼</label>
             <input
-              type="tel"
+              type="number"
               class="form-control"
               id="tel"
               name="tel"
               placeholder="輸入手機號碼"
               required
+              maxlength="50"
               [(ngModel)]="userInfo.Tel"
+              #Tel="ngModel"
             />
-            <div class="invalid-feedback">請輸入手機號碼</div>
+            <!-- check -->
+            <div *ngIf="Tel.invalid && (Tel.dirty || Tel.touched)">
+              <p class="text-danger" *ngIf="Tel.errors?.['required']">
+                請輸入手機號碼!
+              </p>
+              <p class="text-danger" *ngIf="Tel.errors?.['maxlength']">
+                請輸入內容請少於50個字!
+              </p>
+            </div>
           </div>
         </div>
         <!-- row-3 -->
@@ -251,6 +287,7 @@
               [(ngModel)]="userInfo.Country"
               (ngModelChange)="setCityListData($event)"
               required
+              #Country="ngModel"
             >
               <option disabled [ngValue]="null">請選擇</option>
               <option
@@ -260,6 +297,12 @@
                 {{ country.text }}
               </option>
             </select>
+            <!-- check -->
+            <div *ngIf="Country.invalid && (Country.dirty || Country.touched)">
+              <p class="text-danger" *ngIf="Country.errors?.['required']">
+                請選擇國家!
+              </p>
+            </div>
           </div>
           <!-- 城市 -->
           <div class="form-group col-md-4">
@@ -270,12 +313,19 @@
               class="form-control"
               [(ngModel)]="userInfo.City"
               required
+              #City="ngModel"
             >
               <option disabled [ngValue]="null">請選擇</option>
               <option *ngFor="let city of cityList" [ngValue]="city.value">
                 {{ city.text }}
               </option>
             </select>
+            <!-- check -->
+            <div *ngIf="City.invalid && (City.dirty || City.touched)">
+              <p class="text-danger" *ngIf="City.errors?.['required']">
+                請選擇城市!
+              </p>
+            </div>
           </div>
           <!-- 郵遞區號 -->
           <div class="form-group col-md-4">
@@ -303,8 +353,17 @@
               placeholder="中正路一段123號"
               required
               [(ngModel)]="userInfo.Address"
+              #Address="ngModel"
             />
-            <div class="invalid-feedback">請輸入收件人地址</div>
+            <!-- check -->
+            <div *ngIf="Address.invalid && (Address.dirty || Address.touched)">
+              <p class="text-danger" *ngIf="Address.errors?.['required']">
+                請輸入收件人地址!
+              </p>
+              <p class="text-danger" *ngIf="Address.errors?.['maxlength']">
+                請輸入內容請少於250個字!
+              </p>
+            </div>
           </div>
         </div>
         <!-- row-5 -->
@@ -319,8 +378,14 @@
               name="message"
               placeholder="輸入註記說明"
               [(ngModel)]="userInfo.Message"
+              #Message="ngModel"
             ></textarea>
-            <div class="invalid-feedback">請輸入註記</div>
+            <!-- check -->
+            <div *ngIf="Message.invalid && (Message.dirty || Message.touched)">
+              <p class="text-danger" *ngIf="Message.errors?.['maxlength']">
+                請輸入內容請少於250個字!
+              </p>
+            </div>
           </div>
         </div>
 

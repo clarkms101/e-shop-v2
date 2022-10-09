@@ -25,13 +25,12 @@
       />
       <!-- check -->
       <div *ngIf="title.invalid && (title.dirty || title.touched)">
-        <label for="" class="text-danger" *ngIf="title.errors?.['required']"
-          >請輸入標題!</label
-        >
-        <br />
-        <label for="" class="text-danger" *ngIf="title.errors?.['maxlength']"
-          >輸入內容請少於50個字!</label
-        >
+        <p class="text-danger" *ngIf="title.errors?.['required']">
+          請輸入標題!
+        </p>
+        <p class="text-danger" *ngIf="title.errors?.['maxlength']">
+          輸入內容請少於50個字!
+        </p>
       </div>
     </div>
     <!-- 優惠碼 -->
@@ -51,19 +50,12 @@
       <div
         *ngIf="couponCode.invalid && (couponCode.dirty || couponCode.touched)"
       >
-        <label
-          for=""
-          class="text-danger"
-          *ngIf="couponCode.errors?.['required']"
-          >請輸入優惠碼!</label
-        >
-        <br />
-        <label
-          for=""
-          class="text-danger"
-          *ngIf="couponCode.errors?.['maxlength']"
-          >輸入內容請少於50個字!</label
-        >
+        <p class="text-danger" *ngIf="couponCode.errors?.['required']">
+          請輸入優惠碼!
+        </p>
+        <p class="text-danger" *ngIf="couponCode.errors?.['maxlength']">
+          輸入內容請少於50個字!
+        </p>
       </div>
     </div>
     <!-- 到期日 -->
@@ -95,9 +87,9 @@
       />
       <!-- check -->
       <div *ngIf="percent.invalid && (percent.dirty || percent.touched)">
-        <label for="" class="text-danger" *ngIf="percent.errors?.['required']"
-          >請輸入折扣百分比!</label
-        >
+        <p class="text-danger" *ngIf="percent.errors?.['required']">
+          請輸入折扣百分比!
+        </p>
       </div>
     </div>
     <!-- 是否啟用 -->

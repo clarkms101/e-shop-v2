@@ -27,12 +27,9 @@
           />
           <!-- check -->
           <div *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)">
-            <label
-              for=""
-              class="text-danger"
-              *ngIf="imageUrl.errors?.['required']"
-              >請輸入圖片網址!</label
-            >
+            <p class="text-danger" *ngIf="imageUrl.errors?.['required']">
+              請輸入圖片網址!
+            </p>
           </div>
         </div>
         <!-- 圖片檢視 -->
@@ -56,16 +53,12 @@
           />
           <!-- check -->
           <div *ngIf="title.invalid && (title.dirty || title.touched)">
-            <label for="" class="text-danger" *ngIf="title.errors?.['required']"
-              >請輸入產品名稱!</label
-            >
-            <br />
-            <label
-              for=""
-              class="text-danger"
-              *ngIf="title.errors?.['maxlength']"
-              >輸入內容請少於50個字!</label
-            >
+            <p class="text-danger" *ngIf="title.errors?.['required']">
+              請輸入產品名稱!
+            </p>
+            <p class="text-danger" *ngIf="title.errors?.['maxlength']">
+              輸入內容請少於50個字!
+            </p>
           </div>
         </div>
         <!-- 產品分類 -->
@@ -84,19 +77,12 @@
           />
           <!-- check -->
           <div *ngIf="category.invalid && (category.dirty || category.touched)">
-            <label
-              for=""
-              class="text-danger"
-              *ngIf="category.errors?.['required']"
-              >請輸入產品分類!</label
-            >
-            <br />
-            <label
-              for=""
-              class="text-danger"
-              *ngIf="category.errors?.['maxlength']"
-              >輸入內容請少於50個字!</label
-            >
+            <p class="text-danger" *ngIf="category.errors?.['required']">
+              請輸入產品分類!
+            </p>
+            <p class="text-danger" *ngIf="category.errors?.['maxlength']">
+              輸入內容請少於50個字!
+            </p>
           </div>
         </div>
         <!-- 庫存、單位 -->
@@ -116,9 +102,9 @@
             />
             <!-- check -->
             <div *ngIf="num.invalid && (num.dirty || num.touched)">
-              <label for="" class="text-danger" *ngIf="num.errors?.['required']"
-                >請輸入庫存量!</label
-              >
+              <p class="text-danger" *ngIf="num.errors?.['required']">
+                請輸入庫存量!
+              </p>
             </div>
           </div>
           <!-- 單位 -->
@@ -137,19 +123,12 @@
             />
             <!-- check -->
             <div *ngIf="unit.invalid && (unit.dirty || unit.touched)">
-              <label
-                for=""
-                class="text-danger"
-                *ngIf="unit.errors?.['required']"
-                >請輸入單位!</label
-              >
-              <br />
-              <label
-                for=""
-                class="text-danger"
-                *ngIf="unit.errors?.['maxlength']"
-                >輸入內容請少於50個字!</label
-              >
+              <p class="text-danger" *ngIf="unit.errors?.['required']">
+                請輸入單位!
+              </p>
+              <p class="text-danger" *ngIf="unit.errors?.['maxlength']">
+                輸入內容請少於50個字!
+              </p>
             </div>
           </div>
         </div>
@@ -175,12 +154,9 @@
                 (originPrice.dirty || originPrice.touched)
               "
             >
-              <label
-                for=""
-                class="text-danger"
-                *ngIf="originPrice.errors?.['required']"
-                >請輸入原始價格!</label
-              >
+              <p class="text-danger" *ngIf="originPrice.errors?.['required']">
+                請輸入原始價格!
+              </p>
             </div>
           </div>
           <!-- 售價 -->
@@ -198,12 +174,9 @@
             />
             <!-- check -->
             <div *ngIf="price.invalid && (price.dirty || price.touched)">
-              <label
-                for=""
-                class="text-danger"
-                *ngIf="price.errors?.['required']"
-                >請輸入實際出售價格!</label
-              >
+              <p class="text-danger" *ngIf="price.errors?.['required']">
+                請輸入實際出售價格!
+              </p>
             </div>
           </div>
         </div>
@@ -228,12 +201,9 @@
               description.invalid && (description.dirty || description.touched)
             "
           >
-            <label
-              for=""
-              class="text-danger"
-              *ngIf="description.errors?.['maxlength']"
-              >輸入內容請少於250個字!</label
-            >
+            <p class="text-danger" *ngIf="description.errors?.['maxlength']">
+              輸入內容請少於250個字!
+            </p>
           </div>
         </div>
         <!-- 說明內容 -->
@@ -251,12 +221,9 @@
           </textarea>
           <!-- check -->
           <div *ngIf="content.invalid && (content.dirty || content.touched)">
-            <label
-              for=""
-              class="text-danger"
-              *ngIf="content.errors?.['maxlength']"
-              >輸入內容請少於250個字!</label
-            >
+            <p class="text-danger" *ngIf="content.errors?.['maxlength']">
+              輸入內容請少於250個字!
+            </p>
           </div>
         </div>
         <!-- 是否啟用 -->
