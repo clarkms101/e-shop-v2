@@ -47,6 +47,7 @@ import { shoppingCartItemCountReducer } from 'src/shared/store/shopping-cart.red
 import { ShoppingCartCheckoutComponent } from './Portal/shopping-cart-checkout/shopping-cart-checkout.component';
 import { OrderCheckoutComponent } from './Portal/order-checkout/order-checkout.component';
 import { OrderDetailComponent } from './Admin/orders/order-detail/order-detail.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -110,6 +111,7 @@ defineLocale('zh-cn', zhCnLocale);
     StoreModule.forRoot({
       shoppingCartInfo: shoppingCartItemCountReducer
     }),
+    NgxSkeletonLoaderModule
   ],
   providers: [
     Client,

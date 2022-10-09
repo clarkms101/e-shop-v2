@@ -1,6 +1,6 @@
 # e-shop-v2
 ### 簡述
-> 以電商為主題的全端開發練習專案, 後端採用.Net、前端使用Angular。分為前台和後台兩個操作頁面。
+> 以電商為主題的Web練習專案, 後端採用.Net、前端使用Angular。分為前台和後台兩個操作頁面。
 
 ### Demo
 * [前台網站](https://e-shop-v2-clark.herokuapp.com/)
