@@ -20,4 +20,5 @@ export class AdminInfo {
   JwtKeyApiAccessKey: string | undefined;
   JwtKeyAdminPermission: string | undefined;
   JwtKeyAdminAccount: string | undefined;
+  JwtKeyAdminSystemUserId: number | undefined;
 }

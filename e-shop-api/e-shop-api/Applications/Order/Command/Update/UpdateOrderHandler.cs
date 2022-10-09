@@ -33,6 +33,7 @@ namespace e_shop_api.Applications.Order.Command.Update
                 {
                     case OrderStatus.Finished:
                         order.IsPaid = true;
+                        order.PaidDateTime = DateTime.Now;
                         order.OrderStatus = OrderStatus.Finished.ToString();
                         message = "訂單支付已完成";
                         break;
@@ -45,6 +46,9 @@ namespace e_shop_api.Applications.Order.Command.Update
                         message = "訂單已退款";
                         break;
                 }
+
+                // system
+                order.LastModifierUserId = 0; // 系統編號
                 order.LastModificationTime = DateTime.Now;
 
                 await _eShopDbContext.SaveChangesAsync(cancellationToken);

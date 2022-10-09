@@ -30,7 +30,10 @@ namespace e_shop_api.Applications.Coupon.Command.Create
                 Percent = request.Coupon.Percent,
                 IsEnabled = request.Coupon.IsEnabled,
                 // 固定該日的 23:59:59
-                DueDateTime = new DateTime(dueDate.Year, dueDate.Month, dueDate.Day, 23, 59, 59)
+                DueDateTime = new DateTime(dueDate.Year, dueDate.Month, dueDate.Day, 23, 59, 59),
+                // system
+                CreatorUserId = request.SystemUserId,
+                CreationTime = DateTime.Now
             };
 
             await _eShopDbContext.Coupons.AddAsync(newCoupon, cancellationToken);

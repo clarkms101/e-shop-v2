@@ -41,6 +41,8 @@ namespace e_shop_api.Applications.Product.Command.Update
             oldProduct.Content = request.Product.Content;
             oldProduct.IsEnabled = request.Product.IsEnabled;
             oldProduct.Num = request.Product.Num;
+            // system
+            oldProduct.LastModifierUserId = request.SystemUserId;
             oldProduct.LastModificationTime = DateTime.Now;
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);

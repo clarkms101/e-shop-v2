@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.DataBase;
@@ -31,7 +32,10 @@ namespace e_shop_api.Applications.Product.Command.Create
                 Description = request.Product.Description,
                 Content = request.Product.Content,
                 IsEnabled = request.Product.IsEnabled,
-                Num = request.Product.Num
+                Num = request.Product.Num,
+                // system
+               CreatorUserId = request.SystemUserId,
+               CreationTime = DateTime.Now
             };
 
             await _eShopDbContext.Products.AddAsync(newProduct, cancellationToken);

@@ -19,6 +19,7 @@ namespace e_shop_api.Utility
         private readonly JwtConfig _jwtConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private const string JwtKeyApiAccessKey = "JwtKeyApiAccessKey";
+        private const string JwtKeyAdminSystemUserId = "JwtKeyAdminSystemUserId";
         private const string JwtKeyAdminAccount = "JwtKeyAdminAccount";
         private const string JwtKeyAdminPermission = "JwtKeyAdminPermission";
 
@@ -52,6 +53,7 @@ namespace e_shop_api.Utility
                 new Claim(ClaimTypes.Role, "Admin"),
                 // 將使用者資訊加入到JWT Token
                 new Claim(JwtKeyApiAccessKey, adminInfo.ApiAccessKey),
+                new Claim(JwtKeyAdminSystemUserId, adminInfo.SystemUserId),
                 new Claim(JwtKeyAdminAccount, adminInfo.Account),
                 new Claim(JwtKeyAdminPermission, adminInfo.Permission),
             };
@@ -87,6 +89,7 @@ namespace e_shop_api.Utility
             {
                 ApiAccessKey = GetJwtClaimValue(JwtKeyApiAccessKey),
                 Account = GetJwtClaimValue(JwtKeyAdminAccount),
+                SystemUserId = GetJwtClaimValue(JwtKeyAdminSystemUserId),
                 Permission = GetJwtClaimValue(JwtKeyAdminPermission)
             };
         }

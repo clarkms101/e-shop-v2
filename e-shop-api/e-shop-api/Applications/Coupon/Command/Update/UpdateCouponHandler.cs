@@ -36,9 +36,11 @@ namespace e_shop_api.Applications.Coupon.Command.Update
             oldCoupon.CouponCode = request.Coupon.CouponCode;
             oldCoupon.Percent = request.Coupon.Percent;
             oldCoupon.IsEnabled = request.Coupon.IsEnabled;
-            oldCoupon.LastModificationTime = DateTime.Now;
             // 固定該日的 23:59:59
             oldCoupon.DueDateTime = new DateTime(dueDate.Year, dueDate.Month, dueDate.Day, 23, 59, 59);
+            // system
+            oldCoupon.LastModifierUserId = request.SystemUserId;
+            oldCoupon.LastModificationTime = DateTime.Now;
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 

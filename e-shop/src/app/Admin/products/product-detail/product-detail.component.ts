@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Client, CreateProductRequest, Product, UpdateProductRequest } from 'src/shared/api client/service-proxies';
+import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,10 +30,12 @@ export class ProductDetailComponent implements OnInit {
 
   save(): void {
     this.saving = true;
+    let systemUserId = JwtHelper.parseJwt().JwtKeyAdminSystemUserId as number;
 
     // 編輯
     if (this.isEdit) {
       let editData = new UpdateProductRequest();
+      editData.systemUserId = systemUserId;
       editData.product = this.product;
       this._apiClient.productPUT(editData).subscribe((response) => {
         this._toastr.success(`${response.message}`);
@@ -45,6 +48,7 @@ export class ProductDetailComponent implements OnInit {
     // 新增
     else {
       let createData = new CreateProductRequest();
+      createData.systemUserId = systemUserId;
       createData.product = this.product;
       this._apiClient.productPOST(createData).subscribe((response) => {
         this._toastr.success(`${response.message}`);

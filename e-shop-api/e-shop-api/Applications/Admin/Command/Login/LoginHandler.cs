@@ -51,6 +51,7 @@ namespace e_shop_api.Applications.Admin.Command.Login
                     var adminCacheInfo = new AdminInfo()
                     {
                         Account = adminInfo.Account,
+                        SystemUserId = adminInfo.Id.ToString(),
                         ApiAccessKey = apiAccessKey,
                         Permission = adminInfo.Permission.ToString(),
                         Device = device,

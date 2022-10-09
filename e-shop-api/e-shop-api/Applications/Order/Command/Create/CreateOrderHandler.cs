@@ -45,19 +45,21 @@ namespace e_shop_api.Applications.Order.Command.Create
                 PaymentMethod = string.IsNullOrWhiteSpace(request.OrderForm.PaymentMethod)
                     ? null
                     : request.OrderForm.PaymentMethod,
-                CreationTime = DateTime.Now,
                 PaidDateTime = null,
                 TotalAmount = shoppingCart.FinalTotalAmount,
                 UserName = request.OrderForm.UserName,
                 Address = request.OrderForm.Address,
                 Email = request.OrderForm.Email,
                 Tel = request.OrderForm.Tel,
-                Message = request.OrderForm.Message
+                Message = request.OrderForm.Message,
+                // system
+                CreatorUserId = 0, // 系統編號
+                CreationTime = DateTime.Now
             };
             await _eShopDbContext.Orders.AddAsync(newOrder, cancellationToken);
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
-            
+
             // create order detail
             foreach (var cartDetail in shoppingCart.Carts)
             {
@@ -66,6 +68,8 @@ namespace e_shop_api.Applications.Order.Command.Create
                     OrderId = newOrder.Id,
                     ProductId = cartDetail.Product.ProductId,
                     Qty = cartDetail.Qty,
+                    // system
+                    CreatorUserId = 0, // 系統編號
                     CreationTime = DateTime.Now
                 };
                 await _eShopDbContext.OrderDetails.AddAsync(orderDetail, cancellationToken);

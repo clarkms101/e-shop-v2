@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Cart, CartCoupon, Client, CreateOrderRequest, QueryCartResponse, SelectionItem, ShoppingProduct, UpdateCartCouponRequest } from 'src/shared/api client/service-proxies';
 import { CallApiGetShoppingCartInfo } from 'src/shared/store/shopping-cart.action';
 import { Router } from '@angular/router';
+import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 
 @Component({
   selector: 'app-shopping-cart-checkout',
@@ -146,9 +147,12 @@ export class ShoppingCartCheckoutComponent implements OnInit {
 
   // 送出訂單
   createOrder(paymentType: PaymentType): void {
+    let systemUserId = JwtHelper.parseJwt().JwtKeyAdminSystemUserId as number;
+
     let request = new CreateOrderRequest();
     request.orderForm = new OrderForm();
     let address = this.getUserFullAddress();
+    request.systemUserId = systemUserId;
     request.orderForm.userName = this.userInfo.UserName as string;
     request.orderForm.address = address;
     request.orderForm.email = this.userInfo.Email as string;

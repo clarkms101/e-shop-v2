@@ -3,6 +3,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Client, Coupon, CreateCouponRequest, UpdateCouponRequest } from 'src/shared/api client/service-proxies';
 import { DateHelper } from 'src/shared/helpers/DateHelper';
+import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 
 @Component({
   selector: 'app-coupon-detail',
@@ -37,10 +38,12 @@ export class CouponDetailComponent implements OnInit {
   save(): void {
     this.saving = true;
     let dueDateTime = new Date(this.dueDateTimeString);
+    let systemUserId = JwtHelper.parseJwt().JwtKeyAdminSystemUserId as number;
 
     // 編輯
     if (this.isEdit) {
       let editData = new UpdateCouponRequest();
+      editData.systemUserId = systemUserId;
       editData.coupon = this.coupon;
       editData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(dueDateTime);
 
@@ -55,6 +58,7 @@ export class CouponDetailComponent implements OnInit {
     // 新增
     else {
       let createData = new CreateCouponRequest();
+      createData.systemUserId = systemUserId;
       createData.coupon = this.coupon;
       createData.coupon.dueDateTimeStamp = DateHelper.getTimestampSeconds(dueDateTime);
 

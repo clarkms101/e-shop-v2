@@ -1973,6 +1973,7 @@ export interface ICartDetail {
 }
 
 export class CreateCartDetailRequest implements ICreateCartDetailRequest {
+    systemUserId?: number;
     cartDetail?: CartDetail;
 
     constructor(data?: ICreateCartDetailRequest) {
@@ -1986,6 +1987,7 @@ export class CreateCartDetailRequest implements ICreateCartDetailRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.cartDetail = _data["cartDetail"] ? CartDetail.fromJS(_data["cartDetail"]) : <any>undefined;
         }
     }
@@ -1999,12 +2001,14 @@ export class CreateCartDetailRequest implements ICreateCartDetailRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["cartDetail"] = this.cartDetail ? this.cartDetail.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface ICreateCartDetailRequest {
+    systemUserId?: number;
     cartDetail?: CartDetail;
 }
 
@@ -2090,9 +2094,9 @@ export interface IDeleteCartDetailResponse {
 
 export class Coupon implements ICoupon {
     couponId?: number;
-    title?: string | undefined;
-    couponCode?: string | undefined;
-    percent?: number;
+    title!: string;
+    couponCode!: string;
+    percent!: number;
     isEnabled?: boolean;
     dueDateTimeStamp?: number;
 
@@ -2137,14 +2141,15 @@ export class Coupon implements ICoupon {
 
 export interface ICoupon {
     couponId?: number;
-    title?: string | undefined;
-    couponCode?: string | undefined;
-    percent?: number;
+    title: string;
+    couponCode: string;
+    percent: number;
     isEnabled?: boolean;
     dueDateTimeStamp?: number;
 }
 
 export class CreateCouponRequest implements ICreateCouponRequest {
+    systemUserId?: number;
     coupon?: Coupon;
 
     constructor(data?: ICreateCouponRequest) {
@@ -2158,6 +2163,7 @@ export class CreateCouponRequest implements ICreateCouponRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.coupon = _data["coupon"] ? Coupon.fromJS(_data["coupon"]) : <any>undefined;
         }
     }
@@ -2171,12 +2177,14 @@ export class CreateCouponRequest implements ICreateCouponRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["coupon"] = this.coupon ? this.coupon.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface ICreateCouponRequest {
+    systemUserId?: number;
     coupon?: Coupon;
 }
 
@@ -2221,6 +2229,7 @@ export interface ICreateCouponResponse {
 }
 
 export class UpdateCouponRequest implements IUpdateCouponRequest {
+    systemUserId?: number;
     coupon?: Coupon;
 
     constructor(data?: IUpdateCouponRequest) {
@@ -2234,6 +2243,7 @@ export class UpdateCouponRequest implements IUpdateCouponRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.coupon = _data["coupon"] ? Coupon.fromJS(_data["coupon"]) : <any>undefined;
         }
     }
@@ -2247,12 +2257,14 @@ export class UpdateCouponRequest implements IUpdateCouponRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["coupon"] = this.coupon ? this.coupon.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface IUpdateCouponRequest {
+    systemUserId?: number;
     coupon?: Coupon;
 }
 
@@ -2641,10 +2653,10 @@ export interface IQueryOrderResponse {
 }
 
 export class OrderForm implements IOrderForm {
-    userName?: string | undefined;
-    address?: string | undefined;
-    email?: string | undefined;
-    tel?: string | undefined;
+    userName!: string;
+    address!: string;
+    email!: string;
+    tel!: string;
     message?: string | undefined;
     paymentMethod?: string | undefined;
 
@@ -2688,15 +2700,16 @@ export class OrderForm implements IOrderForm {
 }
 
 export interface IOrderForm {
-    userName?: string | undefined;
-    address?: string | undefined;
-    email?: string | undefined;
-    tel?: string | undefined;
+    userName: string;
+    address: string;
+    email: string;
+    tel: string;
     message?: string | undefined;
     paymentMethod?: string | undefined;
 }
 
 export class CreateOrderRequest implements ICreateOrderRequest {
+    systemUserId?: number;
     orderForm?: OrderForm;
 
     constructor(data?: ICreateOrderRequest) {
@@ -2710,6 +2723,7 @@ export class CreateOrderRequest implements ICreateOrderRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.orderForm = _data["orderForm"] ? OrderForm.fromJS(_data["orderForm"]) : <any>undefined;
         }
     }
@@ -2723,12 +2737,14 @@ export class CreateOrderRequest implements ICreateOrderRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["orderForm"] = this.orderForm ? this.orderForm.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface ICreateOrderRequest {
+    systemUserId?: number;
     orderForm?: OrderForm;
 }
 
@@ -2784,6 +2800,7 @@ export enum OrderStatus {
 }
 
 export class UpdateOrderRequest implements IUpdateOrderRequest {
+    systemUserId?: number;
     serialNumber?: string | undefined;
     orderStatus?: OrderStatus;
 
@@ -2798,6 +2815,7 @@ export class UpdateOrderRequest implements IUpdateOrderRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.serialNumber = _data["serialNumber"];
             this.orderStatus = _data["orderStatus"];
         }
@@ -2812,6 +2830,7 @@ export class UpdateOrderRequest implements IUpdateOrderRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["serialNumber"] = this.serialNumber;
         data["orderStatus"] = this.orderStatus;
         return data;
@@ -2819,6 +2838,7 @@ export class UpdateOrderRequest implements IUpdateOrderRequest {
 }
 
 export interface IUpdateOrderRequest {
+    systemUserId?: number;
     serialNumber?: string | undefined;
     orderStatus?: OrderStatus;
 }
@@ -2972,16 +2992,16 @@ export interface IQueryOrdersResponse {
 }
 
 export class Product implements IProduct {
-    category?: string | undefined;
+    productId?: number;
+    category!: string;
     content?: string | undefined;
     description?: string | undefined;
-    productId?: number;
-    imageUrl?: string | undefined;
+    imageUrl!: string;
     isEnabled?: boolean;
     originPrice?: number;
     price?: number;
-    title?: string | undefined;
-    unit?: string | undefined;
+    title!: string;
+    unit!: string;
     num?: number;
 
     constructor(data?: IProduct) {
@@ -2995,10 +3015,10 @@ export class Product implements IProduct {
 
     init(_data?: any) {
         if (_data) {
+            this.productId = _data["productId"];
             this.category = _data["category"];
             this.content = _data["content"];
             this.description = _data["description"];
-            this.productId = _data["productId"];
             this.imageUrl = _data["imageUrl"];
             this.isEnabled = _data["isEnabled"];
             this.originPrice = _data["originPrice"];
@@ -3018,10 +3038,10 @@ export class Product implements IProduct {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["productId"] = this.productId;
         data["category"] = this.category;
         data["content"] = this.content;
         data["description"] = this.description;
-        data["productId"] = this.productId;
         data["imageUrl"] = this.imageUrl;
         data["isEnabled"] = this.isEnabled;
         data["originPrice"] = this.originPrice;
@@ -3034,16 +3054,16 @@ export class Product implements IProduct {
 }
 
 export interface IProduct {
-    category?: string | undefined;
+    productId?: number;
+    category: string;
     content?: string | undefined;
     description?: string | undefined;
-    productId?: number;
-    imageUrl?: string | undefined;
+    imageUrl: string;
     isEnabled?: boolean;
     originPrice?: number;
     price?: number;
-    title?: string | undefined;
-    unit?: string | undefined;
+    title: string;
+    unit: string;
     num?: number;
 }
 
@@ -3132,6 +3152,7 @@ export interface IDeleteProductResponse {
 }
 
 export class CreateProductRequest implements ICreateProductRequest {
+    systemUserId?: number;
     product?: Product;
 
     constructor(data?: ICreateProductRequest) {
@@ -3145,6 +3166,7 @@ export class CreateProductRequest implements ICreateProductRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.product = _data["product"] ? Product.fromJS(_data["product"]) : <any>undefined;
         }
     }
@@ -3158,12 +3180,14 @@ export class CreateProductRequest implements ICreateProductRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["product"] = this.product ? this.product.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface ICreateProductRequest {
+    systemUserId?: number;
     product?: Product;
 }
 
@@ -3208,6 +3232,7 @@ export interface ICreateProductResponse {
 }
 
 export class UpdateProductRequest implements IUpdateProductRequest {
+    systemUserId?: number;
     product?: Product;
 
     constructor(data?: IUpdateProductRequest) {
@@ -3221,6 +3246,7 @@ export class UpdateProductRequest implements IUpdateProductRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.product = _data["product"] ? Product.fromJS(_data["product"]) : <any>undefined;
         }
     }
@@ -3234,12 +3260,14 @@ export class UpdateProductRequest implements IUpdateProductRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["product"] = this.product ? this.product.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface IUpdateProductRequest {
+    systemUserId?: number;
     product?: Product;
 }
 
@@ -3424,6 +3452,7 @@ export interface ICartCoupon {
 }
 
 export class UpdateCartCouponRequest implements IUpdateCartCouponRequest {
+    systemUserId?: number;
     coupon?: CartCoupon;
 
     constructor(data?: IUpdateCartCouponRequest) {
@@ -3437,6 +3466,7 @@ export class UpdateCartCouponRequest implements IUpdateCartCouponRequest {
 
     init(_data?: any) {
         if (_data) {
+            this.systemUserId = _data["systemUserId"];
             this.coupon = _data["coupon"] ? CartCoupon.fromJS(_data["coupon"]) : <any>undefined;
         }
     }
@@ -3450,12 +3480,14 @@ export class UpdateCartCouponRequest implements IUpdateCartCouponRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["systemUserId"] = this.systemUserId;
         data["coupon"] = this.coupon ? this.coupon.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface IUpdateCartCouponRequest {
+    systemUserId?: number;
     coupon?: CartCoupon;
 }
 
