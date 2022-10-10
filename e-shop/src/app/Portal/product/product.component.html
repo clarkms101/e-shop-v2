@@ -1,10 +1,31 @@
 <div class="container main-contant mb-1">
+  <!-- breadcrumb -->
   <nav aria-label="breadcrumb" role="navigation">
     <ol class="breadcrumb bg-transparent pl-0">
       <li class="breadcrumb-item">
+        <ngx-skeleton-loader
+          *ngIf="loading"
+          count="1"
+          appearance="line"
+          [theme]="{
+            height: '20px',
+            width: '80px',
+            margin: '0px'
+          }"
+        ></ngx-skeleton-loader>
         <a [routerLink]="['/portal/products']">首頁</a>
       </li>
       <li class="breadcrumb-item">
+        <ngx-skeleton-loader
+          *ngIf="loading"
+          count="1"
+          appearance="line"
+          [theme]="{
+            height: '20px',
+            width: '80px',
+            margin: '0px'
+          }"
+        ></ngx-skeleton-loader>
         <a
           [routerLink]="['/portal/products']"
           [queryParams]="{ category: product.category }"
@@ -12,22 +33,49 @@
         >
       </li>
       <li class="breadcrumb-item active" aria-current="page">
+        <ngx-skeleton-loader
+          *ngIf="loading"
+          count="1"
+          appearance="line"
+          [theme]="{
+            height: '20px',
+            width: '80px',
+            margin: '0px'
+          }"
+        ></ngx-skeleton-loader>
         {{ product.title }}
       </li>
     </ol>
   </nav>
+  <!-- product info -->
   <div class="row">
     <div class="col-md-4 mb-5">
       <div class="sticky-top" style="top: 10px">
-        <h1 class="h2">
+        <h2 *ngIf="loading">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            [theme]="{
+              height: '40px',
+              width: '250px',
+              margin: '0px'
+            }"
+          ></ngx-skeleton-loader>
+        </h2>
+        <h2>
           {{ product.title }}
           <small class="text-muted"></small>
-        </h1>
+        </h2>
         <div class="d-flex my-3 align-items-end justify-content-end">
-          <del class="text-muted">售價 NT$ {{ product.originPrice }}</del>
+          <del class="text-muted"
+            >售價
+            {{ product.originPrice | currency: "TWD":"symbol":"1.0-0" }}</del
+          >
           <div class="h3 mb-0 ml-auto text-danger">
-            <small>網路價 NT$</small>
-            <strong>{{ product.price }}</strong>
+            <small>網路價 </small>
+            <strong>{{
+              product.price | currency: "TWD":"symbol":"1.0-0"
+            }}</strong>
           </div>
         </div>
         <hr />
@@ -79,12 +127,45 @@
       </div>
     </div>
     <div class="col-md-8">
+      <!-- product description skeleton-loader -->
+      <p class="mb-1" *ngIf="loading">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            height: '40px',
+            width: '250px',
+            margin: '0px'
+          }"
+        ></ngx-skeleton-loader>
+      </p>
+      <p class="mb-0" *ngIf="loading">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            height: '20px',
+            width: '250px',
+            margin: '0px'
+          }"
+        ></ngx-skeleton-loader>
+      </p>
+      <!-- product description -->
       <h2>{{ product.description }}</h2>
       <p class="card-text">
         {{ product.content }}
       </p>
 
       <h3 class="mt-5 text-center">商品圖片</h3>
+      <ngx-skeleton-loader
+        *ngIf="loading"
+        count="1"
+        appearance="line"
+        [theme]="{
+          height: '450px',
+          margin: '0px'
+        }"
+      ></ngx-skeleton-loader>
       <img [src]="product.imageUrl" class="w-100" alt="" />
 
       <!-- <img
