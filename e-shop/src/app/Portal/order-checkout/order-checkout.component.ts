@@ -20,9 +20,7 @@ export class OrderCheckoutComponent implements OnInit {
     this._activeRoute.queryParams.subscribe(queryParams => {
       if (queryParams['serialNumber'] !== undefined) {
         let serialNumber = queryParams['serialNumber'];
-        // console.log(serialNumber);
         this._apiClient.orderGET(serialNumber).subscribe((response) => {
-          console.log(response);
           if (response.success) {
             this.orderInfo = response.orderInfo as OrderInfo;
           } else {
