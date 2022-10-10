@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
+import { GalleryComponent, GalleryItem, ImageItem } from 'ng-gallery';
 
 @Component({
   selector: 'app-product-list',
@@ -11,6 +12,8 @@ import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/ap
 export class ProductListComponent implements OnInit {
   // data
   products: Product[] = [];
+  // images
+  images: GalleryItem[] = [];
   // query
   queryProductName: string = '';
   queryCategoryName: string = '';
@@ -28,6 +31,13 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+
+    // banner圖片
+    this.images = [
+      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=6', thumb: 'https://picsum.photos/1024/300/?image=6' }),
+      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=20', thumb: 'https://picsum.photos/1024/300/?image=20' }),
+      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=42', thumb: 'https://picsum.photos/1024/300/?image=42' })
+    ];
 
     this._activeRoute.queryParams.subscribe(queryParams => {
       // console.log('activeRoute queryParams change!');

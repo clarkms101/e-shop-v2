@@ -48,6 +48,7 @@ import { ShoppingCartCheckoutComponent } from './Portal/shopping-cart-checkout/s
 import { OrderCheckoutComponent } from './Portal/order-checkout/order-checkout.component';
 import { OrderDetailComponent } from './Admin/orders/order-detail/order-detail.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { GalleryModule } from 'ng-gallery';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -106,6 +107,8 @@ defineLocale('zh-cn', zhCnLocale);
     TabsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    // Angualr Gallery (light box)
+    GalleryModule,
     // ngrx
     EffectsModule.forRoot([ShoppingCart_RootEffects]),
     StoreModule.forRoot({

@@ -1,0 +1,17 @@
+@media (max-width: 640px) {
+  .gallery-style {
+    height: 200px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 980px) {
+  .gallery-style {
+    height: 300px;
+  }
+}
+
+@media (min-width: 981px) {
+  .gallery-style {
+    height: 350px;
+  }
+}

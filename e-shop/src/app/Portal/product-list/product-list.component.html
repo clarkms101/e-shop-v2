@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid jumbotron-bg d-flex align-items-end">
+<!-- <div class="jumbotron jumbotron-fluid jumbotron-bg d-flex align-items-end">
   <div class="container">
     <div class="p-3 bg-lighter">
       <h1 class="display-3 font-weight-bold">買到剁手手！最後出清</h1>
@@ -8,7 +8,21 @@
       </p>
     </div>
   </div>
+</div> -->
+
+<div class="mb-3 px-0 mx-0">
+  <gallery
+    class="gallery-style"
+    [items]="images"
+    [dots]="true"
+    [thumb]="false"
+    [counter]="false"
+    [playerInterval]="3000"
+    [autoPlay]="true"
+  >
+  </gallery>
 </div>
+
 <div class="container main-contant mb-1">
   <div class="row">
     <div class="col-md-3">
