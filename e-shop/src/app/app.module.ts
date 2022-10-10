@@ -49,6 +49,7 @@ import { OrderCheckoutComponent } from './Portal/order-checkout/order-checkout.c
 import { OrderDetailComponent } from './Admin/orders/order-detail/order-detail.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { GalleryModule } from 'ng-gallery';
+import {GoTopButtonModule} from 'ng-go-top-button';
 
 defineLocale('zh-cn', zhCnLocale);
 
@@ -107,14 +108,15 @@ defineLocale('zh-cn', zhCnLocale);
     TabsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    // Angualr Gallery (light box)
+    // Angualr Gallery
     GalleryModule,
     // ngrx
     EffectsModule.forRoot([ShoppingCart_RootEffects]),
     StoreModule.forRoot({
       shoppingCartInfo: shoppingCartItemCountReducer
     }),
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    GoTopButtonModule
   ],
   providers: [
     Client,

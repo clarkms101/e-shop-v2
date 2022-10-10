@@ -34,9 +34,9 @@ export class ProductListComponent implements OnInit {
 
     // banner圖片
     this.images = [
-      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=6', thumb: 'https://picsum.photos/1024/300/?image=6' }),
       new ImageItem({ src: 'https://picsum.photos/1024/300/?image=20', thumb: 'https://picsum.photos/1024/300/?image=20' }),
-      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=42', thumb: 'https://picsum.photos/1024/300/?image=42' })
+      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=42', thumb: 'https://picsum.photos/1024/300/?image=42' }),
+      new ImageItem({ src: 'https://picsum.photos/1024/300/?image=60', thumb: 'https://picsum.photos/1024/300/?image=60' })
     ];
 
     this._activeRoute.queryParams.subscribe(queryParams => {
