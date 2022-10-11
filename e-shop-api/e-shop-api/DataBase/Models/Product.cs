@@ -10,6 +10,9 @@ namespace e_shop_api.DataBase.Models
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Title { get; set; }
+        
+        [Required]
+        public int CategoryId { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(50)")]
