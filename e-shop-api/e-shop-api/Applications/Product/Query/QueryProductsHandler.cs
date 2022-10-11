@@ -91,6 +91,11 @@ namespace e_shop_api.Applications.Product.Query
         private static IQueryable<DataBase.Models.Product> ProductsFilter(QueryProductsRequest request,
             IQueryable<DataBase.Models.Product> products)
         {
+            if (request.CategoryId != null)
+            {
+                products = products.Where(s => s.CategoryId == request.CategoryId);
+            }
+
             if (string.IsNullOrWhiteSpace(request.Category) == false)
             {
                 products = products.Where(s => s.Category == request.Category);

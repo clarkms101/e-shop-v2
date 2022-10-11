@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { appModuleAnimation } from 'src/shared/animations/routerTransition';
-import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
+import { Client, Pagination, Product, QueryProductsRequest, SelectionItem } from 'src/shared/api client/service-proxies';
 import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
@@ -17,6 +17,9 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   // query
   queryProductName: string = '';
+  queryCategoryId: number | null | undefined = null;
+  // 下拉
+  categoryList: SelectionItem[] = [];
   // page
   pagination: Pagination = new Pagination();
   totalPageArray: number[] = [];
@@ -35,6 +38,12 @@ export class ProductsComponent implements OnInit {
     this._apiClient.setAuthToken(token);
     this.permission = JwtHelper.parseJwt().JwtKeyAdminPermission as string;
 
+    this._apiClient.category().subscribe((response) => {
+      if (response.success) {
+        this.categoryList = response.items as SelectionItem[];
+      }
+    });
+
     this.getPageData(1);
   }
 
@@ -43,6 +52,7 @@ export class ProductsComponent implements OnInit {
     let request = new QueryProductsRequest();
     request.page = page;
     request.pageSize = 10;
+    request.categoryId = this.queryCategoryId as number;
     request.productName = this.queryProductName;
 
     this._apiClient.products(request).subscribe((response) => {

@@ -1201,6 +1201,59 @@ export class Client extends ApiBase {
     /**
      * @return Success
      */
+    category(): Observable<SystemCodeResponse> {
+        let url_ = this.baseUrl + "/api/SystemCode/Category";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processCategory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCategory(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SystemCodeResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SystemCodeResponse>;
+        }));
+    }
+
+    protected processCategory(response: HttpResponseBase): Observable<SystemCodeResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SystemCodeResponse.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SystemCodeResponse>(null as any);
+    }
+
+    /**
+     * @return Success
+     */
     paymentMethod(): Observable<SystemCodeResponse> {
         let url_ = this.baseUrl + "/api/SystemCode/PaymentMethod";
         url_ = url_.replace(/[?&]$/, "");
@@ -3314,6 +3367,7 @@ export interface IUpdateProductResponse {
 export class QueryProductsRequest implements IQueryProductsRequest {
     page?: number;
     pageSize?: number;
+    categoryId?: number | undefined;
     category?: string | undefined;
     productName?: string | undefined;
 
@@ -3330,6 +3384,7 @@ export class QueryProductsRequest implements IQueryProductsRequest {
         if (_data) {
             this.page = _data["page"];
             this.pageSize = _data["pageSize"];
+            this.categoryId = _data["categoryId"];
             this.category = _data["category"];
             this.productName = _data["productName"];
         }
@@ -3346,6 +3401,7 @@ export class QueryProductsRequest implements IQueryProductsRequest {
         data = typeof data === 'object' ? data : {};
         data["page"] = this.page;
         data["pageSize"] = this.pageSize;
+        data["categoryId"] = this.categoryId;
         data["category"] = this.category;
         data["productName"] = this.productName;
         return data;
@@ -3355,6 +3411,7 @@ export class QueryProductsRequest implements IQueryProductsRequest {
 export interface IQueryProductsRequest {
     page?: number;
     pageSize?: number;
+    categoryId?: number | undefined;
     category?: string | undefined;
     productName?: string | undefined;
 }

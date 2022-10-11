@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using e_shop_api.Applications.SystemCode.Query;
 using e_shop_api.Utility;
 using e_shop_api.Utility.Dto;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_shop_api.Controllers
@@ -10,6 +12,28 @@ namespace e_shop_api.Controllers
     [ApiController]
     public class SystemCodeController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public SystemCodeController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<SystemCodeResponse> Category()
+        {
+            var result = await _mediator.Send(new QuerySystemCodeRequest()
+            {
+                Type = "Category"
+            });
+
+            return new SystemCodeResponse()
+            {
+                Success = result.Success,
+                Items = result.Items
+            };
+        }
+
         [HttpGet]
         public async Task<SystemCodeResponse> PaymentMethod()
         {
