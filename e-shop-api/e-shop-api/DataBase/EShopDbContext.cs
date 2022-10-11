@@ -27,7 +27,7 @@ namespace e_shop_api.DataBase
                 CreationTime = DateTime.Now,
                 LastModificationTime = DateTime.Now
             });
-            
+
             // Coupon
             modelBuilder.Entity<Coupon>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Coupon>().HasKey(s => s.Id);
@@ -36,14 +36,18 @@ namespace e_shop_api.DataBase
             modelBuilder.Entity<Order>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Order>().HasKey(s => s.Id);
             modelBuilder.Entity<Order>().HasIndex(s => s.SerialNumber);
-            
+
             // OrderDetail
             modelBuilder.Entity<OrderDetail>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<OrderDetail>().HasKey(s => s.Id);
-            
+
             // Product
             modelBuilder.Entity<Product>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Product>().HasKey(s => s.Id);
+
+            // Category
+            modelBuilder.Entity<Category>().Property(p => p.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Category>().HasKey(s => s.Id);
         }
 
         public DbSet<Admin> Admins { get; set; }
