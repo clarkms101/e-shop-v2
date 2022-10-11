@@ -58,6 +58,7 @@ namespace e_shop_api.Applications.Product.Query
                 {
                     ProductId = s.Id,
                     Title = s.Title,
+                    CategoryId = s.CategoryId,
                     Category = s.Category,
                     Content = s.Content,
                     Description = s.Description,

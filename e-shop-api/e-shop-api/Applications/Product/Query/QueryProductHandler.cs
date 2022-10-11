@@ -35,6 +35,7 @@ namespace e_shop_api.Applications.Product.Query
                 Message = "查詢成功!",
                 Product = new CommonDto.Product()
                 {
+                    CategoryId = selectProduct.CategoryId,
                     Category = selectProduct.Category,
                     Content = selectProduct.Content,
                     Description = selectProduct.Description,

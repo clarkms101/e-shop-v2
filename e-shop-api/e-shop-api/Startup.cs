@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.Command.Update;
 using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Applications.Product.Query;
+using e_shop_api.Applications.SystemCode.Query;
 using e_shop_api.Config;
 using e_shop_api.DataBase;
 using e_shop_api.Extensions;
@@ -50,6 +51,7 @@ namespace e_shop_api
             services.AddMediatR(typeof(QueryProductHandler).Assembly);
             services.AddScoped<QueryCartHandler>();
             services.AddScoped<CleanCartHandler>();
+            services.AddScoped<QuerySystemCodeHandler>();
 
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();

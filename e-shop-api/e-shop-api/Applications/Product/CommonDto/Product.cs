@@ -7,6 +7,8 @@ namespace e_shop_api.Applications.Product.CommonDto
         public int ProductId { get; set; }
         
         [Required]
+        public int CategoryId { get; set; }
+        
         [StringLength(50)]
         public string Category { get; set; }
         

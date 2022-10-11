@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using e_shop_api.Applications.SystemCode.Query;
 using e_shop_api.DataBase;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -10,11 +12,16 @@ namespace e_shop_api.Applications.Product.Command.Update
     public class UpdateProductHandler : IRequestHandler<UpdateProductRequest, UpdateProductResponse>
     {
         private readonly EShopDbContext _eShopDbContext;
+        private readonly QuerySystemCodeHandler _querySystemCodeHandler;
         private readonly ILogger<UpdateProductHandler> _logger;
 
-        public UpdateProductHandler(EShopDbContext eShopDbContext, ILogger<UpdateProductHandler> logger)
+        public UpdateProductHandler(
+            EShopDbContext eShopDbContext,
+            QuerySystemCodeHandler querySystemCodeHandler,
+            ILogger<UpdateProductHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
+            _querySystemCodeHandler = querySystemCodeHandler;
             _logger = logger;
         }
 
@@ -31,8 +38,15 @@ namespace e_shop_api.Applications.Product.Command.Update
                 };
             }
 
+            var result = await _querySystemCodeHandler.Handle(new QuerySystemCodeRequest()
+            {
+                Type = "Category"
+            }, cancellationToken);
+            var categoryName = result.Items.Single(s => s.Value == request.Product.CategoryId).Text;
+
             oldProduct.Title = request.Product.Title;
-            oldProduct.Category = request.Product.Category;
+            oldProduct.Category = categoryName;
+            oldProduct.CategoryId = request.Product.CategoryId;
             oldProduct.OriginPrice = request.Product.OriginPrice;
             oldProduct.Price = request.Product.Price;
             oldProduct.Unit = request.Product.Unit;

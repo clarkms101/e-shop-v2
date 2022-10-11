@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Client, CreateProductRequest, Product, UpdateProductRequest } from 'src/shared/api client/service-proxies';
+import { Client, CreateProductRequest, Product, SelectionItem, UpdateProductRequest } from 'src/shared/api client/service-proxies';
 import { JwtHelper } from 'src/shared/helpers/JwtHelper';
 
 @Component({
@@ -14,6 +14,8 @@ export class ProductDetailComponent implements OnInit {
   id: number = 0;
   isEdit: boolean = false;
   product: Product = new Product();
+  // 下拉
+  categoryList: SelectionItem[] = [];
   // 內部使用
   saving = false;
   // 元件資料傳遞
@@ -26,6 +28,15 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._apiClient.category().subscribe((response) => {
+      if (response.success) {
+        this.categoryList = response.items as SelectionItem[];
+      }
+    });
+
+    if (this.isEdit === false) {
+      this.product.categoryId = 0;
+    }
   }
 
   save(): void {
@@ -50,6 +61,7 @@ export class ProductDetailComponent implements OnInit {
       let createData = new CreateProductRequest();
       createData.systemUserId = systemUserId;
       createData.product = this.product;
+      console.log(this.product);
       this._apiClient.productPOST(createData).subscribe((response) => {
         this._toastr.success(`${response.message}`);
         this.bsModalRef.hide();

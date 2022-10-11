@@ -64,7 +64,23 @@
         <!-- 產品分類 -->
         <div class="form-group">
           <label for="category"> 產品分類 </label>
-          <input
+          <select
+            class="form-control"
+            name="category"
+            id="category"
+            [(ngModel)]="product.categoryId"
+            required
+            #category="ngModel"
+          >
+            <option disabled [ngValue]="0">請選擇</option>
+            <option
+              *ngFor="let category of categoryList"
+              [ngValue]="category.value"
+            >
+              {{ category.text }}
+            </option>
+          </select>
+          <!-- <input
             type="text"
             class="form-control"
             name="category"
@@ -74,14 +90,11 @@
             maxlength="50"
             [(ngModel)]="product.category"
             #category="ngModel"
-          />
+          /> -->
           <!-- check -->
           <div *ngIf="category.invalid && (category.dirty || category.touched)">
             <p class="text-danger" *ngIf="category.errors?.['required']">
               請輸入產品分類!
-            </p>
-            <p class="text-danger" *ngIf="category.errors?.['maxlength']">
-              輸入內容請少於50個字!
             </p>
           </div>
         </div>
