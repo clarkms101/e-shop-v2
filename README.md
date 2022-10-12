@@ -29,4 +29,4 @@
     * Heroku
 
 ### 架構圖
-* todo
+![架構圖](https://i.imgur.com/DmLKZi9.jpg)
