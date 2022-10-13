@@ -107,6 +107,7 @@ public class QueryOrderHandlerTest : TestBase
                 OrderStatus = OrderStatus.Created.GetDescriptionText(),
                 CreateDateTime = new DateTime(2021, 10, 30).ToTimeStamp(),
                 PaidDateTime = new DateTime(2021, 10, 31).ToTimeStamp(),
+                OriginTotalAmount = 4400,
                 TotalAmount = 1999,
                 UserName = "Clark",
                 Address = "TestAddress",
