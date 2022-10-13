@@ -74,26 +74,6 @@ namespace e_shop_api.Applications.Order.Query
                     Message = s.Message
                 }).ToList();
 
-            // products
-            var products = await _eShopDbContext.Products
-                .ToListAsync(cancellationToken: cancellationToken);
-
-            // order detail
-            foreach (var order in orderInfos)
-            {
-                var orderDetail = (await _eShopDbContext.OrderDetails
-                        .Where(s => s.OrderId == order.OrderId)
-                        .ToListAsync(cancellationToken: cancellationToken))
-                    .Select(s => new OrderDetailInfo()
-                    {
-                        ProductTitle = products.Single(n => n.Id == s.ProductId).Title,
-                        ProductUnit = products.Single(n => n.Id == s.ProductId).Unit,
-                        Qty = s.Qty
-                    }).ToList();
-
-                order.OrderDetailInfos = orderDetail;
-            }
-
             return new QueryOrdersResponse()
             {
                 Success = true,

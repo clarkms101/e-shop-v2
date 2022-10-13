@@ -52,6 +52,8 @@ namespace e_shop_api.Applications.Order.Query
                     Qty = s.Qty
                 }).ToList();
 
+            var originTotalAmount = orderDetail.Sum(s => (s.ProductPrice * s.Qty));
+            
             return new QueryOrderResponse()
             {
                 Success = true,
@@ -65,6 +67,7 @@ namespace e_shop_api.Applications.Order.Query
                     PaymentMethod = selectOrder.PaymentMethod.FromStringToEnum<PaymentMethod>().GetDescriptionText(),
                     CreateDateTime = selectOrder.CreationTime.ToTimeStamp(),
                     PaidDateTime = selectOrder.PaidDateTime?.ToTimeStamp(),
+                    OriginTotalAmount = originTotalAmount,
                     TotalAmount = selectOrder.TotalAmount,
                     UserName = selectOrder.UserName,
                     Address = selectOrder.Address,

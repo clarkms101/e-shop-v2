@@ -12,6 +12,7 @@ namespace e_shop_api.Applications.Order.CommonDto
         public string PaymentMethod { get; set; }
         public long CreateDateTime { get; set; }
         public long? PaidDateTime { get; set; }
+        public decimal OriginTotalAmount { get; set; }
         public decimal TotalAmount { get; set; }
         public string UserName { get; set; }
         public string Address { get; set; }
