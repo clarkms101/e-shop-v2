@@ -188,6 +188,9 @@ namespace e_shop_api
 
             app.UseAuthorization();
 
+            // MQ
+            app.MessageQueueSubscribe();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

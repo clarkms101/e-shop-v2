@@ -92,7 +92,10 @@ export class OrdersComponent implements OnInit {
   }
 
   updateOrder(serialNumber: string | undefined, orderStatus: string) {
+    let systemUserId = JwtHelper.parseJwt().JwtKeyAdminSystemUserId as number;
+
     let request = new UpdateOrderRequest();
+    request.systemUserId = systemUserId;
     request.serialNumber = serialNumber;
     switch (orderStatus) {
       case 'Finished':

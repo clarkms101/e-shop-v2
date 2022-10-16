@@ -8,7 +8,7 @@ namespace e_shop_api.RMQ
     public class MqProducer
     {
         private readonly IAdvancedBus _advancedBus;
-        private const string ExchangeName = "e-shop.delay.direct";
+        private const string ExchangeName = "e-shop.direct.delay";
 
         public MqProducer(IBus bus)
         {
@@ -28,7 +28,7 @@ namespace e_shop_api.RMQ
                     cfg => cfg.AsDelayedExchange(ExchangeType.Direct));
 
             var queue = await _advancedBus.QueueDeclareAsync(
-                $"{ExchangeName}.{functionName}");
+                $"{functionName}");
 
             await _advancedBus.BindAsync(exchange, queue, routingKey, null);
 

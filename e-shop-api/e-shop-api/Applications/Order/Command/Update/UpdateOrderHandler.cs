@@ -48,7 +48,7 @@ namespace e_shop_api.Applications.Order.Command.Update
                 }
 
                 // system
-                order.LastModifierUserId = 0; // 系統編號
+                order.LastModifierUserId = request.SystemUserId;
                 order.LastModificationTime = DateTime.Now;
 
                 await _eShopDbContext.SaveChangesAsync(cancellationToken);
