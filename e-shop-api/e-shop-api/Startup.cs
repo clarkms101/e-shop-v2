@@ -19,8 +19,10 @@ using e_shop_api.Applications.SystemCode.Query;
 using e_shop_api.Config;
 using e_shop_api.DataBase;
 using e_shop_api.Extensions;
+using e_shop_api.RMQ;
 using e_shop_api.Utility;
 using e_shop_api.Utility.Interface;
+using EasyNetQ;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -52,6 +54,9 @@ namespace e_shop_api
             services.AddScoped<QueryCartHandler>();
             services.AddScoped<CleanCartHandler>();
             services.AddScoped<QuerySystemCodeHandler>();
+
+            // MQ
+            services.AddScoped<MqProducer>();
 
             // 底層物件注入
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
@@ -152,6 +157,10 @@ namespace e_shop_api
                         .AllowCredentials()
                 )
             );
+
+            // MQ
+            var rabbitMqConnectionString = Configuration.GetValue<string>("RabbitMqTcpConnectionString");
+            services.AddSingleton(typeof(IBus), RabbitHutch.CreateBus(rabbitMqConnectionString, x => { }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -166,7 +175,7 @@ namespace e_shop_api
 
             // 自訂的Middleware
             app.UseCustomerExceptionMiddleware();
-            
+
             app.UseHttpsRedirection();
 
             app.UseCors(DefaultCorsPolicyName); // Enable CORS!

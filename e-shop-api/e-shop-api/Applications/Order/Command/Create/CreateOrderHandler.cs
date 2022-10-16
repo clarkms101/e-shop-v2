@@ -7,6 +7,7 @@ using e_shop_api.Applications.Cart.Query;
 using e_shop_api.DataBase;
 using e_shop_api.DataBase.Models;
 using e_shop_api.Enumeration;
+using e_shop_api.RMQ;
 using e_shop_api.Utility.Const;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -19,17 +20,20 @@ namespace e_shop_api.Applications.Order.Command.Create
         private readonly ILogger<CreateOrderHandler> _logger;
         private readonly QueryCartHandler _queryCartHandler;
         private readonly CleanCartHandler _cleanCartHandler;
+        private readonly MqProducer _mqProducer;
 
         public CreateOrderHandler(
             EShopDbContext eShopDbContext,
             ILogger<CreateOrderHandler> logger,
             QueryCartHandler queryCartHandler,
-            CleanCartHandler cleanCartHandler)
+            CleanCartHandler cleanCartHandler,
+            MqProducer mqProducer)
         {
             _eShopDbContext = eShopDbContext;
             _logger = logger;
             _queryCartHandler = queryCartHandler;
             _cleanCartHandler = cleanCartHandler;
+            _mqProducer = mqProducer;
         }
 
         public async Task<CreateOrderResponse> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
@@ -90,6 +94,9 @@ namespace e_shop_api.Applications.Order.Command.Create
             {
                 ShoppingCartId = CartInfo.DefaultCartId
             }, cancellationToken);
+
+            // 加入訂單自動取消確認排程
+            await _mqProducer.SetOrderAutoCancelSchedule(newOrder.Id);
 
             return new CreateOrderResponse()
             {
