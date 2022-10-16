@@ -164,6 +164,9 @@ namespace e_shop_api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "e_shop_api v1"));
             }
 
+            // 自訂的Middleware
+            app.UseCustomerExceptionMiddleware();
+            
             app.UseHttpsRedirection();
 
             app.UseCors(DefaultCorsPolicyName); // Enable CORS!
