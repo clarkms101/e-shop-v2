@@ -5,6 +5,7 @@
 ### Demo
 * [前台網站](https://e-shop-v2-clark.herokuapp.com/)
     * 初次訪問可能會略久(主機休眠喚醒)
+    * 圖片資料皆從網路取得
 * [後台網站](https://e-shop-v2-clark.herokuapp.com/admin/login)
     * 帳號 : Clark
     * 密碼 : test123
@@ -23,10 +24,12 @@
 * Cache
     * Redis
     * MemoryCache
+* Queue
+    * RabbitMQ
 * Log
     * Serilog
 * Paas
     * Heroku
 
 ### 架構圖
-![架構圖](https://i.imgur.com/DmLKZi9.jpg)
+![架構圖](https://i.imgur.com/vxqnSCT.png)
