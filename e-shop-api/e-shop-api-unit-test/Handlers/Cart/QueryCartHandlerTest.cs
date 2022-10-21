@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.CommonDto;
 using e_shop_api.Applications.Cart.Query;
+using e_shop_api.Core.Extensions;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Dto;
 using e_shop_api.Utility.Interface;

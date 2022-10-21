@@ -1,6 +1,6 @@
 using System;
+using e_shop_api.Core.Enumeration;
 using e_shop_api.DataBase.Models;
-using e_shop_api.Enumeration;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_shop_api.DataBase

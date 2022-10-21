@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace e_shop_api.Enumeration
+namespace e_shop_api.Core.Enumeration
 {
     public enum PaymentMethod
     {

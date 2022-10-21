@@ -17,6 +17,7 @@ using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Applications.Product.Query;
 using e_shop_api.Applications.SystemCode.Query;
 using e_shop_api.Config;
+using e_shop_api.Core.Extensions;
 using e_shop_api.DataBase;
 using e_shop_api.Extensions;
 using e_shop_api.RMQ;

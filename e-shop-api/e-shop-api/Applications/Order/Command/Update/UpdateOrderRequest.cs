@@ -1,4 +1,4 @@
-using e_shop_api.Enumeration;
+using e_shop_api.Core.Enumeration;
 using MediatR;
 
 namespace e_shop_api.Applications.Order.Command.Update

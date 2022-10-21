@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using e_shop_api.Enumeration;
+using e_shop_api.Core.Enumeration;
+using e_shop_api.Core.Extensions;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Dto;
 

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications;
 using e_shop_api.Applications.Coupon.Query;
+using e_shop_api.Core.Extensions;
 using e_shop_api.Extensions;
 using e_shop_api.Utility;
 using e_shop_api_unit_test.Utility;

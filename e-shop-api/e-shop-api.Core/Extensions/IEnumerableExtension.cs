@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace e_shop_api.Extensions
+namespace e_shop_api.Core.Extensions
 {
     public static class IEnumerableExtension
     {

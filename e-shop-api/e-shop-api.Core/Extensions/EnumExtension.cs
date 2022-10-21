@@ -1,7 +1,6 @@
-using System;
 using System.ComponentModel;
 
-namespace e_shop_api.Extensions
+namespace e_shop_api.Core.Extensions
 {
     public static class EnumExtension
     {

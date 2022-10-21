@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace e_shop_api.Extensions
+namespace e_shop_api.Core.Extensions
 {
     public static class StringExtension
     {
