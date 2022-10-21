@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\e-shop-api.Core\e-shop-api.Core.csproj" />
+    <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
   </ItemGroup>
 
 </Project>

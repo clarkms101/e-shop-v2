@@ -26,8 +26,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\e-shop-api.Core\e-shop-api.Core.csproj" />
-      <ProjectReference Include="..\e-shop-api\e-shop-api.csproj" />
+      <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
+      <ProjectReference Include="..\EShop.API\EShop.API.csproj" />
     </ItemGroup>
 
 </Project>

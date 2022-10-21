@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop-api", "e-shop-api\e-shop-api.csproj", "{6B6BBD4F-1E02-4B5A-B80A-153BE60EB34B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.API", "EShop.API\EShop.API.csproj", "{6B6BBD4F-1E02-4B5A-B80A-153BE60EB34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop-api.UnitTest", "e-shop-api.UnitTest\e-shop-api.UnitTest.csproj", "{376AED16-DC2F-4296-A25D-D86074B4D5F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.UnitTest", "EShop.UnitTest\EShop.UnitTest.csproj", "{376AED16-DC2F-4296-A25D-D86074B4D5F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop-api.Core", "e-shop-api.Core\e-shop-api.Core.csproj", "{2E626B4A-B15B-4FD1-AA32-9F928FF53FDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Core", "EShop.Core\EShop.Core.csproj", "{2E626B4A-B15B-4FD1-AA32-9F928FF53FDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
