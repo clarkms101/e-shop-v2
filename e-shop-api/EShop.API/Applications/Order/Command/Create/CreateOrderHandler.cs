@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.Command.Update;
 using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Core.Enumeration;
-using e_shop_api.RMQ;
 using e_shop_api.Utility.Const;
 using EShop.Entity.DataBase;
 using EShop.Entity.DataBase.Models;
+using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

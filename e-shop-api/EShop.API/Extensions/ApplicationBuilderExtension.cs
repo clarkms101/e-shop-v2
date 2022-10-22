@@ -1,6 +1,6 @@
 using e_shop_api.Applications.Order.Command.Update;
 using e_shop_api.CustomerMiddleware;
-using e_shop_api.RMQ;
+using e_shop_api.MQConsumer;
 using EasyNetQ;
 using EShop.Entity.DataBase;
 using Microsoft.AspNetCore.Builder;

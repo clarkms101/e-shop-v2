@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Entity", "EShop.Entit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Cache", "EShop.Cache\EShop.Cache.csproj", "{75E3E310-3A3A-46A7-AFD3-B75043652421}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.MQ.Producer", "EShop.MQ.Producer\EShop.MQ.Producer.csproj", "{839AA9B2-8B70-4533-BEDC-980EA72C3204}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{75E3E310-3A3A-46A7-AFD3-B75043652421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75E3E310-3A3A-46A7-AFD3-B75043652421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75E3E310-3A3A-46A7-AFD3-B75043652421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839AA9B2-8B70-4533-BEDC-980EA72C3204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839AA9B2-8B70-4533-BEDC-980EA72C3204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839AA9B2-8B70-4533-BEDC-980EA72C3204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839AA9B2-8B70-4533-BEDC-980EA72C3204}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

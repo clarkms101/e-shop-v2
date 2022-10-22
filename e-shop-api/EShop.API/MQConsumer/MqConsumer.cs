@@ -7,7 +7,7 @@ using e_shop_api.Applications.Order.Command.Update;
 using EasyNetQ;
 using EasyNetQ.Topology;
 
-namespace e_shop_api.RMQ
+namespace e_shop_api.MQConsumer
 {
     public class MqConsumer
     {

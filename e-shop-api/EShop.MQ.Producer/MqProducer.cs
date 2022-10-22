@@ -1,9 +1,8 @@
 using System.Text;
-using System.Threading.Tasks;
 using EasyNetQ;
 using EasyNetQ.Topology;
 
-namespace e_shop_api.RMQ
+namespace EShop.MQ.Producer
 {
     public class MqProducer
     {
