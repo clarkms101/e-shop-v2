@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace e_shop_api.Utility.Dto
+namespace EShop.Cache.Dto
 {
     public class ShoppingCartCacheInfo
     {

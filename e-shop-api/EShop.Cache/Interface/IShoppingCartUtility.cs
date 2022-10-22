@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using e_shop_api.Utility.Dto;
+using EShop.Cache.Dto;
 
-namespace e_shop_api.Utility.Interface
+namespace EShop.Cache.Interface
 {
     public interface IShoppingCartUtility
     {

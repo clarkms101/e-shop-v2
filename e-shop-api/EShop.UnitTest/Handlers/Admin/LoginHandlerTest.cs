@@ -5,6 +5,7 @@ using e_shop_api.Core.Enumeration;
 using e_shop_api.Utility.Dto;
 using e_shop_api.Utility.Interface;
 using e_shop_api_unit_test.Utility;
+using EShop.Cache.Interface;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

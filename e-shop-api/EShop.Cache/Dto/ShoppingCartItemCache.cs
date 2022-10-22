@@ -1,4 +1,4 @@
-namespace e_shop_api.Utility.Dto
+namespace EShop.Cache.Dto
 {
     public class ShoppingCartItemCache
     {

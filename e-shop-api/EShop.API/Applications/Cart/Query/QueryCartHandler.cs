@@ -7,6 +7,7 @@ using e_shop_api.Core.Extensions;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Const;
 using e_shop_api.Utility.Interface;
+using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

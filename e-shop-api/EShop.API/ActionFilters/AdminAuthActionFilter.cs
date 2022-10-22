@@ -1,4 +1,5 @@
 using e_shop_api.Utility.Interface;
+using EShop.Cache.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;

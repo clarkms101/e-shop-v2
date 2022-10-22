@@ -23,6 +23,8 @@ using e_shop_api.RMQ;
 using e_shop_api.Utility;
 using e_shop_api.Utility.Interface;
 using EasyNetQ;
+using EShop.Cache.Interface;
+using EShop.Cache.Utility;
 using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

@@ -1,7 +1,7 @@
 using System.Runtime.Caching;
-using e_shop_api.Utility.Interface;
+using EShop.Cache.Interface;
 
-namespace e_shop_api.Utility
+namespace EShop.Cache.Utility
 {
     public class MemoryCacheUtility : IMemoryCacheUtility
     {

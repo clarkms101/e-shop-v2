@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using e_shop_api.Utility.Dto;
-using e_shop_api.Utility.Interface;
+using EShop.Cache.Dto;
+using EShop.Cache.Interface;
 using Newtonsoft.Json;
 
-namespace e_shop_api.Utility
+namespace EShop.Cache.Utility
 {
     public class ShoppingCartUtilityByMemoryCache : IShoppingCartUtility
     {
@@ -69,8 +67,7 @@ namespace e_shop_api.Utility
 
             var cartCacheInfo = JsonConvert.DeserializeObject<ShoppingCartCacheInfo>(cartCacheInfoJsonString);
             var cartCacheInfoDetail =
-                cartCacheInfo.ShoppingCartItems
-                    .SingleOrDefault(s => s.ShoppingItemId == shoppingItemId);
+                Enumerable.SingleOrDefault<ShoppingCartItemCache>(cartCacheInfo.ShoppingCartItems, s => s.ShoppingItemId == shoppingItemId);
             if (cartCacheInfoDetail == null)
             {
                 return false;

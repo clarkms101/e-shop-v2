@@ -1,6 +1,6 @@
 using System.Runtime.Caching;
 
-namespace e_shop_api.Utility.Interface
+namespace EShop.Cache.Interface
 {
     public interface IMemoryCacheUtility
     {

@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Admin.Command.LoginCheck;
 using e_shop_api.Utility.Interface;
+using EShop.Cache.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

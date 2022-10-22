@@ -6,6 +6,7 @@ using e_shop_api.Core.Extensions;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Dto;
 using e_shop_api.Utility.Interface;
+using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.AspNetCore.Http;

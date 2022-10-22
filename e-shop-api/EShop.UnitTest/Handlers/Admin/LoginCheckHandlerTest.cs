@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Admin.Command.LoginCheck;
 using e_shop_api.Utility.Dto;
 using e_shop_api.Utility.Interface;
+using EShop.Cache.Interface;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

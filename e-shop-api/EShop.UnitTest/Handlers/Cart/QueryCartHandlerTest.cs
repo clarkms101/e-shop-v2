@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.CommonDto;
 using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Core.Extensions;
-using e_shop_api.Extensions;
-using e_shop_api.Utility.Dto;
-using e_shop_api.Utility.Interface;
 using e_shop_api_unit_test.Utility;
+using EShop.Cache.Dto;
+using EShop.Cache.Interface;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -283,7 +282,7 @@ public class QueryCartHandlerTest : TestBase
 
         actual.Should().BeEquivalentTo(expected);
     }
-    
+
     [Fact]
     public async Task 當購物車沒有資料且有使用95折優惠券時_返回購物車沒有資料()
     {

@@ -32,10 +32,10 @@
 
   <ItemGroup>
     <Folder Include="DataBase\Models" />
-    <Folder Include="Migrations" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EShop.Cache\EShop.Cache.csproj" />
     <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
     <ProjectReference Include="..\EShop.Entity\EShop.Entity.csproj" />
   </ItemGroup>
