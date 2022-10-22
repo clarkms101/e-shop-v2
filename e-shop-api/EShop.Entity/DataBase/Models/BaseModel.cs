@@ -1,6 +1,4 @@
-using System;
-
-namespace e_shop_api.DataBase.Models
+namespace EShop.Entity.DataBase.Models
 {
     public class BaseModel
     {

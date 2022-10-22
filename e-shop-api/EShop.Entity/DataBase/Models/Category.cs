@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace e_shop_api.DataBase.Models
+namespace EShop.Entity.DataBase.Models
 {
     public class Category : BaseModel
     {
@@ -12,6 +12,6 @@ namespace e_shop_api.DataBase.Models
         public string CategoryName { get; set; }
         
         [Column(TypeName = "varchar(150)")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

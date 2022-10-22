@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Core.Extensions;
-using e_shop_api.DataBase;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Interface;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -90,8 +90,8 @@ namespace e_shop_api.Applications.Product.Query
             return totalCount;
         }
 
-        private static IQueryable<DataBase.Models.Product> ProductsFilter(QueryProductsRequest request,
-            IQueryable<DataBase.Models.Product> products)
+        private static IQueryable<EShop.Entity.DataBase.Models.Product> ProductsFilter(QueryProductsRequest request,
+            IQueryable<EShop.Entity.DataBase.Models.Product> products)
         {
             if (request.CategoryId != null)
             {

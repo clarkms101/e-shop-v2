@@ -6,9 +6,9 @@ using e_shop_api.Applications.Order.CommonDto;
 using e_shop_api.Applications.Order.Query;
 using e_shop_api.Core.Enumeration;
 using e_shop_api.Core.Extensions;
-using e_shop_api.DataBase.Models;
 using e_shop_api.Extensions;
 using e_shop_api_unit_test.Utility;
+using EShop.Entity.DataBase.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -25,7 +25,7 @@ public class QueryOrderHandlerTest : TestBase
         var fakeLog = Substitute.For<ILogger<QueryOrderHandler>>();
 
         // orders
-        FakeEShopDbContext.Orders.Add(new e_shop_api.DataBase.Models.Order()
+        FakeEShopDbContext.Orders.Add(new EShop.Entity.DataBase.Models.Order()
         {
             Id = 1,
             SerialNumber = "fb39c58d-c94c-4362-8a83-cbee0a1f50d7",
@@ -42,7 +42,7 @@ public class QueryOrderHandlerTest : TestBase
             Tel = "123456789",
             TotalAmount = 1999
         });
-        FakeEShopDbContext.Orders.Add(new e_shop_api.DataBase.Models.Order()
+        FakeEShopDbContext.Orders.Add(new EShop.Entity.DataBase.Models.Order()
         {
             Id = 2,
             SerialNumber = "a5ccb6a1-2eb3-4683-bc7b-a01d2a6b4351",
@@ -68,7 +68,7 @@ public class QueryOrderHandlerTest : TestBase
             Qty = 5
         });
         // product
-        FakeEShopDbContext.Products.Add(new e_shop_api.DataBase.Models.Product()
+        FakeEShopDbContext.Products.Add(new EShop.Entity.DataBase.Models.Product()
         {
             Id = 1,
             Category = "金牌",

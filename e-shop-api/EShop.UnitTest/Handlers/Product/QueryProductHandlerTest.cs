@@ -20,7 +20,7 @@ public class QueryProductHandlerTest : TestBase
     {
         var fakeLog = Substitute.For<ILogger<QueryProductHandler>>();
 
-        FakeEShopDbContext.Products.Add(new e_shop_api.DataBase.Models.Product()
+        FakeEShopDbContext.Products.Add(new EShop.Entity.DataBase.Models.Product()
         {
             Id = 1,
             Category = "金牌",
@@ -34,7 +34,7 @@ public class QueryProductHandlerTest : TestBase
             Title = "TestProduct",
             Unit = "個"
         });
-        FakeEShopDbContext.Products.Add(new e_shop_api.DataBase.Models.Product()
+        FakeEShopDbContext.Products.Add(new EShop.Entity.DataBase.Models.Product()
         {
             Id = 2,
             Category = "寵物用品",

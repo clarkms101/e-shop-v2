@@ -43,7 +43,7 @@ public class LoginHandlerTest : TestBase
         fakeHttpContextAccessor.HttpContext.Returns(context);
 
         // db
-        FakeEShopDbContext.Admins.Add(new e_shop_api.DataBase.Models.Admin()
+        FakeEShopDbContext.Admins.Add(new EShop.Entity.DataBase.Models.Admin()
         {
             Id = 2,
             Account = "Tom",

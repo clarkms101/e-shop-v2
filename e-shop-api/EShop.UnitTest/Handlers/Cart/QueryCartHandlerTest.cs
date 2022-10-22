@@ -27,7 +27,7 @@ public class QueryCartHandlerTest : TestBase
         #region 測試前置資料
 
         // product
-        FakeEShopDbContext.Products.Add(new e_shop_api.DataBase.Models.Product()
+        FakeEShopDbContext.Products.Add(new EShop.Entity.DataBase.Models.Product()
         {
             Id = 1,
             Category = "金牌",
@@ -43,7 +43,7 @@ public class QueryCartHandlerTest : TestBase
         });
         // coupon
         // 85折
-        FakeEShopDbContext.Coupons.Add(new e_shop_api.DataBase.Models.Coupon()
+        FakeEShopDbContext.Coupons.Add(new EShop.Entity.DataBase.Models.Coupon()
         {
             Id = 1,
             Title = "測試優惠",
@@ -53,7 +53,7 @@ public class QueryCartHandlerTest : TestBase
             DueDateTime = new DateTime(2222, 12, 31)
         });
         // 95折
-        FakeEShopDbContext.Coupons.Add(new e_shop_api.DataBase.Models.Coupon()
+        FakeEShopDbContext.Coupons.Add(new EShop.Entity.DataBase.Models.Coupon()
         {
             Id = 2,
             Title = "測試優惠2",

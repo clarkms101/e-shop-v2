@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using e_shop_api.Core.Enumeration;
 
-namespace e_shop_api.DataBase.Models
+namespace EShop.Entity.DataBase.Models
 {
     public class Admin : BaseModel
     {

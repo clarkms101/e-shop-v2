@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Order.CommonDto;
 using e_shop_api.Core.Enumeration;
 using e_shop_api.Core.Extensions;
-using e_shop_api.DataBase;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Interface;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -91,8 +91,8 @@ namespace e_shop_api.Applications.Order.Query
             return await orders.CountAsync(cancellationToken);
         }
 
-        private static IQueryable<DataBase.Models.Order> OrdersFilter(QueryOrdersRequest request,
-            IQueryable<DataBase.Models.Order> orders)
+        private static IQueryable<EShop.Entity.DataBase.Models.Order> OrdersFilter(QueryOrdersRequest request,
+            IQueryable<EShop.Entity.DataBase.Models.Order> orders)
         {
             if (string.IsNullOrWhiteSpace(request.StartDate) == false &&
                 string.IsNullOrWhiteSpace(request.EndDate) == false)

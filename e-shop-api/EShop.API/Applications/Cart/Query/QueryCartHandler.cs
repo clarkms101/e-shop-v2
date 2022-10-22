@@ -4,10 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.CommonDto;
 using e_shop_api.Core.Extensions;
-using e_shop_api.DataBase;
 using e_shop_api.Extensions;
 using e_shop_api.Utility.Const;
 using e_shop_api.Utility.Interface;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -31,6 +31,7 @@ namespace e_shop_api.Applications.Cart.Query
         public async Task<QueryCartResponse> Handle(QueryCartRequest request, CancellationToken cancellationToken)
         {
             // product
+            // todo 待調整
             var productList = await _eShopDbContext.Products
                 .Select(s => new ShoppingProduct()
                 {

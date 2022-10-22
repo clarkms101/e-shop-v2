@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Core.Enumeration;
-using e_shop_api.DataBase;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

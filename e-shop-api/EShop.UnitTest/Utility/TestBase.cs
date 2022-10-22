@@ -1,5 +1,5 @@
 using System;
-using e_shop_api.DataBase;
+using EShop.Entity.DataBase;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

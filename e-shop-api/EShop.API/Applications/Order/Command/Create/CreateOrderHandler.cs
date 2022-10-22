@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using e_shop_api.Applications.Cart.Command.Update;
 using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Core.Enumeration;
-using e_shop_api.DataBase;
-using e_shop_api.DataBase.Models;
 using e_shop_api.RMQ;
 using e_shop_api.Utility.Const;
+using EShop.Entity.DataBase;
+using EShop.Entity.DataBase.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -40,7 +40,7 @@ namespace e_shop_api.Applications.Order.Command.Create
         {
             // create order
             var shoppingCart = await _queryCartHandler.Handle(new QueryCartRequest(), cancellationToken);
-            var newOrder = new DataBase.Models.Order()
+            var newOrder = new EShop.Entity.DataBase.Models.Order()
             {
                 SerialNumber = Guid.NewGuid().ToString(),
                 UserId = null,

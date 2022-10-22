@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace e_shop_api.Migrations
+namespace EShop.Entity.Migrations
 {
     public partial class Initial : Migration
     {
@@ -16,6 +16,7 @@ namespace e_shop_api.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Account = table.Column<string>(type: "varchar(50)", nullable: false),
                     Password = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Permission = table.Column<string>(type: "varchar(50)", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -24,6 +25,24 @@ namespace e_shop_api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Admins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CategoryName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Description = table.Column<string>(type: "varchar(150)", nullable: true),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,8 +91,10 @@ namespace e_shop_api.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SerialNumber = table.Column<string>(type: "varchar(50)", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: true),
                     IsPaid = table.Column<bool>(type: "boolean", nullable: false),
+                    OrderStatus = table.Column<string>(type: "varchar(20)", nullable: true),
                     PaymentMethod = table.Column<string>(type: "varchar(50)", nullable: true),
                     PaidDateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
@@ -99,6 +120,7 @@ namespace e_shop_api.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "varchar(50)", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
                     Category = table.Column<string>(type: "varchar(50)", nullable: false),
                     OriginPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
@@ -120,14 +142,22 @@ namespace e_shop_api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Admins",
-                columns: new[] { "Id", "Account", "CreationTime", "CreatorUserId", "LastModificationTime", "LastModifierUserId", "Password" },
-                values: new object[] { 1, "Clark", new DateTime(2022, 6, 5, 13, 33, 44, 669, DateTimeKind.Local).AddTicks(1832), null, new DateTime(2022, 6, 5, 13, 33, 44, 670, DateTimeKind.Local).AddTicks(6259), null, "cc03e747a6afbbcbf8be7668acfebee5" });
+                columns: new[] { "Id", "Account", "CreationTime", "CreatorUserId", "LastModificationTime", "LastModifierUserId", "Password", "Permission" },
+                values: new object[] { 1, "Clark", new DateTime(2022, 10, 22, 15, 52, 43, 517, DateTimeKind.Local).AddTicks(7576), null, new DateTime(2022, 10, 22, 15, 52, 43, 520, DateTimeKind.Local).AddTicks(3870), null, "cc03e747a6afbbcbf8be7668acfebee5", "Public" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_SerialNumber",
+                table: "Orders",
+                column: "SerialNumber");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Admins");
+
+            migrationBuilder.DropTable(
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Coupons");

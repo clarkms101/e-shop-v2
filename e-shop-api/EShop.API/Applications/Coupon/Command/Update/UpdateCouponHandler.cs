@@ -2,8 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Core.Extensions;
-using e_shop_api.DataBase;
 using e_shop_api.Extensions;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

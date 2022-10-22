@@ -31,11 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataBase\Models" />
     <Folder Include="Migrations" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
+    <ProjectReference Include="..\EShop.Entity\EShop.Entity.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@
     * Angular 13
     * TypeScript
 * Backend
-    * .Net 5
+    * .Net 6
     * C#
     * EF Core (Code First)
 * Database

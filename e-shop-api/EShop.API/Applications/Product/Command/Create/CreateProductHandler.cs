@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.SystemCode.Query;
-using e_shop_api.DataBase;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -33,7 +33,7 @@ namespace e_shop_api.Applications.Product.Command.Create
                 Type = "Category"
             }, cancellationToken);
             var categoryName = result.Items.Single(s => s.Value == request.Product.CategoryId).Text;
-            var newProduct = new DataBase.Models.Product()
+            var newProduct = new EShop.Entity.DataBase.Models.Product()
             {
                 Title = request.Product.Title,
                 Category = categoryName,

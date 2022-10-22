@@ -1,8 +1,7 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace e_shop_api.DataBase.Models
+namespace EShop.Entity.DataBase.Models
 {
     public class Order : BaseModel
     {
@@ -11,6 +10,7 @@ namespace e_shop_api.DataBase.Models
         /// <summary>
         /// 訂單編號(guid,供外部查詢)
         /// </summary>
+        [Required]
         [Column(TypeName = "varchar(50)")]
         public string SerialNumber { get; set; }
         
@@ -28,13 +28,13 @@ namespace e_shop_api.DataBase.Models
         /// 訂單狀態
         /// </summary>
         [Column(TypeName = "varchar(20)")]
-        public string OrderStatus { get; set; }
+        public string? OrderStatus { get; set; }
         
         /// <summary>
         /// 付款方式
         /// </summary>
         [Column(TypeName = "varchar(50)")]
-        public string PaymentMethod { get; set; }
+        public string? PaymentMethod { get; set; }
 
         /// <summary>
         /// 實際付款時間
@@ -71,12 +71,12 @@ namespace e_shop_api.DataBase.Models
         /// 購買者電話
         /// </summary>
         [Column(TypeName = "varchar(25)")]
-        public string Tel { get; set; }
+        public string? Tel { get; set; }
 
         /// <summary>
         /// 註記
         /// </summary>
         [Column(TypeName = "varchar(250)")]
-        public string Message { get; set; }
+        public string? Message { get; set; }
     }
 }

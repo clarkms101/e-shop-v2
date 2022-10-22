@@ -2,8 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Core.Extensions;
-using e_shop_api.DataBase;
 using e_shop_api.Extensions;
+using EShop.Entity.DataBase;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -23,7 +23,7 @@ namespace e_shop_api.Applications.Coupon.Command.Create
         public async Task<CreateCouponResponse> Handle(CreateCouponRequest request, CancellationToken cancellationToken)
         {
             var dueDate = request.Coupon.DueDateTimeStamp.ToDateTime();
-            var newCoupon = new DataBase.Models.Coupon()
+            var newCoupon = new EShop.Entity.DataBase.Models.Coupon()
             {
                 Id = request.Coupon.CouponId,
                 Title = request.Coupon.Title,

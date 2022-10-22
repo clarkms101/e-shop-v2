@@ -24,7 +24,7 @@ public class QueryCouponsHandlerTest : TestBase
     {
         // Arrange
         var fakeLog = Substitute.For<ILogger<QueryCouponsHandler>>();
-        FakeEShopDbContext.Coupons.Add(new e_shop_api.DataBase.Models.Coupon()
+        FakeEShopDbContext.Coupons.Add(new EShop.Entity.DataBase.Models.Coupon()
         {
             Id = 1,
             CouponCode = "test123",

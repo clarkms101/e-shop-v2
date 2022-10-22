@@ -1,9 +1,8 @@
-using System;
 using e_shop_api.Core.Enumeration;
-using e_shop_api.DataBase.Models;
+using EShop.Entity.DataBase.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace e_shop_api.DataBase
+namespace EShop.Entity.DataBase
 {
     public class EShopDbContext : DbContext
     {
