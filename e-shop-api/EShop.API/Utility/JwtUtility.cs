@@ -6,9 +6,8 @@ using System.Security.Claims;
 using System.Text;
 using e_shop_api.Config;
 using e_shop_api.Core.Extensions;
-using e_shop_api.Extensions;
-using e_shop_api.Utility.Dto;
-using e_shop_api.Utility.Interface;
+using e_shop_api.Core.Utility.Dto;
+using e_shop_api.Core.Utility.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -64,7 +63,7 @@ namespace e_shop_api.Utility
                 new JwtHeader(
                     new SigningCredentials(
                         new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(_jwtConfig.SignKey)),
+                            Encoding.UTF8.GetBytes((string)_jwtConfig.SignKey)),
                         SecurityAlgorithms.HmacSha256)
                 ),
                 // Payload
@@ -108,7 +107,7 @@ namespace e_shop_api.Utility
         private string GetJwtClaimValue(string key)
         {
             return _httpContextAccessor.HttpContext != null
-                ? _httpContextAccessor.HttpContext.User.GetClaimValue(key)
+                ? UserClaim.GetClaimValue(_httpContextAccessor.HttpContext.User, key)
                 : string.Empty;
         }
     }

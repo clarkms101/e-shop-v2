@@ -4,10 +4,15 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>EShop.MQ.Producer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="EasyNetQ" Version="6.5.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using e_shop_api.Core.Dto;
 using e_shop_api.Core.Enumeration;
 using MediatR;
 

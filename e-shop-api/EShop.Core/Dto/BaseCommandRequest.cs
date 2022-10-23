@@ -1,4 +1,4 @@
-namespace e_shop_api.Applications
+namespace e_shop_api.Core.Dto
 {
     public class BaseCommandRequest
     {

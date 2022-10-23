@@ -1,4 +1,4 @@
-namespace e_shop_api.Utility.Dto
+namespace e_shop_api.Core.Utility.Dto
 {
     public class CityInfo
     {

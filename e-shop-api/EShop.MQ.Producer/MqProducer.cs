@@ -1,4 +1,5 @@
 using System.Text;
+using e_shop_api.Core.Const;
 using EasyNetQ;
 using EasyNetQ.Topology;
 
@@ -20,7 +21,7 @@ namespace EShop.MQ.Producer
         public async Task SetOrderAutoCancelSchedule(int orderId)
         {
             const string functionName = "order-auto-cancel";
-            const string routingKey = "order-auto-cancel-key";
+            const string routingKey = RoutingKey.OrderAutoCancelKey;
 
             var exchange =
                 await _advancedBus.ExchangeDeclareAsync(ExchangeName,

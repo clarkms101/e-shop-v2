@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using e_shop_api.Applications.SystemCode.Query;
-using e_shop_api.Utility;
-using e_shop_api.Utility.Dto;
+using e_shop_api.Core.Utility;
+using e_shop_api.Core.Utility.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

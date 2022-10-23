@@ -1,6 +1,6 @@
-using e_shop_api.Applications;
+using e_shop_api.Core.Dto;
 
-namespace e_shop_api.Utility.Interface
+namespace e_shop_api.Core.Utility.Interface
 {
     public interface IPageUtility
     {

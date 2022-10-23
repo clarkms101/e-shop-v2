@@ -1,6 +1,6 @@
-using e_shop_api.Utility.Dto;
+using e_shop_api.Core.Utility.Dto;
 
-namespace e_shop_api.Utility.Interface
+namespace e_shop_api.Core.Utility.Interface
 {
     public interface IJwtUtility
     {

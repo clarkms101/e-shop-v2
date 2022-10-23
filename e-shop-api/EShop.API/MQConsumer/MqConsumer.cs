@@ -4,8 +4,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications.Order.Command.Update;
+using e_shop_api.Core.Const;
 using EasyNetQ;
 using EasyNetQ.Topology;
+using EShop.MQ.Producer;
 
 namespace e_shop_api.MQConsumer
 {
@@ -24,7 +26,7 @@ namespace e_shop_api.MQConsumer
         public async Task DoWork()
         {
             const string functionName = "order-auto-cancel";
-            const string routingKey = "order-auto-cancel-key";
+            const string routingKey = RoutingKey.OrderAutoCancelKey;
 
             var exchange = await _advancedBus.ExchangeDeclareAsync(ExchangeName, ExchangeType.Direct);
 

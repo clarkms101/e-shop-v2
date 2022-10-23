@@ -1,4 +1,4 @@
-namespace e_shop_api.Utility.Const
+namespace e_shop_api.Core.Const
 {
     public static class CartInfo
     {

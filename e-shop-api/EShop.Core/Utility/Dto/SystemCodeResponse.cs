@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using e_shop_api.Applications;
+﻿using e_shop_api.Core.Dto;
 
-namespace e_shop_api.Utility.Dto
+namespace e_shop_api.Core.Utility.Dto
 {
     public class SystemCodeResponse:BaseResponse
     {

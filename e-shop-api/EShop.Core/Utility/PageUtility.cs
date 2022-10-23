@@ -1,8 +1,7 @@
-using System;
-using e_shop_api.Applications;
-using e_shop_api.Utility.Interface;
+using e_shop_api.Core.Dto;
+using e_shop_api.Core.Utility.Interface;
 
-namespace e_shop_api.Utility
+namespace e_shop_api.Core.Utility
 {
     public class PageUtility : IPageUtility
     {

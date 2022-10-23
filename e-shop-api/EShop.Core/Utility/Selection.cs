@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using e_shop_api.Core.Enumeration;
 using e_shop_api.Core.Extensions;
-using e_shop_api.Extensions;
-using e_shop_api.Utility.Dto;
+using e_shop_api.Core.Utility.Dto;
 
-namespace e_shop_api.Utility
+namespace e_shop_api.Core.Utility
 {
     public class Selection
     {

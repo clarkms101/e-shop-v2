@@ -1,8 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Utility.Const;
-using e_shop_api.Utility.Dto;
-using e_shop_api.Utility.Interface;
+using e_shop_api.Core.Const;
 using EShop.Cache.Dto;
 using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
