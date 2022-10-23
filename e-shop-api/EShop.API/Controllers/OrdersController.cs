@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using e_shop_api.ActionFilters;
-using e_shop_api.Applications.Order.Query;
+using EShop.Logic.Applications.Order.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

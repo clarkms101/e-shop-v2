@@ -34,6 +34,7 @@
     <ProjectReference Include="..\EShop.Cache\EShop.Cache.csproj" />
     <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
     <ProjectReference Include="..\EShop.Entity\EShop.Entity.csproj" />
+    <ProjectReference Include="..\EShop.Logic\EShop.Logic.csproj" />
     <ProjectReference Include="..\EShop.MQ.Producer\EShop.MQ.Producer.csproj" />
   </ItemGroup>
 

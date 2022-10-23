@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using e_shop_api.ActionFilters;
-using e_shop_api.Applications.Product.Command.Create;
-using e_shop_api.Applications.Product.Command.Delete;
-using e_shop_api.Applications.Product.Command.Update;
-using e_shop_api.Applications.Product.Query;
+using EShop.Logic.Applications.Product.Command.Create;
+using EShop.Logic.Applications.Product.Command.Delete;
+using EShop.Logic.Applications.Product.Command.Update;
+using EShop.Logic.Applications.Product.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

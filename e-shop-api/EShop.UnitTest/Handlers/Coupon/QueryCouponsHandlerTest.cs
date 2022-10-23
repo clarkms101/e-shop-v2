@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications;
-using e_shop_api.Applications.Coupon.Query;
 using e_shop_api.Core.Dto;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility;
 using e_shop_api.Extensions;
 using e_shop_api_unit_test.Utility;
+using EShop.Logic.Applications.Coupon.Query;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -46,9 +46,9 @@ public class QueryCouponsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Coupons = new List<e_shop_api.Applications.Coupon.CommonDto.Coupon>()
+            Coupons = new List<EShop.Logic.Applications.Coupon.CommonDto.Coupon>()
             {
-                new e_shop_api.Applications.Coupon.CommonDto.Coupon()
+                new EShop.Logic.Applications.Coupon.CommonDto.Coupon()
                 {
                     CouponId = 1,
                     CouponCode = "test123",
@@ -91,7 +91,7 @@ public class QueryCouponsHandlerTest : TestBase
         {
             Success = false,
             Message = "沒有資料",
-            Coupons = new List<e_shop_api.Applications.Coupon.CommonDto.Coupon>(),
+            Coupons = new List<EShop.Logic.Applications.Coupon.CommonDto.Coupon>(),
             Pagination = new Pagination()
         };
 

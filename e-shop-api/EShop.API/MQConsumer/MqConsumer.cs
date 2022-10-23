@@ -3,10 +3,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Applications.Order.Command.Update;
 using e_shop_api.Core.Const;
 using EasyNetQ;
 using EasyNetQ.Topology;
+using EShop.Logic.Applications.Order.Command.Update;
 using EShop.MQ.Producer;
 
 namespace e_shop_api.MQConsumer

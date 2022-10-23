@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using e_shop_api.Applications.Coupon.Query;
+using EShop.Logic.Applications.Coupon.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

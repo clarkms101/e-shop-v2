@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using e_shop_api.Config;
+using e_shop_api.Core.Config;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility.Dto;
 using e_shop_api.Core.Utility.Interface;

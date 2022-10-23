@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Applications.Cart.CommonDto;
-using e_shop_api.Applications.Cart.Query;
 using e_shop_api.Core.Extensions;
 using e_shop_api_unit_test.Utility;
 using EShop.Cache.Dto;
 using EShop.Cache.Interface;
+using EShop.Logic.Applications.Cart.CommonDto;
+using EShop.Logic.Applications.Cart.Query;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -97,9 +97,9 @@ public class QueryCartHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功!",
-            Carts = new List<e_shop_api.Applications.Cart.CommonDto.Cart>()
+            Carts = new List<EShop.Logic.Applications.Cart.CommonDto.Cart>()
             {
-                new e_shop_api.Applications.Cart.CommonDto.Cart()
+                new EShop.Logic.Applications.Cart.CommonDto.Cart()
                 {
                     CartDetailId = "test123",
                     Product = new ShoppingProduct()
@@ -161,9 +161,9 @@ public class QueryCartHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功!",
-            Carts = new List<e_shop_api.Applications.Cart.CommonDto.Cart>()
+            Carts = new List<EShop.Logic.Applications.Cart.CommonDto.Cart>()
             {
-                new e_shop_api.Applications.Cart.CommonDto.Cart()
+                new EShop.Logic.Applications.Cart.CommonDto.Cart()
                 {
                     CartDetailId = "test123",
                     Product = new ShoppingProduct()
@@ -225,9 +225,9 @@ public class QueryCartHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功!",
-            Carts = new List<e_shop_api.Applications.Cart.CommonDto.Cart>()
+            Carts = new List<EShop.Logic.Applications.Cart.CommonDto.Cart>()
             {
-                new e_shop_api.Applications.Cart.CommonDto.Cart()
+                new EShop.Logic.Applications.Cart.CommonDto.Cart()
                 {
                     CartDetailId = "test123",
                     Product = new ShoppingProduct()
@@ -273,7 +273,7 @@ public class QueryCartHandlerTest : TestBase
         {
             Success = false,
             Message = "購物車沒有資料!",
-            Carts = new List<e_shop_api.Applications.Cart.CommonDto.Cart>(),
+            Carts = new List<EShop.Logic.Applications.Cart.CommonDto.Cart>(),
             TotalAmount = 0,
             FinalTotalAmount = 0
         };
@@ -299,7 +299,7 @@ public class QueryCartHandlerTest : TestBase
         {
             Success = false,
             Message = "購物車沒有資料!",
-            Carts = new List<e_shop_api.Applications.Cart.CommonDto.Cart>(),
+            Carts = new List<EShop.Logic.Applications.Cart.CommonDto.Cart>(),
             TotalAmount = 0,
             FinalTotalAmount = 0
         };

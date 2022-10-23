@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using e_shop_api.Applications.Cart.Command.Create;
-using e_shop_api.Applications.Cart.Command.Delete;
-using e_shop_api.Applications.Cart.Query;
+using EShop.Logic.Applications.Cart.Command.Create;
+using EShop.Logic.Applications.Cart.Command.Delete;
+using EShop.Logic.Applications.Cart.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

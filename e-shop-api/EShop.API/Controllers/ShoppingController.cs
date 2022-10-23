@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
-using e_shop_api.Applications.Cart.Command.Update;
-using e_shop_api.Applications.Order.Command.Update;
+using EShop.Logic.Applications.Cart.Command.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

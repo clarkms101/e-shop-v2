@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Config" />
+      <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
     </ItemGroup>
 
 </Project>

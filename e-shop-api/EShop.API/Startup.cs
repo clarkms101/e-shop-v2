@@ -1,22 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using e_shop_api.Applications.Cart.Command.Update;
-using e_shop_api.Applications.Cart.Query;
-using e_shop_api.Applications.Product.Query;
-using e_shop_api.Applications.SystemCode.Query;
-using e_shop_api.Config;
+using e_shop_api.Applications.Admin.Command.Login;
+using e_shop_api.Core.Config;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility;
 using e_shop_api.Core.Utility.Interface;
@@ -26,6 +19,10 @@ using EasyNetQ;
 using EShop.Cache.Interface;
 using EShop.Cache.Utility;
 using EShop.Entity.DataBase;
+using EShop.Logic.Applications.Cart.Command.Update;
+using EShop.Logic.Applications.Cart.Query;
+using EShop.Logic.Applications.Product.Query;
+using EShop.Logic.Applications.SystemCode.Query;
 using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -54,6 +51,7 @@ namespace e_shop_api
             services.AddControllers();
 
             // MediatR注入
+            services.AddMediatR(typeof(LoginHandler).Assembly);
             services.AddMediatR(typeof(QueryProductHandler).Assembly);
             services.AddScoped<QueryCartHandler>();
             services.AddScoped<CleanCartHandler>();
@@ -194,7 +192,7 @@ namespace e_shop_api
 
             // MQ
             app.MessageQueueSubscribe();
-            
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

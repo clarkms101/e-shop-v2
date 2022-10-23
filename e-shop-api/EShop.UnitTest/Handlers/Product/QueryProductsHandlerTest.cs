@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Applications;
-using e_shop_api.Applications.Product.Query;
 using e_shop_api.Core.Dto;
 using e_shop_api.Core.Utility;
 using e_shop_api_unit_test.Utility;
+using EShop.Logic.Applications.Product.Query;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -66,9 +66,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<e_shop_api.Applications.Product.CommonDto.Product>()
+            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
             {
-                new e_shop_api.Applications.Product.CommonDto.Product()
+                new EShop.Logic.Applications.Product.CommonDto.Product()
                 {
                     ProductId = 1,
                     Category = "金牌",
@@ -82,7 +82,7 @@ public class QueryProductsHandlerTest : TestBase
                     Title = "TestProduct",
                     Unit = "個"
                 },
-                new e_shop_api.Applications.Product.CommonDto.Product()
+                new EShop.Logic.Applications.Product.CommonDto.Product()
                 {
                     ProductId = 2,
                     Category = "寵物用品",
@@ -128,9 +128,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<e_shop_api.Applications.Product.CommonDto.Product>()
+            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
             {
-                new e_shop_api.Applications.Product.CommonDto.Product()
+                new EShop.Logic.Applications.Product.CommonDto.Product()
                 {
                     ProductId = 2,
                     Category = "寵物用品",
@@ -177,9 +177,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<e_shop_api.Applications.Product.CommonDto.Product>()
+            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
             {
-                new e_shop_api.Applications.Product.CommonDto.Product()
+                new EShop.Logic.Applications.Product.CommonDto.Product()
                 {
                     ProductId = 1,
                     Category = defaultCategory,

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using e_shop_api.ActionFilters;
-using e_shop_api.Applications.Coupon.Command.Create;
-using e_shop_api.Applications.Coupon.Command.Delete;
-using e_shop_api.Applications.Coupon.Command.Update;
+using EShop.Logic.Applications.Coupon.Command.Create;
+using EShop.Logic.Applications.Coupon.Command.Delete;
+using EShop.Logic.Applications.Coupon.Command.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

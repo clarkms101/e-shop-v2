@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility.Dto;
 using e_shop_api.Core.Utility.Interface;
-using e_shop_api.Extensions;
+using e_shop_api.Utility;
 using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
 using MediatR;

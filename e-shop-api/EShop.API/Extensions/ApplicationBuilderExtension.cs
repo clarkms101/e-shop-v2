@@ -1,8 +1,8 @@
-using e_shop_api.Applications.Order.Command.Update;
 using e_shop_api.CustomerMiddleware;
 using e_shop_api.MQConsumer;
 using EasyNetQ;
 using EShop.Entity.DataBase;
+using EShop.Logic.Applications.Order.Command.Update;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

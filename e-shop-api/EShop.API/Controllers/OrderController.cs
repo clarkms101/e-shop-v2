@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using e_shop_api.ActionFilters;
-using e_shop_api.Applications.Order.Command.Create;
-using e_shop_api.Applications.Order.Command.Update;
-using e_shop_api.Applications.Order.Query;
+using EShop.Logic.Applications.Order.Command.Create;
+using EShop.Logic.Applications.Order.Command.Update;
+using EShop.Logic.Applications.Order.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

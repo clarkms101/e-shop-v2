@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Applications.Product.Query;
 using e_shop_api_unit_test.Utility;
+using EShop.Logic.Applications.Product.Query;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -65,7 +65,7 @@ public class QueryProductHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功!",
-            Product = new e_shop_api.Applications.Product.CommonDto.Product()
+            Product = new EShop.Logic.Applications.Product.CommonDto.Product()
             {
                 ProductId = 1,
                 Category = "金牌",

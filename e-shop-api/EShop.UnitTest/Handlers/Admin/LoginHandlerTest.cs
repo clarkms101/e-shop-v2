@@ -4,6 +4,7 @@ using e_shop_api.Applications.Admin.Command.Login;
 using e_shop_api.Core.Enumeration;
 using e_shop_api.Core.Utility.Dto;
 using e_shop_api.Core.Utility.Interface;
+using e_shop_api.Utility;
 using e_shop_api_unit_test.Utility;
 using EShop.Cache.Interface;
 using FluentAssertions;
