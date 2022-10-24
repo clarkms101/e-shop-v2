@@ -1,7 +1,7 @@
 using e_shop_api.Core.Dto;
 using MediatR;
 
-namespace EShop.Logic.Search.Applications.Products.Query
+namespace EShop.Logic.Applications.Products.Query
 {
     public class QueryProductsRequest : BaseQueryPageRequest, IRequest<QueryProductsResponse>
     {

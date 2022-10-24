@@ -1,7 +1,7 @@
 using e_shop_api.Core.Dto;
-using EShop.Logic.Search.Applications.Products.Dto;
+using EShop.Logic.Applications.Products.Dto;
 
-namespace EShop.Logic.Search.Applications.Products.Query
+namespace EShop.Logic.Applications.Products.Query
 {
     public class QueryProductsResponse : BaseResponse
     {

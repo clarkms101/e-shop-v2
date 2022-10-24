@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using EShop.Logic.Applications.Product.Query;
-using EShop.Logic.Search.Applications.Products.Query;
+using EShop.Logic.Applications.Products.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

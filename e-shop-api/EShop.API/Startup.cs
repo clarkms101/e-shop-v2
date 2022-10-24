@@ -22,8 +22,8 @@ using EShop.Entity.DataBase;
 using EShop.Logic.Applications.Cart.Command.Update;
 using EShop.Logic.Applications.Cart.Query;
 using EShop.Logic.Applications.Product.Query;
+using EShop.Logic.Applications.Products.Query;
 using EShop.Logic.Applications.SystemCode.Query;
-using EShop.Logic.Search.Applications.Products.Query;
 using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -165,6 +165,9 @@ namespace e_shop_api
             // MQ
             var rabbitMqConnectionString = Configuration.GetValue<string>("RabbitMqTcpConnectionString");
             services.AddSingleton(typeof(IBus), RabbitHutch.CreateBus(rabbitMqConnectionString, x => { }));
+
+            // ES
+            services.AddElasticsearch(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace EShop.Logic.Search.Applications.Products.Dto;
+namespace EShop.Logic.Applications.Products.Dto;
 
 public class ProductDto
 {

@@ -2,12 +2,12 @@ using e_shop_api.Core.Dto;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility.Interface;
 using EShop.Entity.DataBase;
-using EShop.Logic.Search.Applications.Products.Dto;
+using EShop.Logic.Applications.Products.Dto;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace EShop.Logic.Search.Applications.Products.Query
+namespace EShop.Logic.Applications.Products.Query
 {
     public class QueryProductsHandler : IRequestHandler<QueryProductsRequest, QueryProductsResponse>
     {
