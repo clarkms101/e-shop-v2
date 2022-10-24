@@ -6,6 +6,7 @@
 * [前台網站](https://e-shop-v2-clark.herokuapp.com/)
     * 初次訪問可能會略久(主機休眠喚醒)
     * 圖片資料皆從網路取得
+    * 更新日期: 2022/10/13
 * [後台網站](https://e-shop-v2-clark.herokuapp.com/admin/login)
     * 帳號 : Clark
     * 密碼 : test123

@@ -23,6 +23,7 @@ using EShop.Logic.Applications.Cart.Command.Update;
 using EShop.Logic.Applications.Cart.Query;
 using EShop.Logic.Applications.Product.Query;
 using EShop.Logic.Applications.SystemCode.Query;
+using EShop.Logic.Search.Applications.Products.Query;
 using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -51,8 +52,9 @@ namespace e_shop_api
             services.AddControllers();
 
             // MediatR注入
-            services.AddMediatR(typeof(LoginHandler).Assembly);
-            services.AddMediatR(typeof(QueryProductHandler).Assembly);
+            services.AddMediatR(typeof(LoginHandler).Assembly); // EShop.API
+            services.AddMediatR(typeof(QueryProductHandler).Assembly); // EShop.Logic
+            services.AddMediatR(typeof(QueryProductsHandler).Assembly); // EShop.Logic.Search
             services.AddScoped<QueryCartHandler>();
             services.AddScoped<CleanCartHandler>();
             services.AddScoped<QuerySystemCodeHandler>();

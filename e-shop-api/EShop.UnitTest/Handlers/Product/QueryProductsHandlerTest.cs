@@ -6,6 +6,8 @@ using e_shop_api.Core.Dto;
 using e_shop_api.Core.Utility;
 using e_shop_api_unit_test.Utility;
 using EShop.Logic.Applications.Product.Query;
+using EShop.Logic.Search.Applications.Products.Dto;
+using EShop.Logic.Search.Applications.Products.Query;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -66,9 +68,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
+            Products = new List<ProductDto>()
             {
-                new EShop.Logic.Applications.Product.CommonDto.Product()
+                new ProductDto()
                 {
                     ProductId = 1,
                     Category = "金牌",
@@ -82,7 +84,7 @@ public class QueryProductsHandlerTest : TestBase
                     Title = "TestProduct",
                     Unit = "個"
                 },
-                new EShop.Logic.Applications.Product.CommonDto.Product()
+                new ProductDto()
                 {
                     ProductId = 2,
                     Category = "寵物用品",
@@ -128,9 +130,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
+            Products = new List<ProductDto>()
             {
-                new EShop.Logic.Applications.Product.CommonDto.Product()
+                new ProductDto()
                 {
                     ProductId = 2,
                     Category = "寵物用品",
@@ -177,9 +179,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
+            Products = new List<ProductDto>()
             {
-                new EShop.Logic.Applications.Product.CommonDto.Product()
+                new ProductDto()
                 {
                     ProductId = 1,
                     Category = defaultCategory,
