@@ -30,20 +30,15 @@ namespace EShop.Logic.Applications.Cart.Query
             var productList = await _eShopDbContext.Products
                 .Select(s => new ShoppingProduct()
                 {
-                    Category = s.Category,
-                    Content = s.Content,
-                    Description = s.Description,
                     ProductId = s.Id,
                     ImageUrl = s.ImageUrl,
-                    IsEnabled = s.IsEnabled,
-                    OriginPrice = s.OriginPrice,
                     Price = s.Price,
                     Title = s.Title,
                     Unit = s.Unit,
-                    Num = s.Num
                 }).ToListAsync(cancellationToken: cancellationToken);
 
             // coupon
+            // todo 待調整
             var couponList = await _eShopDbContext.Coupons
                 .Select(s => new ShoppingCoupon()
                 {
@@ -73,10 +68,11 @@ namespace EShop.Logic.Applications.Cart.Query
             // use coupon
             var couponId = _shoppingCartUtility.GetCouponIdFromCart(CartInfo.DefaultCartId);
             var coupon = couponList.SingleOrDefault(s => s.CouponId == couponId);
-            // temp
+            
+            // 購物車資訊
             var shoppingCarts = new List<CommonDto.Cart>();
             var shoppingTotalAmount = 0m;
-            var shoppingFinalTotalAmount = 0m;
+            decimal shoppingFinalTotalAmount;
             foreach (var shoppingItem in shoppingItems)
             {
                 var product = productList.Single(s => s.ProductId == shoppingItem.ProductId);
@@ -93,6 +89,7 @@ namespace EShop.Logic.Applications.Cart.Query
                 shoppingTotalAmount += (product.Price * shoppingItem.Qty);
             }
 
+            // 套用優惠券折扣
             if (coupon != null)
             {
                 var couponPercent = coupon.Percent / 100f;

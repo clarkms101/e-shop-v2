@@ -2,7 +2,6 @@ using e_shop_api.Core.Dto;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility.Interface;
 using EShop.Entity.DataBase;
-using EShop.Logic.Applications.Products.Dto;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -39,7 +38,7 @@ namespace EShop.Logic.Applications.Products.Query
                 {
                     Success = true,
                     Message = "沒有資料",
-                    Products = new List<ProductDto>(),
+                    Products = new List<Product.CommonDto.Product>(),
                     Pagination = new Pagination()
                 };
             }
@@ -52,7 +51,7 @@ namespace EShop.Logic.Applications.Products.Query
             var products = await productsQuery
                 .OrderBy(s => s.Id)
                 .Page(request.Page, request.PageSize)
-                .Select(s => new ProductDto()
+                .Select(s => new Product.CommonDto.Product()
                 {
                     ProductId = s.Id,
                     Title = s.Title,

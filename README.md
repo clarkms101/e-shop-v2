@@ -15,11 +15,8 @@
 ### 使用技術
 * Frontend
     * Angular 13
-    * TypeScript
 * Backend
     * .Net 6
-    * C#
-    * EF Core (Code First)
 * Database
     * PostgreSQL
 * Search

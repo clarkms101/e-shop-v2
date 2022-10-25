@@ -105,13 +105,7 @@ public class QueryCartHandlerTest : TestBase
                     Product = new ShoppingProduct()
                     {
                         ProductId = 1,
-                        Category = "金牌",
-                        Content = "TestContent",
-                        Description = "TestDescription",
                         ImageUrl = "TestUrl",
-                        IsEnabled = true,
-                        Num = 50,
-                        OriginPrice = 299,
                         Price = 250,
                         Title = "TestProduct",
                         Unit = "件"
@@ -169,13 +163,7 @@ public class QueryCartHandlerTest : TestBase
                     Product = new ShoppingProduct()
                     {
                         ProductId = 1,
-                        Category = "金牌",
-                        Content = "TestContent",
-                        Description = "TestDescription",
                         ImageUrl = "TestUrl",
-                        IsEnabled = true,
-                        Num = 50,
-                        OriginPrice = 299,
                         Price = 250,
                         Title = "TestProduct",
                         Unit = "件"
@@ -233,13 +221,7 @@ public class QueryCartHandlerTest : TestBase
                     Product = new ShoppingProduct()
                     {
                         ProductId = 1,
-                        Category = "金牌",
-                        Content = "TestContent",
-                        Description = "TestDescription",
                         ImageUrl = "TestUrl",
-                        IsEnabled = true,
-                        Num = 50,
-                        OriginPrice = 299,
                         Price = 250,
                         Title = "TestProduct",
                         Unit = "件"

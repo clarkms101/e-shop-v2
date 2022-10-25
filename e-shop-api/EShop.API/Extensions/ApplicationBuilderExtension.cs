@@ -34,7 +34,7 @@ namespace e_shop_api.Extensions
             async void Callback()
             {
                 var mqConsumer = new MqConsumer(bus, new CancelOrderHandler(context, log));
-                await mqConsumer.DoWork();
+                await mqConsumer.OrderAutoCancel();
             }
 
             return appBuilder;

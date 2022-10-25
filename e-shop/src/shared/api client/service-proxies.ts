@@ -1802,17 +1802,11 @@ export interface IShoppingCoupon {
 }
 
 export class ShoppingProduct implements IShoppingProduct {
-    category?: string | undefined;
-    content?: string | undefined;
-    description?: string | undefined;
     productId?: number;
     imageUrl?: string | undefined;
-    isEnabled?: boolean;
-    originPrice?: number;
     price?: number;
     title?: string | undefined;
     unit?: string | undefined;
-    num?: number;
 
     constructor(data?: IShoppingProduct) {
         if (data) {
@@ -1825,17 +1819,11 @@ export class ShoppingProduct implements IShoppingProduct {
 
     init(_data?: any) {
         if (_data) {
-            this.category = _data["category"];
-            this.content = _data["content"];
-            this.description = _data["description"];
             this.productId = _data["productId"];
             this.imageUrl = _data["imageUrl"];
-            this.isEnabled = _data["isEnabled"];
-            this.originPrice = _data["originPrice"];
             this.price = _data["price"];
             this.title = _data["title"];
             this.unit = _data["unit"];
-            this.num = _data["num"];
         }
     }
 
@@ -1848,33 +1836,21 @@ export class ShoppingProduct implements IShoppingProduct {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["category"] = this.category;
-        data["content"] = this.content;
-        data["description"] = this.description;
         data["productId"] = this.productId;
         data["imageUrl"] = this.imageUrl;
-        data["isEnabled"] = this.isEnabled;
-        data["originPrice"] = this.originPrice;
         data["price"] = this.price;
         data["title"] = this.title;
         data["unit"] = this.unit;
-        data["num"] = this.num;
         return data;
     }
 }
 
 export interface IShoppingProduct {
-    category?: string | undefined;
-    content?: string | undefined;
-    description?: string | undefined;
     productId?: number;
     imageUrl?: string | undefined;
-    isEnabled?: boolean;
-    originPrice?: number;
     price?: number;
     title?: string | undefined;
     unit?: string | undefined;
-    num?: number;
 }
 
 export class Cart implements ICart {

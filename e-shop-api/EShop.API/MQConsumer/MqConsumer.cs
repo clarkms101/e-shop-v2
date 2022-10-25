@@ -23,7 +23,10 @@ namespace e_shop_api.MQConsumer
             _advancedBus = bus.Advanced;
         }
 
-        public async Task DoWork()
+        /// <summary>
+        /// 取消訂單排程
+        /// </summary>
+        public async Task OrderAutoCancel()
         {
             const string functionName = "order-auto-cancel";
             const string routingKey = RoutingKey.OrderAutoCancelKey;

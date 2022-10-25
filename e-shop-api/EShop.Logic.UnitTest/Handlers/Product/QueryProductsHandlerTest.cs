@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using e_shop_api.Core.Dto;
 using e_shop_api.Core.Utility;
 using e_shop_api_unit_test.Utility;
-using EShop.Logic.Applications.Product.Query;
-using EShop.Logic.Applications.Products.Dto;
 using EShop.Logic.Applications.Products.Query;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -67,9 +65,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<ProductDto>()
+            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
             {
-                new ProductDto()
+                new()
                 {
                     ProductId = 1,
                     Category = "金牌",
@@ -83,7 +81,7 @@ public class QueryProductsHandlerTest : TestBase
                     Title = "TestProduct",
                     Unit = "個"
                 },
-                new ProductDto()
+                new()
                 {
                     ProductId = 2,
                     Category = "寵物用品",
@@ -129,9 +127,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<ProductDto>()
+            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
             {
-                new ProductDto()
+                new()
                 {
                     ProductId = 2,
                     Category = "寵物用品",
@@ -178,9 +176,9 @@ public class QueryProductsHandlerTest : TestBase
         {
             Success = true,
             Message = "查詢成功",
-            Products = new List<ProductDto>()
+            Products = new List<EShop.Logic.Applications.Product.CommonDto.Product>()
             {
-                new ProductDto()
+                new()
                 {
                     ProductId = 1,
                     Category = defaultCategory,
