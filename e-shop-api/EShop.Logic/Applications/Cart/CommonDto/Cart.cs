@@ -1,3 +1,5 @@
+using e_shop_api.Core.Dto.Cart;
+
 namespace EShop.Logic.Applications.Cart.CommonDto
 {
     public class Cart

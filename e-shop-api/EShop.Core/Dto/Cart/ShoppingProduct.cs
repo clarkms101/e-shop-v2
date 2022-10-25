@@ -1,4 +1,4 @@
-namespace EShop.Logic.Applications.Cart.CommonDto
+namespace e_shop_api.Core.Dto.Cart
 {
     public class ShoppingProduct
     {

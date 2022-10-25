@@ -12,4 +12,9 @@
       <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
+      <ProjectReference Include="..\EShop.Entity\EShop.Entity.csproj" />
+    </ItemGroup>
+
 </Project>

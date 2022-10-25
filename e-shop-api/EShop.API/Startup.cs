@@ -61,9 +61,11 @@ namespace e_shop_api
             services.AddScoped<MqProducer>();
 
             // 底層物件注入
-            services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IPageUtility, PageUtility>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // 固定使用memory cache
+            services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
+            services.AddSingleton<IProductsCacheUtility, ProductsMemoryCacheUtility>();
             switch (Configuration["CacheType"])
             {
                 case "memory":

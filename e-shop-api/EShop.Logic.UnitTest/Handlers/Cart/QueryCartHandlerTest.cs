@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using e_shop_api.Core.Dto.Cart;
 using e_shop_api.Core.Extensions;
 using e_shop_api_unit_test.Utility;
 using EShop.Cache.Dto;
@@ -20,26 +21,12 @@ public class QueryCartHandlerTest : TestBase
     private QueryCartHandler _target;
     private readonly ILogger<QueryCartHandler> _fakeLog;
     private readonly IShoppingCartCacheUtility _fakeShoppingCartCacheUtility;
+    private readonly IProductsCacheUtility _fakeProductsCacheUtility;
 
     public QueryCartHandlerTest()
     {
         #region 測試前置資料
 
-        // product
-        FakeEShopDbContext.Products.Add(new EShop.Entity.DataBase.Models.Product()
-        {
-            Id = 1,
-            Category = "金牌",
-            Content = "TestContent",
-            Description = "TestDescription",
-            ImageUrl = "TestUrl",
-            IsEnabled = true,
-            Num = 50,
-            OriginPrice = 299,
-            Price = 250,
-            Title = "TestProduct",
-            Unit = "件"
-        });
         // coupon
         // 85折
         FakeEShopDbContext.Coupons.Add(new EShop.Entity.DataBase.Models.Coupon()
@@ -67,10 +54,21 @@ public class QueryCartHandlerTest : TestBase
 
         // log
         _fakeLog = Substitute.For<ILogger<QueryCartHandler>>();
-        // shopping cart
+        // shopping cart cache
         _fakeShoppingCartCacheUtility = Substitute.For<IShoppingCartCacheUtility>();
+        // products cache
+        _fakeProductsCacheUtility = Substitute.For<IProductsCacheUtility>();
+        _fakeProductsCacheUtility.GetProductInfo(1).Returns(new ShoppingProduct()
+        {
+            ProductId = 1,
+            ImageUrl = "TestUrl",
+            Price = 250,
+            Title = "TestProduct",
+            Unit = "件"
+        });
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeProductsCacheUtility,
+            _fakeLog);
     }
 
     [Fact]
@@ -90,7 +88,8 @@ public class QueryCartHandlerTest : TestBase
         // 設定使用85折優惠券
         _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(1);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeProductsCacheUtility,
+            _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -148,7 +147,8 @@ public class QueryCartHandlerTest : TestBase
         // 設定使用95折優惠券
         _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(2);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeProductsCacheUtility,
+            _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -206,7 +206,8 @@ public class QueryCartHandlerTest : TestBase
         // 設定沒有使用優惠券
         _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns((int?)null);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeProductsCacheUtility,
+            _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -248,7 +249,8 @@ public class QueryCartHandlerTest : TestBase
         // 設定沒有使用優惠券
         _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns((int?)null);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeProductsCacheUtility,
+            _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -274,7 +276,8 @@ public class QueryCartHandlerTest : TestBase
         // 設定使用95折優惠券
         _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(2);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeProductsCacheUtility,
+            _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()

@@ -46,7 +46,14 @@ namespace EShop.Logic.Applications.Cart.Command.Update
                 };
             }
 
-            // todo 過期優惠券檢查
+            if (coupon.DueDateTime <= DateTime.Now)
+            {
+                return new UpdateCartCouponResponse()
+                {
+                    Success = false,
+                    Message = "優惠券已經過期!"
+                };
+            }
 
             var setIsSuccess = _shoppingCartCacheUtility.SetCouponIdToCart(CartInfo.DefaultCartId, coupon.Id);
 

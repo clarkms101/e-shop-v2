@@ -1,4 +1,5 @@
 using e_shop_api.Core.Const;
+using e_shop_api.Core.Dto.Cart;
 using e_shop_api.Core.Extensions;
 using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
@@ -13,44 +14,22 @@ namespace EShop.Logic.Applications.Cart.Query
     {
         private readonly EShopDbContext _eShopDbContext;
         private readonly IShoppingCartCacheUtility _shoppingCartCacheUtility;
+        private readonly IProductsCacheUtility _productsCacheUtility;
         private readonly ILogger<QueryCartHandler> _logger;
 
         public QueryCartHandler(EShopDbContext eShopDbContext, IShoppingCartCacheUtility shoppingCartCacheUtility,
+            IProductsCacheUtility productsCacheUtility,
             ILogger<QueryCartHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
             _shoppingCartCacheUtility = shoppingCartCacheUtility;
+            _productsCacheUtility = productsCacheUtility;
             _logger = logger;
         }
 
         public async Task<QueryCartResponse> Handle(QueryCartRequest request, CancellationToken cancellationToken)
         {
-            // product
-            // todo 待調整
-            var productList = await _eShopDbContext.Products
-                .Select(s => new ShoppingProduct()
-                {
-                    ProductId = s.Id,
-                    ImageUrl = s.ImageUrl,
-                    Price = s.Price,
-                    Title = s.Title,
-                    Unit = s.Unit,
-                }).ToListAsync(cancellationToken: cancellationToken);
-
-            // coupon
-            // todo 待調整
-            var couponList = await _eShopDbContext.Coupons
-                .Select(s => new ShoppingCoupon()
-                {
-                    CouponId = s.Id,
-                    Title = s.Title,
-                    CouponCode = s.CouponCode,
-                    Percent = s.Percent,
-                    IsEnabled = s.IsEnabled,
-                    DueDateTimeStamp = s.DueDateTime.ToTimeStamp()
-                }).ToListAsync(cancellationToken: cancellationToken);
-
-            // shopping items
+            // get shopping items from cache
             var shoppingItems = _shoppingCartCacheUtility.GetShoppingItemsFromCart(CartInfo.DefaultCartId);
 
             if (shoppingItems.Any() == false)
@@ -67,26 +46,43 @@ namespace EShop.Logic.Applications.Cart.Query
 
             // use coupon
             var couponId = _shoppingCartCacheUtility.GetCouponIdFromCart(CartInfo.DefaultCartId);
-            var coupon = couponList.SingleOrDefault(s => s.CouponId == couponId);
-            
+            var coupon = await _eShopDbContext.Coupons
+                .Where(s => s.IsEnabled)
+                .Select(s => new ShoppingCoupon()
+                {
+                    CouponId = s.Id,
+                    Title = s.Title,
+                    CouponCode = s.CouponCode,
+                    Percent = s.Percent,
+                    IsEnabled = s.IsEnabled,
+                    DueDateTimeStamp = s.DueDateTime.ToTimeStamp()
+                }).SingleOrDefaultAsync(s => s.CouponId == couponId, cancellationToken: cancellationToken);
+
             // 購物車資訊
             var shoppingCarts = new List<CommonDto.Cart>();
             var shoppingTotalAmount = 0m;
             decimal shoppingFinalTotalAmount;
             foreach (var shoppingItem in shoppingItems)
             {
-                var product = productList.Single(s => s.ProductId == shoppingItem.ProductId);
+                var productInfo = _productsCacheUtility.GetProductInfo(shoppingItem.ProductId);
+                if (productInfo == null)
+                {
+                    var product = _eShopDbContext.Products.Single(s => s.Id == shoppingItem.ProductId);
+                    _productsCacheUtility.AddOrUpdateProductInfo(product);
+                    productInfo = _productsCacheUtility.GetProductInfo(shoppingItem.ProductId);
+                }
+
                 var cartDetail = new CommonDto.Cart()
                 {
                     CartDetailId = shoppingItem.ShoppingItemId,
-                    Product = product,
+                    Product = productInfo,
                     // 如果為null，則表示沒有使用coupon
                     Coupon = coupon,
                     Qty = shoppingItem.Qty
                 };
 
                 shoppingCarts.Add(cartDetail);
-                shoppingTotalAmount += (product.Price * shoppingItem.Qty);
+                shoppingTotalAmount += (productInfo.Price * shoppingItem.Qty);
             }
 
             // 套用優惠券折扣
