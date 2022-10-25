@@ -27,7 +27,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
-      <ProjectReference Include="..\EShop.API\EShop.API.csproj" />
+      <ProjectReference Include="..\EShop.Entity\EShop.Entity.csproj" />
+      <ProjectReference Include="..\EShop.Logic\EShop.Logic.csproj" />
     </ItemGroup>
 
 </Project>

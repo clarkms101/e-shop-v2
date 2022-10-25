@@ -1,12 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Applications.Admin.Command.Login;
 using e_shop_api.Core.Enumeration;
 using e_shop_api.Core.Utility.Dto;
 using e_shop_api.Core.Utility.Interface;
-using e_shop_api.Utility;
 using e_shop_api_unit_test.Utility;
 using EShop.Cache.Interface;
+using EShop.Logic.Applications.Admin.Command.Login;
+using EShop.Logic.Utility;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Applications.Admin.Command.LoginCheck;
 using e_shop_api.Core.Utility.Dto;
 using EShop.Cache.Interface;
+using EShop.Logic.Applications.Admin.Command.LoginCheck;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

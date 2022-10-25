@@ -1,6 +1,6 @@
 using e_shop_api.Core.Dto;
 
-namespace e_shop_api.Applications.Admin.Command.Logout
+namespace EShop.Logic.Applications.Admin.Command.Logout
 {
     public class LogoutResponse : BaseResponse
     {

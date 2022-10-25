@@ -8,22 +8,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using e_shop_api.Applications.Admin.Command.Login;
 using e_shop_api.Core.Config;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility;
 using e_shop_api.Core.Utility.Interface;
 using e_shop_api.Extensions;
-using e_shop_api.Utility;
 using EasyNetQ;
 using EShop.Cache.Interface;
 using EShop.Cache.Utility;
 using EShop.Entity.DataBase;
+using EShop.Logic.Applications.Admin.Command.Login;
 using EShop.Logic.Applications.Cart.Command.Update;
 using EShop.Logic.Applications.Cart.Query;
 using EShop.Logic.Applications.Product.Query;
 using EShop.Logic.Applications.Products.Query;
 using EShop.Logic.Applications.SystemCode.Query;
+using EShop.Logic.Utility;
 using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,9 +52,7 @@ namespace e_shop_api
             services.AddControllers();
 
             // MediatR注入
-            services.AddMediatR(typeof(LoginHandler).Assembly); // EShop.API
-            services.AddMediatR(typeof(QueryProductHandler).Assembly); // EShop.Logic
-            services.AddMediatR(typeof(QueryProductsHandler).Assembly); // EShop.Logic.Search
+            services.AddMediatR(typeof(LoginHandler).Assembly); // EShop.Logic
             services.AddScoped<QueryCartHandler>();
             services.AddScoped<CleanCartHandler>();
             services.AddScoped<QuerySystemCodeHandler>();

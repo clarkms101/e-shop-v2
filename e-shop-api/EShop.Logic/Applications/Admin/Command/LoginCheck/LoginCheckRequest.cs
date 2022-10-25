@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace e_shop_api.Applications.Admin.Command.LoginCheck
+namespace EShop.Logic.Applications.Admin.Command.LoginCheck
 {
     public class LoginCheckRequest : IRequest<LoginCheckResponse>
     {

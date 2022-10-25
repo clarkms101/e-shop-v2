@@ -1,6 +1,6 @@
 using e_shop_api.Core.Utility.Dto;
 
-namespace e_shop_api.Utility
+namespace EShop.Logic.Utility
 {
     public interface IJwtUtility
     {

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace e_shop_api.Applications.Admin.Command.Login
+namespace EShop.Logic.Applications.Admin.Command.Login
 {
     public class LoginRequest : IRequest<LoginResponse>
     {

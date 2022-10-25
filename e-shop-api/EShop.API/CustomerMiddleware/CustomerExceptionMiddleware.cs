@@ -1,7 +1,6 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using e_shop_api.Applications;
 using e_shop_api.Core.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

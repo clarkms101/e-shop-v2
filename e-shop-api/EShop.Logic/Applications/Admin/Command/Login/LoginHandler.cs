@@ -1,19 +1,15 @@
-using System.Linq;
 using System.Runtime.Caching;
-using System.Threading;
-using System.Threading.Tasks;
 using e_shop_api.Core.Extensions;
 using e_shop_api.Core.Utility.Dto;
-using e_shop_api.Core.Utility.Interface;
-using e_shop_api.Utility;
 using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
+using EShop.Logic.Utility;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace e_shop_api.Applications.Admin.Command.Login
+namespace EShop.Logic.Applications.Admin.Command.Login
 {
     public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
     {

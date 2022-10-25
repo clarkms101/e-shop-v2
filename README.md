@@ -22,6 +22,8 @@
     * EF Core (Code First)
 * Database
     * PostgreSQL
+* Search
+    * Elasticsearch
 * Cache
     * Redis
     * MemoryCache
@@ -32,5 +34,5 @@
 * Paas
     * Heroku
 
-### 架構圖
-![架構圖](https://i.imgur.com/vxqnSCT.png)
+<!-- ### 架構圖 -->
+<!-- [架構圖](https://i.imgur.com/vxqnSCT.png) -->

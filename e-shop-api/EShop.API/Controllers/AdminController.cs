@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using e_shop_api.ActionFilters;
-using e_shop_api.Applications.Admin.Command.Login;
-using e_shop_api.Applications.Admin.Command.LoginCheck;
-using e_shop_api.Applications.Admin.Command.Logout;
+using EShop.Logic.Applications.Admin.Command.Login;
+using EShop.Logic.Applications.Admin.Command.LoginCheck;
+using EShop.Logic.Applications.Admin.Command.Logout;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

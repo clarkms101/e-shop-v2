@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using e_shop_api.Core.Enumeration;
 using e_shop_api.Core.Extensions;
-using e_shop_api.Extensions;
 using e_shop_api_unit_test.Utility;
 using EShop.Entity.DataBase.Models;
 using EShop.Logic.Applications.Order.CommonDto;

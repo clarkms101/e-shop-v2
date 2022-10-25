@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace e_shop_api.Applications.Admin.Command.Logout
+namespace EShop.Logic.Applications.Admin.Command.Logout
 {
     public class LogoutRequest : IRequest<LogoutResponse>
     {

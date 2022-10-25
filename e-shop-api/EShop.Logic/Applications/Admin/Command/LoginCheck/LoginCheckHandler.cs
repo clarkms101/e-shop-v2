@@ -1,12 +1,10 @@
-using System.Threading;
-using System.Threading.Tasks;
 using e_shop_api.Core.Utility.Dto;
 using EShop.Cache.Interface;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace e_shop_api.Applications.Admin.Command.LoginCheck
+namespace EShop.Logic.Applications.Admin.Command.LoginCheck
 {
     public class LoginCheckHandler : IRequestHandler<LoginCheckRequest, LoginCheckResponse>
     {

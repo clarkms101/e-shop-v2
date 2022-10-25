@@ -1,11 +1,9 @@
-using System.Threading;
-using System.Threading.Tasks;
-using e_shop_api.Applications.Admin.Command.LoginCheck;
 using EShop.Cache.Interface;
+using EShop.Logic.Applications.Admin.Command.LoginCheck;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace e_shop_api.Applications.Admin.Command.Logout
+namespace EShop.Logic.Applications.Admin.Command.Logout
 {
     public class LogoutHandler : IRequestHandler<LogoutRequest, LogoutResponse>
     {

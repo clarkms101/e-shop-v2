@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using e_shop_api.Applications;
 using e_shop_api.Core.Dto;
 using e_shop_api.Core.Utility;
 using e_shop_api_unit_test.Utility;

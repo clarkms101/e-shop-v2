@@ -1,6 +1,6 @@
 using e_shop_api.Core.Utility.Interface;
-using e_shop_api.Utility;
 using EShop.Cache.Interface;
+using EShop.Logic.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
