@@ -20,9 +20,9 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
     {
         var key = $"{KeyPrefix}{product.Id}";
         var productCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
-        var shoppingProduct = GetShoppingProduct(product);
+        var shoppingProduct = MappingShoppingProduct(product);
 
-        if (string.IsNullOrWhiteSpace(productCacheInfoJsonString))
+        if (string.IsNullOrWhiteSpace(productCacheInfoJsonString) == false)
         {
             _memoryCacheUtility.Update(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
                 new CacheItemPolicy());
@@ -49,7 +49,7 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
         return null;
     }
 
-    private static ShoppingProduct GetShoppingProduct(Product product)
+    private static ShoppingProduct MappingShoppingProduct(Product product)
     {
         var shoppingProduct = new ShoppingProduct()
         {
