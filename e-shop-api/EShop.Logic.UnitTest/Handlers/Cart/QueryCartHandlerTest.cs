@@ -19,7 +19,7 @@ public class QueryCartHandlerTest : TestBase
 {
     private QueryCartHandler _target;
     private readonly ILogger<QueryCartHandler> _fakeLog;
-    private readonly IShoppingCartUtility _fakeShoppingCartUtility;
+    private readonly IShoppingCartCacheUtility _fakeShoppingCartCacheUtility;
 
     public QueryCartHandlerTest()
     {
@@ -68,16 +68,16 @@ public class QueryCartHandlerTest : TestBase
         // log
         _fakeLog = Substitute.For<ILogger<QueryCartHandler>>();
         // shopping cart
-        _fakeShoppingCartUtility = Substitute.For<IShoppingCartUtility>();
+        _fakeShoppingCartCacheUtility = Substitute.For<IShoppingCartCacheUtility>();
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
     }
 
     [Fact]
     public async Task 當購物車有資料且有使用85折優惠券時_返回的FinalTotalAmount為TotalAmount的85折()
     {
         // 購物車的資料
-        _fakeShoppingCartUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
+        _fakeShoppingCartCacheUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
             new List<ShoppingCartItemCache>()
             {
                 new ShoppingCartItemCache()
@@ -88,9 +88,9 @@ public class QueryCartHandlerTest : TestBase
                 }
             });
         // 設定使用85折優惠券
-        _fakeShoppingCartUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(1);
+        _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(1);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -135,7 +135,7 @@ public class QueryCartHandlerTest : TestBase
     public async Task 當購物車有資料且有使用95折優惠券時_返回的FinalTotalAmount為TotalAmount的95折()
     {
         // 購物車的資料
-        _fakeShoppingCartUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
+        _fakeShoppingCartCacheUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
             new List<ShoppingCartItemCache>()
             {
                 new ShoppingCartItemCache()
@@ -146,9 +146,9 @@ public class QueryCartHandlerTest : TestBase
                 }
             });
         // 設定使用95折優惠券
-        _fakeShoppingCartUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(2);
+        _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(2);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -193,7 +193,7 @@ public class QueryCartHandlerTest : TestBase
     public async Task 當購物車有資料且沒有使用優惠券時_返回的FinalTotalAmount和TotalAmount相等()
     {
         // 購物車的資料
-        _fakeShoppingCartUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
+        _fakeShoppingCartCacheUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
             new List<ShoppingCartItemCache>()
             {
                 new ShoppingCartItemCache()
@@ -204,9 +204,9 @@ public class QueryCartHandlerTest : TestBase
                 }
             });
         // 設定沒有使用優惠券
-        _fakeShoppingCartUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns((int?)null);
+        _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns((int?)null);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -243,12 +243,12 @@ public class QueryCartHandlerTest : TestBase
     public async Task 當購物車沒有資料且沒有使用優惠券時_返回購物車沒有資料()
     {
         // 購物車沒有資料
-        _fakeShoppingCartUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
+        _fakeShoppingCartCacheUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
             new List<ShoppingCartItemCache>());
         // 設定沒有使用優惠券
-        _fakeShoppingCartUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns((int?)null);
+        _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns((int?)null);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()
@@ -269,12 +269,12 @@ public class QueryCartHandlerTest : TestBase
     public async Task 當購物車沒有資料且有使用95折優惠券時_返回購物車沒有資料()
     {
         // 購物車沒有資料
-        _fakeShoppingCartUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
+        _fakeShoppingCartCacheUtility.GetShoppingItemsFromCart(Arg.Any<string>()).Returns(
             new List<ShoppingCartItemCache>());
         // 設定使用95折優惠券
-        _fakeShoppingCartUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(2);
+        _fakeShoppingCartCacheUtility.GetCouponIdFromCart(Arg.Any<string>()).Returns(2);
 
-        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartUtility, _fakeLog);
+        _target = new QueryCartHandler(FakeEShopDbContext, _fakeShoppingCartCacheUtility, _fakeLog);
 
         var request = new QueryCartRequest();
         var expected = new QueryCartResponse()

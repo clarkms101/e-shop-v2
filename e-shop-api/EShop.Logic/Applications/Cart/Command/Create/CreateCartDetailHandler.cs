@@ -10,14 +10,14 @@ namespace EShop.Logic.Applications.Cart.Command.Create
     public class CreateCartDetailHandler : IRequestHandler<CreateCartDetailRequest, CreateCartDetailResponse>
     {
         private readonly EShopDbContext _eShopDbContext;
-        private readonly IShoppingCartUtility _shoppingCartUtility;
+        private readonly IShoppingCartCacheUtility _shoppingCartCacheUtility;
         private readonly ILogger<CreateCartDetailHandler> _logger;
 
-        public CreateCartDetailHandler(EShopDbContext eShopDbContext, IShoppingCartUtility shoppingCartUtility,
+        public CreateCartDetailHandler(EShopDbContext eShopDbContext, IShoppingCartCacheUtility shoppingCartCacheUtility,
             ILogger<CreateCartDetailHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
-            _shoppingCartUtility = shoppingCartUtility;
+            _shoppingCartCacheUtility = shoppingCartCacheUtility;
             _logger = logger;
         }
 
@@ -35,7 +35,7 @@ namespace EShop.Logic.Applications.Cart.Command.Create
                 };
             }
 
-            var addIsSuccess = _shoppingCartUtility.AddShoppingItemToCart(CartInfo.DefaultCartId, new ShoppingItem()
+            var addIsSuccess = _shoppingCartCacheUtility.AddShoppingItemToCart(CartInfo.DefaultCartId, new ShoppingItem()
             {
                 ProductId = request.CartDetail.ProductId,
                 Price = product.Price,

@@ -1,24 +1,24 @@
 using System.Linq;
+using System.Runtime.Caching;
 using EShop.Cache.Dto;
 using EShop.Cache.Interface;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 
 namespace EShop.Cache.Utility
 {
-    public class ShoppingCartUtilityByRedis : IShoppingCartUtility
+    public class ShoppingCartMemoryCacheUtility : IShoppingCartCacheUtility
     {
-        private readonly IConnectionMultiplexer _multiplexer;
+        private readonly IMemoryCacheUtility _memoryCacheUtility;
 
-        public ShoppingCartUtilityByRedis(IConnectionMultiplexer multiplexer)
+        public ShoppingCartMemoryCacheUtility(IMemoryCacheUtility memoryCacheUtility)
         {
-            _multiplexer = multiplexer;
+            _memoryCacheUtility = memoryCacheUtility;
         }
 
         public bool AddShoppingItemToCart(string cartId, ShoppingItem shoppingItem)
         {
             // get cart from cache
-            var cartCacheInfoJsonString = _multiplexer.GetDatabase().StringGet(cartId);
+            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(cartId);
 
             // Update Cart
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString) == false)
@@ -29,7 +29,9 @@ namespace EShop.Cache.Utility
                 cartCacheInfo.ShoppingCartItems.Add(newCartDetail);
 
                 // update cart to cache
-                _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
+                _memoryCacheUtility.Update(
+                    new CacheItem(cartId, JsonConvert.SerializeObject(cartCacheInfo)),
+                    new CacheItemPolicy());
 
                 return true;
             }
@@ -47,7 +49,8 @@ namespace EShop.Cache.Utility
                 newCart.ShoppingCartItems.Add(newCartDetail);
 
                 // add cart to cache
-                _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(newCart));
+                _memoryCacheUtility.Add(new CacheItem(cartId, JsonConvert.SerializeObject(newCart)),
+                    new CacheItemPolicy());
 
                 return true;
             }
@@ -56,7 +59,7 @@ namespace EShop.Cache.Utility
         public bool DeleteShoppingItemFromCart(string cartId, string shoppingItemId)
         {
             // get cart from cache
-            var cartCacheInfoJsonString = _multiplexer.GetDatabase().StringGet(cartId);
+            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(cartId);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return false;
@@ -73,28 +76,23 @@ namespace EShop.Cache.Utility
             // remove item
             cartCacheInfo.ShoppingCartItems.Remove(cartCacheInfoDetail);
 
-            // reset coupon
-            if (cartCacheInfo.ShoppingCartItems.Count == 0)
-            {
-                cartCacheInfo.CouponId = null;
-            }
-
             // update cart to cache
-            _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
+            _memoryCacheUtility.Update(
+                new CacheItem(cartId, JsonConvert.SerializeObject(cartCacheInfo)),
+                new CacheItemPolicy());
 
             return true;
         }
 
         public void CleanAllShoppingItemFromCart(string cartId)
         {
-            // _memoryCacheUtility.Remove(cartId);
-            _multiplexer.GetDatabase().KeyDelete(cartId);
+            _memoryCacheUtility.Remove(cartId);
         }
 
         public bool SetCouponIdToCart(string cartId, int couponId)
         {
             // get cart from cache
-            var cartCacheInfoJsonString = _multiplexer.GetDatabase().StringGet(cartId);
+            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(cartId);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return false;
@@ -104,16 +102,16 @@ namespace EShop.Cache.Utility
             cartCacheInfo.CouponId = couponId;
 
             // update cart to cache
-            _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
-
+            _memoryCacheUtility.Update(
+                new CacheItem(cartId, JsonConvert.SerializeObject(cartCacheInfo)),
+                new CacheItemPolicy());
             return true;
         }
 
         public List<ShoppingCartItemCache> GetShoppingItemsFromCart(string cartId)
         {
             // get cart from cache
-            var cartCacheInfoJsonString = _multiplexer.GetDatabase().StringGet(cartId);
-
+            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(cartId);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return new List<ShoppingCartItemCache>();
@@ -126,8 +124,7 @@ namespace EShop.Cache.Utility
         public int? GetCouponIdFromCart(string cartId)
         {
             // get cart from cache
-            var cartCacheInfoJsonString = _multiplexer.GetDatabase().StringGet(cartId);
-
+            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(cartId);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return null;

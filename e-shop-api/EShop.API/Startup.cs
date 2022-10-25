@@ -67,10 +67,10 @@ namespace e_shop_api
             switch (Configuration["CacheType"])
             {
                 case "memory":
-                    services.AddSingleton<IShoppingCartUtility, ShoppingCartUtilityByMemoryCache>();
+                    services.AddSingleton<IShoppingCartCacheUtility, ShoppingCartMemoryCacheUtility>();
                     break;
                 case "redis":
-                    services.AddSingleton<IShoppingCartUtility, ShoppingCartUtilityByRedis>();
+                    services.AddSingleton<IShoppingCartCacheUtility, ShoppingCartRedisCacheUtility>();
                     services.AddSingleton<IConnectionMultiplexer>(
                         ConnectionMultiplexer.Connect(Configuration.GetValue<string>("RedisConnectionString")));
                     break;

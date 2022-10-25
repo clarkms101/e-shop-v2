@@ -7,13 +7,13 @@ namespace EShop.Logic.Applications.Cart.Command.Delete
 {
     public class DeleteCartDetailHandler : IRequestHandler<DeleteCartDetailRequest, DeleteCartDetailResponse>
     {
-        private readonly IShoppingCartUtility _shoppingCartUtility;
+        private readonly IShoppingCartCacheUtility _shoppingCartCacheUtility;
         private readonly ILogger<DeleteCartDetailHandler> _logger;
 
-        public DeleteCartDetailHandler(IShoppingCartUtility shoppingCartUtility,
+        public DeleteCartDetailHandler(IShoppingCartCacheUtility shoppingCartCacheUtility,
             ILogger<DeleteCartDetailHandler> logger)
         {
-            _shoppingCartUtility = shoppingCartUtility;
+            _shoppingCartCacheUtility = shoppingCartCacheUtility;
             _logger = logger;
         }
 
@@ -21,7 +21,7 @@ namespace EShop.Logic.Applications.Cart.Command.Delete
             CancellationToken cancellationToken)
         {
             var removeIsSuccess =
-                _shoppingCartUtility.DeleteShoppingItemFromCart(CartInfo.DefaultCartId, request.CartDetailId);
+                _shoppingCartCacheUtility.DeleteShoppingItemFromCart(CartInfo.DefaultCartId, request.CartDetailId);
 
             if (removeIsSuccess)
             {

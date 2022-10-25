@@ -10,14 +10,14 @@ namespace EShop.Logic.Applications.Cart.Command.Update
     public class UpdateCartCouponHandler : IRequestHandler<UpdateCartCouponRequest, UpdateCartCouponResponse>
     {
         private readonly EShopDbContext _eShopDbContext;
-        private readonly IShoppingCartUtility _shoppingCartUtility;
+        private readonly IShoppingCartCacheUtility _shoppingCartCacheUtility;
         private readonly ILogger<UpdateCartCouponHandler> _logger;
 
-        public UpdateCartCouponHandler(EShopDbContext eShopDbContext, IShoppingCartUtility shoppingCartUtility,
+        public UpdateCartCouponHandler(EShopDbContext eShopDbContext, IShoppingCartCacheUtility shoppingCartCacheUtility,
             ILogger<UpdateCartCouponHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
-            _shoppingCartUtility = shoppingCartUtility;
+            _shoppingCartCacheUtility = shoppingCartCacheUtility;
             _logger = logger;
         }
 
@@ -48,7 +48,7 @@ namespace EShop.Logic.Applications.Cart.Command.Update
 
             // todo 過期優惠券檢查
 
-            var setIsSuccess = _shoppingCartUtility.SetCouponIdToCart(CartInfo.DefaultCartId, coupon.Id);
+            var setIsSuccess = _shoppingCartCacheUtility.SetCouponIdToCart(CartInfo.DefaultCartId, coupon.Id);
 
             if (setIsSuccess)
             {

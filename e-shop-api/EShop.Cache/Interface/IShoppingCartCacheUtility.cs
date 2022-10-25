@@ -2,7 +2,7 @@ using EShop.Cache.Dto;
 
 namespace EShop.Cache.Interface
 {
-    public interface IShoppingCartUtility
+    public interface IShoppingCartCacheUtility
     {
         bool AddShoppingItemToCart(string cartId, ShoppingItem shoppingItem);
         bool DeleteShoppingItemFromCart(string cartId, string shoppingItemId);

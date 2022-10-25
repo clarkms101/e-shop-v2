@@ -12,14 +12,14 @@ namespace EShop.Logic.Applications.Cart.Query
     public class QueryCartHandler : IRequestHandler<QueryCartRequest, QueryCartResponse>
     {
         private readonly EShopDbContext _eShopDbContext;
-        private readonly IShoppingCartUtility _shoppingCartUtility;
+        private readonly IShoppingCartCacheUtility _shoppingCartCacheUtility;
         private readonly ILogger<QueryCartHandler> _logger;
 
-        public QueryCartHandler(EShopDbContext eShopDbContext, IShoppingCartUtility shoppingCartUtility,
+        public QueryCartHandler(EShopDbContext eShopDbContext, IShoppingCartCacheUtility shoppingCartCacheUtility,
             ILogger<QueryCartHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
-            _shoppingCartUtility = shoppingCartUtility;
+            _shoppingCartCacheUtility = shoppingCartCacheUtility;
             _logger = logger;
         }
 
@@ -51,7 +51,7 @@ namespace EShop.Logic.Applications.Cart.Query
                 }).ToListAsync(cancellationToken: cancellationToken);
 
             // shopping items
-            var shoppingItems = _shoppingCartUtility.GetShoppingItemsFromCart(CartInfo.DefaultCartId);
+            var shoppingItems = _shoppingCartCacheUtility.GetShoppingItemsFromCart(CartInfo.DefaultCartId);
 
             if (shoppingItems.Any() == false)
             {
@@ -66,7 +66,7 @@ namespace EShop.Logic.Applications.Cart.Query
             }
 
             // use coupon
-            var couponId = _shoppingCartUtility.GetCouponIdFromCart(CartInfo.DefaultCartId);
+            var couponId = _shoppingCartCacheUtility.GetCouponIdFromCart(CartInfo.DefaultCartId);
             var coupon = couponList.SingleOrDefault(s => s.CouponId == couponId);
             
             // 購物車資訊
