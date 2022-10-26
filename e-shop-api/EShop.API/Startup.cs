@@ -64,7 +64,7 @@ namespace e_shop_api
             services.AddSingleton<IPageUtility, PageUtility>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             // 固定使用memory cache
-            services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
+            services.AddSingleton<IBaseMemoryCacheUtility, BaseMemoryCacheUtility>();
             services.AddSingleton<IProductsCacheUtility, ProductsMemoryCacheUtility>();
             services.AddSingleton<ISystemCodeCacheUtility, SystemCodeMemoryCacheUtility>();
             services.AddSingleton<IAdminInfoCacheUtility, AdminInfoMemoryCacheUtility>();

@@ -3,11 +3,11 @@ using EShop.Cache.Interface;
 
 namespace EShop.Cache.Utility
 {
-    public class MemoryCacheUtility : IMemoryCacheUtility
+    public class BaseMemoryCacheUtility : IBaseMemoryCacheUtility
     {
         private readonly MemoryCache _memoryCache;
 
-        public MemoryCacheUtility()
+        public BaseMemoryCacheUtility()
         {
             _memoryCache = MemoryCache.Default;
         }

@@ -7,12 +7,12 @@ namespace EShop.Cache.Utility;
 
 public class SystemCodeMemoryCacheUtility : ISystemCodeCacheUtility
 {
-    private readonly IMemoryCacheUtility _memoryCacheUtility;
+    private readonly IBaseMemoryCacheUtility _baseMemoryCacheUtility;
     private const string KeyPrefix = "systemCodeType-";
 
-    public SystemCodeMemoryCacheUtility(IMemoryCacheUtility memoryCacheUtility)
+    public SystemCodeMemoryCacheUtility(IBaseMemoryCacheUtility baseMemoryCacheUtility)
     {
-        _memoryCacheUtility = memoryCacheUtility;
+        _baseMemoryCacheUtility = baseMemoryCacheUtility;
     }
 
     private CacheItemPolicy GetCacheItemPolicy()
@@ -28,14 +28,14 @@ public class SystemCodeMemoryCacheUtility : ISystemCodeCacheUtility
     public void AddSelectionItems(string itemType, List<SelectionItem> items)
     {
         var key = $"{KeyPrefix}{itemType}";
-        _memoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(items)),
+        _baseMemoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(items)),
             GetCacheItemPolicy());
     }
 
     public List<SelectionItem>? GetSelectionItems(string itemType)
     {
         var key = $"{KeyPrefix}{itemType}";
-        var selectionJsonString = _memoryCacheUtility.Get<string>(key);
+        var selectionJsonString = _baseMemoryCacheUtility.Get<string>(key);
 
         if (string.IsNullOrWhiteSpace(selectionJsonString) == false)
         {

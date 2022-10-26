@@ -7,12 +7,12 @@ namespace EShop.Cache.Utility;
 
 public class AdminInfoMemoryCacheUtility : IAdminInfoCacheUtility
 {
-    private readonly IMemoryCacheUtility _memoryCacheUtility;
+    private readonly IBaseMemoryCacheUtility _baseMemoryCacheUtility;
     private const string KeyPrefix = "adminInfo-";
 
-    public AdminInfoMemoryCacheUtility(IMemoryCacheUtility memoryCacheUtility)
+    public AdminInfoMemoryCacheUtility(IBaseMemoryCacheUtility baseMemoryCacheUtility)
     {
-        _memoryCacheUtility = memoryCacheUtility;
+        _baseMemoryCacheUtility = baseMemoryCacheUtility;
     }
 
     private CacheItemPolicy GetCacheItemPolicy()
@@ -28,14 +28,14 @@ public class AdminInfoMemoryCacheUtility : IAdminInfoCacheUtility
     public void AddAdminInfo(string apiAccessKey, AdminInfo adminInfo)
     {
         var key = $"{KeyPrefix}{apiAccessKey}";
-        _memoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(adminInfo)),
+        _baseMemoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(adminInfo)),
             GetCacheItemPolicy());
     }
 
     public AdminInfo? GetAdminInfo(string apiAccessKey)
     {
         var key = $"{KeyPrefix}{apiAccessKey}";
-        var adminInfoJsonString = _memoryCacheUtility.Get<string>(key);
+        var adminInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
 
         if (string.IsNullOrWhiteSpace(adminInfoJsonString) == false)
         {
@@ -50,6 +50,6 @@ public class AdminInfoMemoryCacheUtility : IAdminInfoCacheUtility
     public void RemoveAdminInfo(string apiAccessKey)
     {
         var key = $"{KeyPrefix}{apiAccessKey}";
-        _memoryCacheUtility.Remove(key);
+        _baseMemoryCacheUtility.Remove(key);
     }
 }

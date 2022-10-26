@@ -2,7 +2,7 @@ using System.Runtime.Caching;
 
 namespace EShop.Cache.Interface
 {
-    public interface IMemoryCacheUtility
+    public interface IBaseMemoryCacheUtility
     {
         TReturn Get<TReturn>(string key);
         void Add(CacheItem cacheItem, CacheItemPolicy cacheItemPolicy);

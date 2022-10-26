@@ -7,12 +7,12 @@ namespace EShop.Cache.Utility
 {
     public class ShoppingCartMemoryCacheUtility : IShoppingCartCacheUtility
     {
-        private readonly IMemoryCacheUtility _memoryCacheUtility;
+        private readonly IBaseMemoryCacheUtility _baseMemoryCacheUtility;
         private const string KeyPrefix = "shoppingCart-";
 
-        public ShoppingCartMemoryCacheUtility(IMemoryCacheUtility memoryCacheUtility)
+        public ShoppingCartMemoryCacheUtility(IBaseMemoryCacheUtility baseMemoryCacheUtility)
         {
-            _memoryCacheUtility = memoryCacheUtility;
+            _baseMemoryCacheUtility = baseMemoryCacheUtility;
         }
 
         private CacheItemPolicy GetCacheItemPolicy()
@@ -30,7 +30,7 @@ namespace EShop.Cache.Utility
             var key = $"{KeyPrefix}{cartId}";
 
             // get cart from cache
-            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
+            var cartCacheInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
 
             // Update Cart
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString) == false)
@@ -41,7 +41,7 @@ namespace EShop.Cache.Utility
                 cartCacheInfo.ShoppingCartItems.Add(newCartDetail);
 
                 // update cart to cache
-                _memoryCacheUtility.Update(
+                _baseMemoryCacheUtility.Update(
                     new CacheItem(key, JsonConvert.SerializeObject(cartCacheInfo)),
                     GetCacheItemPolicy());
 
@@ -61,7 +61,7 @@ namespace EShop.Cache.Utility
                 newCart.ShoppingCartItems.Add(newCartDetail);
 
                 // add cart to cache
-                _memoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(newCart)),
+                _baseMemoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(newCart)),
                     GetCacheItemPolicy());
 
                 return true;
@@ -73,7 +73,7 @@ namespace EShop.Cache.Utility
             var key = $"{KeyPrefix}{cartId}";
 
             // get cart from cache
-            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
+            var cartCacheInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return false;
@@ -92,7 +92,7 @@ namespace EShop.Cache.Utility
             cartCacheInfo.ShoppingCartItems.Remove(cartCacheInfoDetail);
 
             // update cart to cache
-            _memoryCacheUtility.Update(
+            _baseMemoryCacheUtility.Update(
                 new CacheItem(key, JsonConvert.SerializeObject(cartCacheInfo)),
                 GetCacheItemPolicy());
 
@@ -102,14 +102,14 @@ namespace EShop.Cache.Utility
         public void CleanAllShoppingItemFromCart(string cartId)
         {
             var key = $"{KeyPrefix}{cartId}";
-            _memoryCacheUtility.Remove(key);
+            _baseMemoryCacheUtility.Remove(key);
         }
 
         public bool SetCouponIdToCart(string cartId, int couponId)
         {
             var key = $"{KeyPrefix}{cartId}";
             // get cart from cache
-            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
+            var cartCacheInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return false;
@@ -119,7 +119,7 @@ namespace EShop.Cache.Utility
             cartCacheInfo.CouponId = couponId;
 
             // update cart to cache
-            _memoryCacheUtility.Update(
+            _baseMemoryCacheUtility.Update(
                 new CacheItem(key, JsonConvert.SerializeObject(cartCacheInfo)),
                 GetCacheItemPolicy());
             return true;
@@ -129,7 +129,7 @@ namespace EShop.Cache.Utility
         {
             var key = $"{KeyPrefix}{cartId}";
             // get cart from cache
-            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
+            var cartCacheInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return new List<ShoppingCartItemCache>();
@@ -143,7 +143,7 @@ namespace EShop.Cache.Utility
         {
             var key = $"{KeyPrefix}{cartId}";
             // get cart from cache
-            var cartCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
+            var cartCacheInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
             if (string.IsNullOrWhiteSpace(cartCacheInfoJsonString))
             {
                 return null;

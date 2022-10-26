@@ -8,12 +8,12 @@ namespace EShop.Cache.Utility;
 
 public class ProductsMemoryCacheUtility : IProductsCacheUtility
 {
-    private readonly IMemoryCacheUtility _memoryCacheUtility;
+    private readonly IBaseMemoryCacheUtility _baseMemoryCacheUtility;
     private const string KeyPrefix = "productId-";
 
-    public ProductsMemoryCacheUtility(IMemoryCacheUtility memoryCacheUtility)
+    public ProductsMemoryCacheUtility(IBaseMemoryCacheUtility baseMemoryCacheUtility)
     {
-        _memoryCacheUtility = memoryCacheUtility;
+        _baseMemoryCacheUtility = baseMemoryCacheUtility;
     }
 
     private CacheItemPolicy GetCacheItemPolicy()
@@ -31,14 +31,14 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
         var key = $"{KeyPrefix}{product.Id}";
         var shoppingProduct = MappingShoppingProduct(product);
 
-        if (string.IsNullOrWhiteSpace(_memoryCacheUtility.Get<string>(key)) == false)
+        if (string.IsNullOrWhiteSpace(_baseMemoryCacheUtility.Get<string>(key)) == false)
         {
-            _memoryCacheUtility.Update(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
+            _baseMemoryCacheUtility.Update(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
                 GetCacheItemPolicy());
         }
         else
         {
-            _memoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
+            _baseMemoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
                 GetCacheItemPolicy());
         }
     }
@@ -46,7 +46,7 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
     public ShoppingProduct? GetProductInfo(int productId)
     {
         var key = $"{KeyPrefix}{productId}";
-        var productCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
+        var productCacheInfoJsonString = _baseMemoryCacheUtility.Get<string>(key);
 
         if (string.IsNullOrWhiteSpace(productCacheInfoJsonString) == false)
         {
