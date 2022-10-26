@@ -8,29 +8,27 @@ namespace EShop.Logic.Applications.Admin.Command.LoginCheck
 {
     public class LoginCheckHandler : IRequestHandler<LoginCheckRequest, LoginCheckResponse>
     {
-        private readonly IMemoryCacheUtility _memoryCacheUtility;
+        private readonly IAdminInfoCacheUtility _adminInfoCacheUtility;
         private readonly ILogger<LoginCheckHandler> _logger;
 
-        public LoginCheckHandler(IMemoryCacheUtility memoryCacheUtility, ILogger<LoginCheckHandler> logger)
+        public LoginCheckHandler(IAdminInfoCacheUtility adminInfoCacheUtility, ILogger<LoginCheckHandler> logger)
         {
-            _memoryCacheUtility = memoryCacheUtility;
+            _adminInfoCacheUtility = adminInfoCacheUtility;
             _logger = logger;
         }
 
         public async Task<LoginCheckResponse> Handle(LoginCheckRequest request, CancellationToken cancellationToken)
         {
-            var adminInfoJsonString = _memoryCacheUtility.Get<string>(request.ApiAccessKey);
-            if (string.IsNullOrWhiteSpace(adminInfoJsonString) == false)
+            var adminCacheInfo = _adminInfoCacheUtility.GetAdminInfo(request.ApiAccessKey);
+            if (adminCacheInfo != null)
             {
-                var adminCacheInfo = JsonConvert.DeserializeObject<AdminInfo>(adminInfoJsonString);
-                if (adminCacheInfo != null)
-                    return new LoginCheckResponse()
-                    {
-                        Success = true,
-                        Message = "Online",
-                        Account = adminCacheInfo.Account,
-                        ExpiredTimeStamp = adminCacheInfo.ExpiredTimeStamp
-                    };
+                return new LoginCheckResponse()
+                {
+                    Success = true,
+                    Message = "Online",
+                    Account = adminCacheInfo.Account,
+                    ExpiredTimeStamp = adminCacheInfo.ExpiredTimeStamp
+                };
             }
 
             return new LoginCheckResponse()

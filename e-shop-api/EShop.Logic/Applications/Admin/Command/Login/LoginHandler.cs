@@ -15,17 +15,17 @@ namespace EShop.Logic.Applications.Admin.Command.Login
     {
         private readonly EShopDbContext _eShopDbContext;
         private readonly IJwtUtility _jwtUtility;
-        private readonly IMemoryCacheUtility _memoryCacheUtility;
+        private readonly IAdminInfoCacheUtility _adminInfoCacheUtility;
         private readonly ILogger<LoginHandler> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public LoginHandler(EShopDbContext eShopDbContext, IJwtUtility jwtUtility,
-            IMemoryCacheUtility memoryCacheUtility, ILogger<LoginHandler> logger,
+            IAdminInfoCacheUtility adminInfoCacheUtility, ILogger<LoginHandler> logger,
             IHttpContextAccessor httpContextAccessor)
         {
             _eShopDbContext = eShopDbContext;
             _jwtUtility = jwtUtility;
-            _memoryCacheUtility = memoryCacheUtility;
+            _adminInfoCacheUtility = adminInfoCacheUtility;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -40,7 +40,7 @@ namespace EShop.Logic.Applications.Admin.Command.Login
                 var apiAccessKey = $"Admin-{adminInfo.Account}";
 
                 // 先刪除原本的登入資訊
-                _memoryCacheUtility.Remove(apiAccessKey);
+                _adminInfoCacheUtility.RemoveAdminInfo(apiAccessKey);
 
                 // 產生Token和到期時間
                 if (_httpContextAccessor.HttpContext != null)
@@ -57,12 +57,9 @@ namespace EShop.Logic.Applications.Admin.Command.Login
                     };
 
                     // 存入登入資訊到快取(供登入狀態確認和登出處理)
-                    // todo 排程定期檢查到期 AccessKey 並刪除
-                    var adminCacheInfoJsonString = JsonConvert.SerializeObject(adminCacheInfo);
-                    _memoryCacheUtility.Add(new CacheItem(apiAccessKey, adminCacheInfoJsonString),
-                        new CacheItemPolicy());
+                    _adminInfoCacheUtility.AddAdminInfo(apiAccessKey, adminCacheInfo);
 
-                    _logger.LogInformation($"登入成功! : adminInfo: {adminCacheInfoJsonString}");
+                    _logger.LogInformation($"登入成功! : adminInfo: {JsonConvert.SerializeObject(adminCacheInfo)}");
 
                     return new LoginResponse()
                     {

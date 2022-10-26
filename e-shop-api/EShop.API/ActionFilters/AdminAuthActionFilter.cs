@@ -29,9 +29,10 @@ namespace e_shop_api.ActionFilters
             }
 
             // 檢查請求的JWT是否存在於登入快取清單中
-            var memoryCacheUtility = context.HttpContext.RequestServices.GetRequiredService<IMemoryCacheUtility>();
-            var adminInfoJsonString = memoryCacheUtility.Get<string>(adminInfo.ApiAccessKey);
-            if (string.IsNullOrWhiteSpace(adminInfoJsonString))
+            var adminInfoCacheUtility =
+                context.HttpContext.RequestServices.GetRequiredService<IAdminInfoCacheUtility>();
+            var adminInfoFromCache = adminInfoCacheUtility.GetAdminInfo(adminInfo.ApiAccessKey);
+            if (adminInfoFromCache == null)
             {
                 Unauthorized(ref context);
             }

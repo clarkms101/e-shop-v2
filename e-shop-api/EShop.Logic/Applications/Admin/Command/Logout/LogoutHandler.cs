@@ -7,18 +7,18 @@ namespace EShop.Logic.Applications.Admin.Command.Logout
 {
     public class LogoutHandler : IRequestHandler<LogoutRequest, LogoutResponse>
     {
-        private readonly IMemoryCacheUtility _memoryCacheUtility;
+        private readonly IAdminInfoCacheUtility _adminInfoCacheUtility;
         private readonly ILogger<LoginCheckHandler> _logger;
 
-        public LogoutHandler(IMemoryCacheUtility memoryCacheUtility, ILogger<LoginCheckHandler> logger)
+        public LogoutHandler(IAdminInfoCacheUtility adminInfoCacheUtility, ILogger<LoginCheckHandler> logger)
         {
-            _memoryCacheUtility = memoryCacheUtility;
+            _adminInfoCacheUtility = adminInfoCacheUtility;
             _logger = logger;
         }
 
         public async Task<LogoutResponse> Handle(LogoutRequest request, CancellationToken cancellationToken)
         {
-            _memoryCacheUtility.Remove(request.ApiAccessKey);
+            _adminInfoCacheUtility.RemoveAdminInfo(request.ApiAccessKey);
 
             return new LogoutResponse()
             {

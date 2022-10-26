@@ -28,15 +28,14 @@ public class LoginCheckHandlerTest
                 Device = "test",
                 ExpiredTimeStamp = 12345
             };
-            var adminCacheInfoJsonString = JsonConvert.SerializeObject(adminCacheInfo);
-
-            var fakeMemoryCacheUtility = Substitute.For<IMemoryCacheUtility>();
-            fakeMemoryCacheUtility.Get<string>("TestKey").Returns(adminCacheInfoJsonString);
+            
+            var fakeAdminInfoCacheUtility = Substitute.For<IAdminInfoCacheUtility>();
+            fakeAdminInfoCacheUtility.GetAdminInfo("TestKey").Returns(adminCacheInfo);
             
             // log
             var fakeLog = Substitute.For<ILogger<LoginCheckHandler>>();
             
-            _target = new LoginCheckHandler(fakeMemoryCacheUtility, fakeLog);
+            _target = new LoginCheckHandler(fakeAdminInfoCacheUtility, fakeLog);
         }
 
         [Fact]

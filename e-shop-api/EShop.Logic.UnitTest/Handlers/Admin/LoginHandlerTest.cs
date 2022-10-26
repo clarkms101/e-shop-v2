@@ -36,8 +36,8 @@ public class LoginHandlerTest : TestBase
             .Returns(FakeExpireTimeStamp);
 
         // cache
-        var fakeMemoryCacheUtility = Substitute.For<IMemoryCacheUtility>();
-
+        var fakeAdminInfoCacheUtility = Substitute.For<IAdminInfoCacheUtility>();
+        
         // http header
         var fakeHttpContextAccessor = Substitute.For<IHttpContextAccessor>();
         var context = new DefaultHttpContext();
@@ -54,7 +54,7 @@ public class LoginHandlerTest : TestBase
         });
         FakeEShopDbContext.SaveChanges();
 
-        _target = new LoginHandler(FakeEShopDbContext, fakeJwtUtility, fakeMemoryCacheUtility, fakeLog,
+        _target = new LoginHandler(FakeEShopDbContext, fakeJwtUtility, fakeAdminInfoCacheUtility, fakeLog,
             fakeHttpContextAccessor);
     }
 
