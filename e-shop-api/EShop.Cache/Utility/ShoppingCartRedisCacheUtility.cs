@@ -1,4 +1,3 @@
-using System.Linq;
 using EShop.Cache.Dto;
 using EShop.Cache.Interface;
 using Newtonsoft.Json;
@@ -15,6 +14,12 @@ namespace EShop.Cache.Utility
             _multiplexer = multiplexer;
         }
 
+        private TimeSpan GetExpiryTimeSpan()
+        {
+            // 3小時後到期
+            return new TimeSpan(0, 3, 0, 0);
+        }
+
         public bool AddShoppingItemToCart(string cartId, ShoppingItem shoppingItem)
         {
             // get cart from cache
@@ -29,7 +34,8 @@ namespace EShop.Cache.Utility
                 cartCacheInfo.ShoppingCartItems.Add(newCartDetail);
 
                 // update cart to cache
-                _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
+                _multiplexer.GetDatabase()
+                    .StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo), GetExpiryTimeSpan());
 
                 return true;
             }
@@ -47,7 +53,7 @@ namespace EShop.Cache.Utility
                 newCart.ShoppingCartItems.Add(newCartDetail);
 
                 // add cart to cache
-                _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(newCart));
+                _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(newCart), GetExpiryTimeSpan());
 
                 return true;
             }
@@ -64,7 +70,8 @@ namespace EShop.Cache.Utility
 
             var cartCacheInfo = JsonConvert.DeserializeObject<ShoppingCartCacheInfo>(cartCacheInfoJsonString);
             var cartCacheInfoDetail =
-                Enumerable.SingleOrDefault<ShoppingCartItemCache>(cartCacheInfo.ShoppingCartItems, s => s.ShoppingItemId == shoppingItemId);
+                Enumerable.SingleOrDefault<ShoppingCartItemCache>(cartCacheInfo.ShoppingCartItems,
+                    s => s.ShoppingItemId == shoppingItemId);
             if (cartCacheInfoDetail == null)
             {
                 return false;
@@ -80,7 +87,8 @@ namespace EShop.Cache.Utility
             }
 
             // update cart to cache
-            _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
+            _multiplexer.GetDatabase()
+                .StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo), GetExpiryTimeSpan());
 
             return true;
         }
@@ -104,7 +112,8 @@ namespace EShop.Cache.Utility
             cartCacheInfo.CouponId = couponId;
 
             // update cart to cache
-            _multiplexer.GetDatabase().StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo));
+            _multiplexer.GetDatabase()
+                .StringSet(cartId, JsonConvert.SerializeObject(cartCacheInfo), GetExpiryTimeSpan());
 
             return true;
         }

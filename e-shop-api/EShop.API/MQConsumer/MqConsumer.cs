@@ -7,7 +7,6 @@ using e_shop_api.Core.Const;
 using EasyNetQ;
 using EasyNetQ.Topology;
 using EShop.Logic.Applications.Order.Command.Update;
-using EShop.MQ.Producer;
 
 namespace e_shop_api.MQConsumer
 {
@@ -22,6 +21,8 @@ namespace e_shop_api.MQConsumer
             _cancelOrderHandler = cancelOrderHandler;
             _advancedBus = bus.Advanced;
         }
+        
+        // todo 快取更新機制 (資料來源:新增、更新、刪除時)
 
         /// <summary>
         /// 取消訂單排程

@@ -16,6 +16,16 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
         _memoryCacheUtility = memoryCacheUtility;
     }
 
+    private CacheItemPolicy GetCacheItemPolicy()
+    {
+        // 6小時後到期
+        var cacheItemPolicy = new CacheItemPolicy
+        {
+            AbsoluteExpiration = DateTimeOffset.Now.AddHours(6)
+        };
+        return cacheItemPolicy;
+    }
+
     public void AddOrUpdateProductInfo(Product product)
     {
         var key = $"{KeyPrefix}{product.Id}";
@@ -25,12 +35,12 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
         if (string.IsNullOrWhiteSpace(productCacheInfoJsonString) == false)
         {
             _memoryCacheUtility.Update(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
-                new CacheItemPolicy());
+                GetCacheItemPolicy());
         }
         else
         {
             _memoryCacheUtility.Add(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
-                new CacheItemPolicy());
+                GetCacheItemPolicy());
         }
     }
 

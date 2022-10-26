@@ -41,7 +41,10 @@ export class ShoppingCartCheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // 訂閱購物車資訊
+    // 刷新的購物車資訊狀態
+    this._store.dispatch(CallApiGetShoppingCartInfo());
+
+    // 取得購物車資訊
     this._store.select('shoppingCartInfo').subscribe(data => {
       if (data.success) {
         this.carts = data.carts as Cart[];

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Runtime.Caching;
 using EShop.Cache.Dto;
 using EShop.Cache.Interface;
@@ -13,6 +12,16 @@ namespace EShop.Cache.Utility
         public ShoppingCartMemoryCacheUtility(IMemoryCacheUtility memoryCacheUtility)
         {
             _memoryCacheUtility = memoryCacheUtility;
+        }
+
+        private CacheItemPolicy GetCacheItemPolicy()
+        {
+            // 3小時後到期
+            var cacheItemPolicy = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddHours(3)
+            };
+            return cacheItemPolicy;
         }
 
         public bool AddShoppingItemToCart(string cartId, ShoppingItem shoppingItem)
@@ -31,7 +40,7 @@ namespace EShop.Cache.Utility
                 // update cart to cache
                 _memoryCacheUtility.Update(
                     new CacheItem(cartId, JsonConvert.SerializeObject(cartCacheInfo)),
-                    new CacheItemPolicy());
+                    GetCacheItemPolicy());
 
                 return true;
             }
@@ -50,7 +59,7 @@ namespace EShop.Cache.Utility
 
                 // add cart to cache
                 _memoryCacheUtility.Add(new CacheItem(cartId, JsonConvert.SerializeObject(newCart)),
-                    new CacheItemPolicy());
+                    GetCacheItemPolicy());
 
                 return true;
             }
@@ -67,7 +76,8 @@ namespace EShop.Cache.Utility
 
             var cartCacheInfo = JsonConvert.DeserializeObject<ShoppingCartCacheInfo>(cartCacheInfoJsonString);
             var cartCacheInfoDetail =
-                Enumerable.SingleOrDefault<ShoppingCartItemCache>(cartCacheInfo.ShoppingCartItems, s => s.ShoppingItemId == shoppingItemId);
+                Enumerable.SingleOrDefault<ShoppingCartItemCache>(cartCacheInfo.ShoppingCartItems,
+                    s => s.ShoppingItemId == shoppingItemId);
             if (cartCacheInfoDetail == null)
             {
                 return false;
@@ -79,7 +89,7 @@ namespace EShop.Cache.Utility
             // update cart to cache
             _memoryCacheUtility.Update(
                 new CacheItem(cartId, JsonConvert.SerializeObject(cartCacheInfo)),
-                new CacheItemPolicy());
+                GetCacheItemPolicy());
 
             return true;
         }
@@ -104,7 +114,7 @@ namespace EShop.Cache.Utility
             // update cart to cache
             _memoryCacheUtility.Update(
                 new CacheItem(cartId, JsonConvert.SerializeObject(cartCacheInfo)),
-                new CacheItemPolicy());
+                GetCacheItemPolicy());
             return true;
         }
 
