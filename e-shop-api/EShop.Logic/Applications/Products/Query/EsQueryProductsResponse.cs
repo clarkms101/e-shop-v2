@@ -4,6 +4,6 @@ namespace EShop.Logic.Applications.Products.Query;
 
 public class EsQueryProductsResponse : BaseResponse
 {
-    public List<Product.CommonDto.Product> Products { get; set; }
+    public List<Product.CommonDto.EsProduct> Products { get; set; }
     public Pagination Pagination { get; set; }
 }

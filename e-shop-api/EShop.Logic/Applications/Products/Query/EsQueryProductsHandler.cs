@@ -1,4 +1,5 @@
 using e_shop_api.Core.Utility.Interface;
+using EShop.Logic.Applications.Product.CommonDto;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Nest;
@@ -19,9 +20,38 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
         _pageUtility = pageUtility;
     }
 
-    public Task<EsQueryProductsResponse> Handle(EsQueryProductsRequest request, CancellationToken cancellationToken)
+    public async Task<EsQueryProductsResponse> Handle(EsQueryProductsRequest request,
+        CancellationToken cancellationToken)
     {
-        // todo
-        throw new NotImplementedException();
+        var response = _elasticClient.Search<EsProduct>(s => s
+                .From(0)
+                .Size(10)
+                .Query(q =>
+                    q.QueryString(qs =>
+                        qs.Fields(p => p.Field(product => product.Title))
+                            .Query(request.ProductName))
+                )
+                .Sort(q => q.Ascending(u => u.Id)))
+            .Hits
+            .Select(h => h.Source)
+            .ToList();
+
+        var totalCount = _elasticClient.Search<EsProduct>(s => s
+                .Query(q =>
+                    q.QueryString(qs =>
+                        qs.Fields(p => p.Field(product => product.Title))
+                            .Query(request.ProductName))
+                )
+                .Sort(q => q.Ascending(u => u.Id)))
+            .Hits
+            .Count();
+
+        return new EsQueryProductsResponse()
+        {
+            Success = true,
+            Message = "查詢成功",
+            Products = response,
+            Pagination = _pageUtility.GetPagination(totalCount, request.Page, request.PageSize)
+        };
     }
 }
