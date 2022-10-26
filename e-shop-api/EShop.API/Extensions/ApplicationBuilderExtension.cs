@@ -19,21 +19,21 @@ namespace e_shop_api.Extensions
 
         public static IApplicationBuilder MessageQueueSubscribe(this IApplicationBuilder appBuilder)
         {
-            var services = appBuilder.ApplicationServices.CreateScope().ServiceProvider;
+            var provider = appBuilder.ApplicationServices.CreateScope().ServiceProvider;
 
-            var lifeTime = services.GetService<IHostApplicationLifetime>();
+            var lifeTime = provider.GetService<IHostApplicationLifetime>();
             if (lifeTime == null) return appBuilder;
 
-            var context = services.GetRequiredService<EShopDbContext>();
-            var log = services.GetRequiredService<ILogger<CancelOrderHandler>>();
-            var bus = services.GetService<IBus>();
+            var factory = provider.GetRequiredService<IServiceScopeFactory>();
+            var log = provider.GetRequiredService<ILogger<CancelOrderHandler>>();
+            var bus = provider.GetService<IBus>();
 
             lifeTime.ApplicationStarted.Register(callback: Callback);
             lifeTime.ApplicationStopped.Register(() => bus?.Dispose());
 
             async void Callback()
             {
-                var mqConsumer = new MqConsumer(bus, new CancelOrderHandler(context, log));
+                var mqConsumer = new MqConsumer(bus, new CancelOrderHandler(factory, log));
                 await mqConsumer.OrderAutoCancel();
             }
 
