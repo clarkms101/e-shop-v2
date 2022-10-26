@@ -29,10 +29,9 @@ public class ProductsMemoryCacheUtility : IProductsCacheUtility
     public void AddOrUpdateProductInfo(Product product)
     {
         var key = $"{KeyPrefix}{product.Id}";
-        var productCacheInfoJsonString = _memoryCacheUtility.Get<string>(key);
         var shoppingProduct = MappingShoppingProduct(product);
 
-        if (string.IsNullOrWhiteSpace(productCacheInfoJsonString) == false)
+        if (string.IsNullOrWhiteSpace(_memoryCacheUtility.Get<string>(key)) == false)
         {
             _memoryCacheUtility.Update(new CacheItem(key, JsonConvert.SerializeObject(shoppingProduct)),
                 GetCacheItemPolicy());

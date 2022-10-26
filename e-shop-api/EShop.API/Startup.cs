@@ -66,6 +66,7 @@ namespace e_shop_api
             // 固定使用memory cache
             services.AddSingleton<IMemoryCacheUtility, MemoryCacheUtility>();
             services.AddSingleton<IProductsCacheUtility, ProductsMemoryCacheUtility>();
+            services.AddSingleton<ISystemCodeCacheUtility, SystemCodeMemoryCacheUtility>();
             switch (Configuration["CacheType"])
             {
                 case "memory":

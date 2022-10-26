@@ -1,33 +1,32 @@
-using System.Runtime.Caching;
 using e_shop_api.Core.Utility.Dto;
 using EShop.Cache.Interface;
 using EShop.Entity.DataBase;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace EShop.Logic.Applications.SystemCode.Query
 {
     public class QuerySystemCodeHandler : IRequestHandler<QuerySystemCodeRequest, QuerySystemCodeResponse>
     {
         private readonly EShopDbContext _eShopDbContext;
-        private readonly IMemoryCacheUtility _memoryCacheUtility;
+        private readonly ISystemCodeCacheUtility _systemCodeCacheUtility;
         private readonly ILogger<QuerySystemCodeHandler> _logger;
 
-        public QuerySystemCodeHandler(EShopDbContext eShopDbContext, IMemoryCacheUtility memoryCacheUtility,
+        public QuerySystemCodeHandler(EShopDbContext eShopDbContext, ISystemCodeCacheUtility systemCodeCacheUtility,
             ILogger<QuerySystemCodeHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
-            _memoryCacheUtility = memoryCacheUtility;
+            _systemCodeCacheUtility = systemCodeCacheUtility;
             _logger = logger;
         }
 
         public async Task<QuerySystemCodeResponse> Handle(QuerySystemCodeRequest request,
             CancellationToken cancellationToken)
         {
-            var selectionItems = GetSelectionItems(request.Type);
+            var selectionItems = await GetSelectionItems(request.Type);
 
-            if (selectionItems != null && selectionItems.Count != 0)
+            if (selectionItems.Count != 0)
             {
                 return new QuerySystemCodeResponse()
                 {
@@ -43,29 +42,26 @@ namespace EShop.Logic.Applications.SystemCode.Query
             };
         }
 
-        private List<SelectionItem> GetSelectionItems(string itemType)
+        private async Task<List<SelectionItem>> GetSelectionItems(string itemType)
         {
-            var selectionJsonString = _memoryCacheUtility.Get<string>(itemType);
+            var selectionItemsFromCache = _systemCodeCacheUtility.GetSelectionItems(itemType);
 
-            // 快取有資料直接回傳
-            if (string.IsNullOrWhiteSpace(selectionJsonString) == false)
+            if (selectionItemsFromCache != null)
             {
-                var selectionItems = JsonConvert.DeserializeObject<List<SelectionItem>>(selectionJsonString);
-                return selectionItems;
+                return selectionItemsFromCache;
             }
 
-            // 沒有資料則加入快取
             switch (itemType)
             {
                 case "Category":
-                    var selectionItems = _eShopDbContext.Category.Select(s => new SelectionItem()
+                    var selectionItems = await _eShopDbContext.Category.Select(s => new SelectionItem()
                     {
                         Text = s.CategoryName,
                         Value = s.Id
-                    }).ToList();
-                    _memoryCacheUtility.Add(new CacheItem(itemType, JsonConvert.SerializeObject(selectionItems)),
-                        new CacheItemPolicy());
+                    }).ToListAsync();
+                    _systemCodeCacheUtility.AddSelectionItems(itemType, selectionItems);
                     return selectionItems;
+
                 default:
                     return new List<SelectionItem>();
             }
