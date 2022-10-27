@@ -24,9 +24,13 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
         CancellationToken cancellationToken)
     {
         var response = _elasticClient.Search<EsProduct>(s => s
-                .From(0)
-                .Size(10)
+                .From(request.Page)
+                .Size(request.PageSize)
                 .Query(q =>
+                    q.QueryString(qs =>
+                        qs.Fields(p => p.Field(product => product.Category))
+                            .Query(request.Category))
+                    &&
                     q.QueryString(qs =>
                         qs.Fields(p => p.Field(product => product.Title))
                             .Query(request.ProductName))
@@ -34,24 +38,35 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
                 .Sort(q => q.Ascending(u => u.Id)))
             .Hits
             .Select(h => h.Source)
-            .ToList();
+            .ToList()
+            .Select(s => new Product.CommonDto.Product()
+            {
+                ProductId = s.Id,
+                Title = s.Title,
+                Category = s.Category,
+                Content = s.Content,
+                Description = s.Description,
+                ImageUrl = s.ImageUrl
+            }).ToList();
 
-        var totalCount = _elasticClient.Search<EsProduct>(s => s
-                .Query(q =>
-                    q.QueryString(qs =>
-                        qs.Fields(p => p.Field(product => product.Title))
-                            .Query(request.ProductName))
-                )
-                .Sort(q => q.Ascending(u => u.Id)))
-            .Hits
-            .Count();
+        var countResponse = await _elasticClient.CountAsync<EsProduct>(s => s
+            .Query(q =>
+                q.QueryString(qs =>
+                    qs.Fields(p => p.Field(product => product.Category))
+                        .Query(request.Category))
+                &&
+                q.QueryString(qs =>
+                    qs.Fields(p => p.Field(product => product.Title))
+                        .Query(request.ProductName))
+            ), cancellationToken);
+        var totalCount = Convert.ToInt32(countResponse.Count);
 
         return new EsQueryProductsResponse()
         {
             Success = true,
             Message = "查詢成功",
             Products = response,
-            Pagination = _pageUtility.GetPagination(totalCount, request.Page, request.PageSize)
+            Pagination = _pageUtility.GetPagination(totalCount, request.Page + 1, request.PageSize)
         };
     }
 }
