@@ -24,7 +24,7 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
         CancellationToken cancellationToken)
     {
         var response = _elasticClient.Search<EsProduct>(s => s
-                .From(request.Page)
+                .From((request.Page - 1) * request.PageSize)
                 .Size(request.PageSize)
                 .Query(q =>
                     q.QueryString(qs =>
@@ -46,7 +46,8 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
                 Category = s.Category,
                 Content = s.Content,
                 Description = s.Description,
-                ImageUrl = s.ImageUrl
+                ImageUrl = s.ImageUrl,
+                IsEnabled = s.IsEnabled
             }).ToList();
 
         var countResponse = await _elasticClient.CountAsync<EsProduct>(s => s
@@ -66,7 +67,7 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
             Success = true,
             Message = "查詢成功",
             Products = response,
-            Pagination = _pageUtility.GetPagination(totalCount, request.Page + 1, request.PageSize)
+            Pagination = _pageUtility.GetPagination(totalCount, request.Page, request.PageSize)
         };
     }
 }

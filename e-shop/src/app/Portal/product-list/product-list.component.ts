@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Client, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
+import { Client, EsQueryProductsRequest, Pagination, Product, QueryProductsRequest } from 'src/shared/api client/service-proxies';
 import { GalleryComponent, GalleryItem, ImageItem } from 'ng-gallery';
 
 @Component({
@@ -57,12 +57,12 @@ export class ProductListComponent implements OnInit {
   }
 
   getPageData(page: number): void {
-    let request = new QueryProductsRequest();
+    let request = new EsQueryProductsRequest();
     request.page = page;
     request.pageSize = 6;
     request.productName = this.queryProductName;
     request.category = this.queryCategoryName;
-    this._apiClient.products(request).subscribe((response) => {
+    this._apiClient.getEsProductList(request).subscribe((response) => {
       if (response.products !== undefined && response.pagination !== undefined) {
         if (response.success && response.products.length > 0) {
           this.products = response.products;

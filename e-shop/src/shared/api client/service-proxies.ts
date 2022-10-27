@@ -625,6 +625,64 @@ export class Client extends ApiBase {
     }
 
     /**
+     * @param body (optional)
+     * @return Success
+     */
+    getEsProductList(body: EsQueryProductsRequest | undefined): Observable<EsQueryProductsResponse> {
+        let url_ = this.baseUrl + "/api/EsProducts/GetEsProductList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetEsProductList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetEsProductList(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<EsQueryProductsResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<EsQueryProductsResponse>;
+        }));
+    }
+
+    protected processGetEsProductList(response: HttpResponseBase): Observable<EsQueryProductsResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EsQueryProductsResponse.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<EsQueryProductsResponse>(null as any);
+    }
+
+    /**
      * @return Success
      */
     orderGET(serialNumber: string): Observable<QueryOrderResponse> {
@@ -2485,6 +2543,190 @@ export interface IQueryCouponsResponse {
     pagination?: Pagination;
 }
 
+export class EsQueryProductsRequest implements IEsQueryProductsRequest {
+    page?: number;
+    pageSize?: number;
+    category?: string | undefined;
+    productName?: string | undefined;
+
+    constructor(data?: IEsQueryProductsRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.page = _data["page"];
+            this.pageSize = _data["pageSize"];
+            this.category = _data["category"];
+            this.productName = _data["productName"];
+        }
+    }
+
+    static fromJS(data: any): EsQueryProductsRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new EsQueryProductsRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["page"] = this.page;
+        data["pageSize"] = this.pageSize;
+        data["category"] = this.category;
+        data["productName"] = this.productName;
+        return data;
+    }
+}
+
+export interface IEsQueryProductsRequest {
+    page?: number;
+    pageSize?: number;
+    category?: string | undefined;
+    productName?: string | undefined;
+}
+
+export class Product implements IProduct {
+    productId?: number;
+    categoryId!: number;
+    category?: string | undefined;
+    content?: string | undefined;
+    description?: string | undefined;
+    imageUrl!: string;
+    isEnabled?: boolean;
+    originPrice?: number;
+    price?: number;
+    title!: string;
+    unit!: string;
+    num?: number;
+
+    constructor(data?: IProduct) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.productId = _data["productId"];
+            this.categoryId = _data["categoryId"];
+            this.category = _data["category"];
+            this.content = _data["content"];
+            this.description = _data["description"];
+            this.imageUrl = _data["imageUrl"];
+            this.isEnabled = _data["isEnabled"];
+            this.originPrice = _data["originPrice"];
+            this.price = _data["price"];
+            this.title = _data["title"];
+            this.unit = _data["unit"];
+            this.num = _data["num"];
+        }
+    }
+
+    static fromJS(data: any): Product {
+        data = typeof data === 'object' ? data : {};
+        let result = new Product();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["productId"] = this.productId;
+        data["categoryId"] = this.categoryId;
+        data["category"] = this.category;
+        data["content"] = this.content;
+        data["description"] = this.description;
+        data["imageUrl"] = this.imageUrl;
+        data["isEnabled"] = this.isEnabled;
+        data["originPrice"] = this.originPrice;
+        data["price"] = this.price;
+        data["title"] = this.title;
+        data["unit"] = this.unit;
+        data["num"] = this.num;
+        return data;
+    }
+}
+
+export interface IProduct {
+    productId?: number;
+    categoryId: number;
+    category?: string | undefined;
+    content?: string | undefined;
+    description?: string | undefined;
+    imageUrl: string;
+    isEnabled?: boolean;
+    originPrice?: number;
+    price?: number;
+    title: string;
+    unit: string;
+    num?: number;
+}
+
+export class EsQueryProductsResponse implements IEsQueryProductsResponse {
+    success?: boolean;
+    message?: string | undefined;
+    products?: Product[] | undefined;
+    pagination?: Pagination;
+
+    constructor(data?: IEsQueryProductsResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.success = _data["success"];
+            this.message = _data["message"];
+            if (Array.isArray(_data["products"])) {
+                this.products = [] as any;
+                for (let item of _data["products"])
+                    this.products!.push(Product.fromJS(item));
+            }
+            this.pagination = _data["pagination"] ? Pagination.fromJS(_data["pagination"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): EsQueryProductsResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new EsQueryProductsResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["success"] = this.success;
+        data["message"] = this.message;
+        if (Array.isArray(this.products)) {
+            data["products"] = [];
+            for (let item of this.products)
+                data["products"].push(item.toJSON());
+        }
+        data["pagination"] = this.pagination ? this.pagination.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IEsQueryProductsResponse {
+    success?: boolean;
+    message?: string | undefined;
+    products?: Product[] | undefined;
+    pagination?: Pagination;
+}
+
 export class OrderDetailInfo implements IOrderDetailInfo {
     productTitle?: string | undefined;
     productUnit?: string | undefined;
@@ -3022,86 +3264,6 @@ export interface IQueryOrdersResponse {
     message?: string | undefined;
     orderInfos?: OrderInfo[] | undefined;
     pagination?: Pagination;
-}
-
-export class Product implements IProduct {
-    productId?: number;
-    categoryId!: number;
-    category?: string | undefined;
-    content?: string | undefined;
-    description?: string | undefined;
-    imageUrl!: string;
-    isEnabled?: boolean;
-    originPrice?: number;
-    price?: number;
-    title!: string;
-    unit!: string;
-    num?: number;
-
-    constructor(data?: IProduct) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.productId = _data["productId"];
-            this.categoryId = _data["categoryId"];
-            this.category = _data["category"];
-            this.content = _data["content"];
-            this.description = _data["description"];
-            this.imageUrl = _data["imageUrl"];
-            this.isEnabled = _data["isEnabled"];
-            this.originPrice = _data["originPrice"];
-            this.price = _data["price"];
-            this.title = _data["title"];
-            this.unit = _data["unit"];
-            this.num = _data["num"];
-        }
-    }
-
-    static fromJS(data: any): Product {
-        data = typeof data === 'object' ? data : {};
-        let result = new Product();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["productId"] = this.productId;
-        data["categoryId"] = this.categoryId;
-        data["category"] = this.category;
-        data["content"] = this.content;
-        data["description"] = this.description;
-        data["imageUrl"] = this.imageUrl;
-        data["isEnabled"] = this.isEnabled;
-        data["originPrice"] = this.originPrice;
-        data["price"] = this.price;
-        data["title"] = this.title;
-        data["unit"] = this.unit;
-        data["num"] = this.num;
-        return data;
-    }
-}
-
-export interface IProduct {
-    productId?: number;
-    categoryId: number;
-    category?: string | undefined;
-    content?: string | undefined;
-    description?: string | undefined;
-    imageUrl: string;
-    isEnabled?: boolean;
-    originPrice?: number;
-    price?: number;
-    title: string;
-    unit: string;
-    num?: number;
 }
 
 export class QueryProductResponse implements IQueryProductResponse {

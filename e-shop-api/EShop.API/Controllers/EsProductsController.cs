@@ -69,7 +69,7 @@ namespace e_shop_api.Controllers
         // }
 
         [HttpPost]
-        public async Task<EsQueryProductsResponse> GetList([FromBody] EsQueryProductsRequest request)
+        public async Task<EsQueryProductsResponse> GetEsProductList([FromBody] EsQueryProductsRequest request)
         {
             var result = await _mediator.Send(request);
             return result;
