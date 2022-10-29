@@ -1,4 +1,4 @@
-using EShop.Logic.Applications.Product.CommonDto;
+using e_shop_api.Core.Dto.Product;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Nest;

@@ -1,5 +1,8 @@
+using e_shop_api.Core.Dto.Product;
+using e_shop_api.Core.Enumeration;
 using EShop.Entity.DataBase;
 using EShop.Logic.Applications.SystemCode.Query;
+using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -9,15 +12,18 @@ namespace EShop.Logic.Applications.Product.Command.Update
     {
         private readonly EShopDbContext _eShopDbContext;
         private readonly QuerySystemCodeHandler _querySystemCodeHandler;
+        private readonly MqProducer _mqProducer;
         private readonly ILogger<UpdateProductHandler> _logger;
 
         public UpdateProductHandler(
             EShopDbContext eShopDbContext,
             QuerySystemCodeHandler querySystemCodeHandler,
+            MqProducer mqProducer,
             ILogger<UpdateProductHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
             _querySystemCodeHandler = querySystemCodeHandler;
+            _mqProducer = mqProducer;
             _logger = logger;
         }
 
@@ -57,6 +63,19 @@ namespace EShop.Logic.Applications.Product.Command.Update
 
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
 
+            // 同步到ES
+            await _mqProducer.SyncEsProductData(DateSyncType.Update, new EsProduct()
+            {
+                Id = oldProduct.Id,
+                Category = oldProduct.Category,
+                CategoryId = oldProduct.CategoryId,
+                Title = oldProduct.Title,
+                Content = oldProduct.Content,
+                Description = oldProduct.Description,
+                ImageUrl = oldProduct.ImageUrl,
+                IsEnabled = oldProduct.IsEnabled
+            });
+            
             return new UpdateProductResponse()
             {
                 Success = true,

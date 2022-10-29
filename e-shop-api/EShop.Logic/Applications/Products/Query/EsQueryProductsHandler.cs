@@ -1,5 +1,5 @@
+using e_shop_api.Core.Dto.Product;
 using e_shop_api.Core.Utility.Interface;
-using EShop.Logic.Applications.Product.CommonDto;
 using EShop.Logic.Applications.SystemCode.Query;
 using MediatR;
 using Microsoft.Extensions.Logging;

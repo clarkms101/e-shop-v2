@@ -1,4 +1,7 @@
+using e_shop_api.Core.Dto.Product;
+using e_shop_api.Core.Enumeration;
 using EShop.Entity.DataBase;
+using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -7,11 +10,14 @@ namespace EShop.Logic.Applications.Product.Command.Delete
     public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, DeleteProductResponse>
     {
         private readonly EShopDbContext _eShopDbContext;
+        private readonly MqProducer _mqProducer;
         private readonly ILogger<DeleteProductHandler> _logger;
 
-        public DeleteProductHandler(EShopDbContext eShopDbContext, ILogger<DeleteProductHandler> logger)
+        public DeleteProductHandler(EShopDbContext eShopDbContext, MqProducer mqProducer,
+            ILogger<DeleteProductHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
+            _mqProducer = mqProducer;
             _logger = logger;
         }
 
@@ -30,6 +36,19 @@ namespace EShop.Logic.Applications.Product.Command.Delete
 
             _eShopDbContext.Products.Remove(selectProduct);
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
+
+            // 同步到ES
+            await _mqProducer.SyncEsProductData(DateSyncType.Delete, new EsProduct()
+            {
+                Id = selectProduct.Id,
+                Category = selectProduct.Category,
+                CategoryId = selectProduct.CategoryId,
+                Title = selectProduct.Title,
+                Content = selectProduct.Content,
+                Description = selectProduct.Description,
+                ImageUrl = selectProduct.ImageUrl,
+                IsEnabled = selectProduct.IsEnabled
+            });
 
             return new DeleteProductResponse()
             {

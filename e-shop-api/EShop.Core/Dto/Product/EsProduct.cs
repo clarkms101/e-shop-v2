@@ -1,4 +1,4 @@
-namespace EShop.Logic.Applications.Product.CommonDto;
+namespace e_shop_api.Core.Dto.Product;
 
 public class EsProduct
 {

@@ -1,18 +1,51 @@
 using System.Text;
 using e_shop_api.Core.Const;
+using e_shop_api.Core.Dto.MQ;
+using e_shop_api.Core.Dto.Product;
+using e_shop_api.Core.Enumeration;
 using EasyNetQ;
 using EasyNetQ.Topology;
+using Newtonsoft.Json;
 
 namespace EShop.MQ.Producer
 {
     public class MqProducer
     {
         private readonly IAdvancedBus _advancedBus;
-        private const string ExchangeName = "e-shop.direct.delay";
+        private const string DelayExchangeName = "e-shop.direct.delay";
+        private const string NormalExchangeName = "e-shop.direct";
 
         public MqProducer(IBus bus)
         {
             _advancedBus = bus.Advanced;
+        }
+
+        /// <summary>
+        /// 同步商品資訊到ES
+        /// </summary>
+        /// <param name="syncType"></param>
+        /// <param name="product"></param>
+        public async Task SyncEsProductData(DateSyncType syncType, EsProduct product)
+        {
+            const string functionName = "sync-product";
+            const string routingKey = RoutingKey.SyncProductKey;
+
+            var exchange = await _advancedBus.ExchangeDeclareAsync(NormalExchangeName, ExchangeType.Direct);
+
+            var queue = await _advancedBus.QueueDeclareAsync(
+                $"{functionName}");
+
+            await _advancedBus.BindAsync(exchange, queue, routingKey, null);
+
+            var data = new EsProductSyncInfo()
+            {
+                SyncType = syncType,
+                EsProduct = product
+            };
+            var message = JsonConvert.SerializeObject(data);
+            var body = Encoding.UTF8.GetBytes(message);
+            await _advancedBus.PublishAsync(exchange, routingKey, false, new MessageProperties { DeliveryMode = 2 },
+                body);
         }
 
         /// <summary>
@@ -24,7 +57,7 @@ namespace EShop.MQ.Producer
             const string routingKey = RoutingKey.OrderAutoCancelKey;
 
             var exchange =
-                await _advancedBus.ExchangeDeclareAsync(ExchangeName,
+                await _advancedBus.ExchangeDeclareAsync(DelayExchangeName,
                     cfg => cfg.AsDelayedExchange(ExchangeType.Direct));
 
             var queue = await _advancedBus.QueueDeclareAsync(

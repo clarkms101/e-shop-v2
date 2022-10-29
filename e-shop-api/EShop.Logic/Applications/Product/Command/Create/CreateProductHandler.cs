@@ -1,5 +1,8 @@
+using e_shop_api.Core.Dto.Product;
+using e_shop_api.Core.Enumeration;
 using EShop.Entity.DataBase;
 using EShop.Logic.Applications.SystemCode.Query;
+using EShop.MQ.Producer;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -9,15 +12,18 @@ namespace EShop.Logic.Applications.Product.Command.Create
     {
         private readonly EShopDbContext _eShopDbContext;
         private readonly QuerySystemCodeHandler _querySystemCodeHandler;
+        private readonly MqProducer _mqProducer;
         private readonly ILogger<CreateProductHandler> _logger;
 
         public CreateProductHandler(
             EShopDbContext eShopDbContext,
             QuerySystemCodeHandler querySystemCodeHandler,
+            MqProducer mqProducer,
             ILogger<CreateProductHandler> logger)
         {
             _eShopDbContext = eShopDbContext;
             _querySystemCodeHandler = querySystemCodeHandler;
+            _mqProducer = mqProducer;
             _logger = logger;
         }
 
@@ -49,6 +55,19 @@ namespace EShop.Logic.Applications.Product.Command.Create
 
             await _eShopDbContext.Products.AddAsync(newProduct, cancellationToken);
             await _eShopDbContext.SaveChangesAsync(cancellationToken);
+
+            // 同步到ES
+            await _mqProducer.SyncEsProductData(DateSyncType.Create, new EsProduct()
+            {
+                Id = newProduct.Id,
+                Category = newProduct.Category,
+                CategoryId = newProduct.CategoryId,
+                Title = newProduct.Title,
+                Content = newProduct.Content,
+                Description = newProduct.Description,
+                ImageUrl = newProduct.ImageUrl,
+                IsEnabled = newProduct.IsEnabled
+            });
 
             return new CreateProductResponse()
             {
