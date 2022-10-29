@@ -39,9 +39,17 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
                 .Query(q =>
                     q.Term(t => t.CategoryId, categoryId)
                     &&
-                    q.QueryString(qs =>
-                        qs.Fields(p => p.Field(product => product.Title))
-                            .Query(request.ProductName))
+                    (q.QueryString(qs =>
+                         qs.Fields(p => p.Field(product => product.Title))
+                             .Query(request.ProductName))
+                     ||
+                     q.QueryString(qs =>
+                         qs.Fields(p => p.Field(product => product.Content))
+                             .Query(request.ProductName))
+                     ||
+                     q.QueryString(qs =>
+                         qs.Fields(p => p.Field(product => product.Description))
+                             .Query(request.ProductName)))
                 )
                 .Sort(q => q.Ascending(u => u.Id)))
             .Hits
@@ -63,9 +71,17 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
             .Query(q =>
                 q.Term(t => t.CategoryId, categoryId)
                 &&
-                q.QueryString(qs =>
-                    qs.Fields(p => p.Field(product => product.Title))
-                        .Query(request.ProductName))
+                (q.QueryString(qs =>
+                     qs.Fields(p => p.Field(product => product.Title))
+                         .Query(request.ProductName))
+                 ||
+                 q.QueryString(qs =>
+                     qs.Fields(p => p.Field(product => product.Content))
+                         .Query(request.ProductName))
+                 ||
+                 q.QueryString(qs =>
+                     qs.Fields(p => p.Field(product => product.Description))
+                         .Query(request.ProductName)))
             ), cancellationToken);
         var totalCount = Convert.ToInt32(countResponse.Count);
 
