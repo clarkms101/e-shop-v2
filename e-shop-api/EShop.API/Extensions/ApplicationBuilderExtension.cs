@@ -1,8 +1,10 @@
 using e_shop_api.CustomerMiddleware;
 using e_shop_api.MQConsumer;
 using EasyNetQ;
-using EShop.Entity.DataBase;
 using EShop.Logic.Applications.Order.Command.Update;
+using EShop.Logic.Applications.Product.Command.Create;
+using EShop.Logic.Applications.Product.Command.Delete;
+using EShop.Logic.Applications.Product.Command.Update;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +27,6 @@ namespace e_shop_api.Extensions
             if (lifeTime == null) return appBuilder;
 
             var factory = provider.GetRequiredService<IServiceScopeFactory>();
-            var log = provider.GetRequiredService<ILogger<CancelOrderHandler>>();
             var bus = provider.GetService<IBus>();
 
             lifeTime.ApplicationStarted.Register(callback: Callback);
@@ -33,8 +34,16 @@ namespace e_shop_api.Extensions
 
             async void Callback()
             {
-                var mqConsumer = new MqConsumer(bus, new CancelOrderHandler(factory, log));
-                await mqConsumer.OrderAutoCancel();
+                var mqConsumer = new MqConsumer(bus);
+
+                await mqConsumer.OrderAutoCancel(new CancelOrderHandler(factory,
+                    provider.GetRequiredService<ILogger<CancelOrderHandler>>()));
+
+                await mqConsumer.SyncEsProductData(
+                    new EsCreateProductHandler(factory, provider.GetRequiredService<ILogger<EsCreateProductHandler>>()),
+                    new EsDeleteProductHandler(factory, provider.GetRequiredService<ILogger<EsDeleteProductHandler>>()),
+                    new EsUpdateProductHandler(factory, provider.GetRequiredService<ILogger<EsUpdateProductHandler>>())
+                );
             }
 
             return appBuilder;

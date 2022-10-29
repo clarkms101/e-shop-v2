@@ -26,43 +26,7 @@ namespace e_shop_api.Controllers
         // /// <param name="request"></param>
         // /// <returns></returns>
         // [HttpPost]
-        // public async Task<EsCreateProductResponse> Create([FromBody] EsCreateProductRequest request)
-        // {
-        //     var result = await _mediator.Send(request);
-        //     return result;
-        // }
-        //
-        // /// <summary>
-        // /// 測試用
-        // /// </summary>
-        // /// <param name="request"></param>
-        // /// <returns></returns>
-        // [HttpPost]
         // public async Task<EsCreateProductsResponse> CreateList([FromBody] EsCreateProductsRequest request)
-        // {
-        //     var result = await _mediator.Send(request);
-        //     return result;
-        // }
-        //
-        // /// <summary>
-        // /// 測試用
-        // /// </summary>
-        // /// <param name="request"></param>
-        // /// <returns></returns>
-        // [HttpPost]
-        // public async Task<EsUpdateProductResponse> Update([FromBody] EsUpdateProductRequest request)
-        // {
-        //     var result = await _mediator.Send(request);
-        //     return result;
-        // }
-        //
-        // /// <summary>
-        // /// 測試用
-        // /// </summary>
-        // /// <param name="request"></param>
-        // /// <returns></returns>
-        // [HttpPost]
-        // public async Task<EsDeleteProductResponse> Delete([FromBody] EsDeleteProductRequest request)
         // {
         //     var result = await _mediator.Send(request);
         //     return result;
