@@ -1,5 +1,6 @@
 using e_shop_api.Core.Utility.Interface;
 using EShop.Logic.Applications.Product.CommonDto;
+using EShop.Logic.Applications.SystemCode.Query;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Nest;
@@ -10,26 +11,33 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
 {
     private readonly IElasticClient _elasticClient;
     private readonly ILogger<EsQueryProductsHandler> _logger;
+    private readonly QuerySystemCodeHandler _querySystemCodeHandler;
     private readonly IPageUtility _pageUtility;
 
     public EsQueryProductsHandler(IElasticClient elasticClient, ILogger<EsQueryProductsHandler> logger,
+        QuerySystemCodeHandler querySystemCodeHandler,
         IPageUtility pageUtility)
     {
         _elasticClient = elasticClient;
         _logger = logger;
+        _querySystemCodeHandler = querySystemCodeHandler;
         _pageUtility = pageUtility;
     }
 
     public async Task<EsQueryProductsResponse> Handle(EsQueryProductsRequest request,
         CancellationToken cancellationToken)
     {
+        var result = await _querySystemCodeHandler.Handle(new QuerySystemCodeRequest()
+        {
+            Type = "Category"
+        }, cancellationToken);
+        var categoryId = result.Items.Single(s => s.Text == request.Category).Value;
+
         var response = _elasticClient.Search<EsProduct>(s => s
                 .From((request.Page - 1) * request.PageSize)
                 .Size(request.PageSize)
                 .Query(q =>
-                    q.QueryString(qs =>
-                        qs.Fields(p => p.Field(product => product.Category))
-                            .Query(request.Category))
+                    q.Term(t => t.CategoryId, categoryId)
                     &&
                     q.QueryString(qs =>
                         qs.Fields(p => p.Field(product => product.Title))
@@ -43,6 +51,7 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
             {
                 ProductId = s.Id,
                 Title = s.Title,
+                CategoryId = s.CategoryId,
                 Category = s.Category,
                 Content = s.Content,
                 Description = s.Description,
@@ -52,9 +61,7 @@ public class EsQueryProductsHandler : IRequestHandler<EsQueryProductsRequest, Es
 
         var countResponse = await _elasticClient.CountAsync<EsProduct>(s => s
             .Query(q =>
-                q.QueryString(qs =>
-                    qs.Fields(p => p.Field(product => product.Category))
-                        .Query(request.Category))
+                q.Term(t => t.CategoryId, categoryId)
                 &&
                 q.QueryString(qs =>
                     qs.Fields(p => p.Field(product => product.Title))
