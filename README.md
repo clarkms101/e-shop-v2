@@ -1,5 +1,5 @@
 # e-shop-v2
-### 簡述
+<!-- ### 簡述
 > 以電商為主題的Web練習專案, 後端採用.Net、前端使用Angular。分為前台和後台兩個操作頁面。
 
 ### Demo
@@ -29,7 +29,7 @@
 * Log
     * Serilog
 * Paas
-    * Heroku
+    * Heroku -->
 
 <!-- ### 架構圖 -->
 <!-- [架構圖](https://i.imgur.com/vxqnSCT.png) -->
